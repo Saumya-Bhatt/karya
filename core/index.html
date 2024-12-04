@@ -1,0 +1,365 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>core</title>
+<link href="../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../scripts/sourceset_dependencies.js" async></script>
+<link href="../styles/style.css" rel="Stylesheet">
+<link href="../styles/main.css" rel="Stylesheet">
+<link href="../styles/prism.css" rel="Stylesheet">
+<link href="../styles/logo-styles.css" rel="Stylesheet">
+<link href="../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../scripts/main.js" defer></script>
+<script type="text/javascript" src="../scripts/prism.js" async></script>
+<script type="text/javascript" src="../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../index.html">
+                            Karya
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":core:dokkaHtmlPartial/main">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" id="content" pageids="core::////PointingToDeclaration//537371977">
+  <div class="breadcrumbs"></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>core</span></span></h1>
+  </div>
+  <h2 class="">Packages</h2>
+  <div class="table"><a data-name="134474853%2FPackages%2F537371977" anchor-label="karya.core.actors" id="134474853%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.actors/index.html">karya.core.actors</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="134474853%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-868050994%2FPackages%2F537371977" anchor-label="karya.core.configs" id="-868050994%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.configs/index.html">karya.core.configs</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-868050994%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="233399304%2FPackages%2F537371977" anchor-label="karya.core.entities" id="233399304%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.entities/index.html">karya.core.entities</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="233399304%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1941193388%2FPackages%2F537371977" anchor-label="karya.core.entities.enums" id="1941193388%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.entities.enums/index.html">karya.core.entities.enums</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1941193388%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="229818290%2FPackages%2F537371977" anchor-label="karya.core.entities.http" id="229818290%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.entities.http/index.html">karya.core.entities.http</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="229818290%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1952243694%2FPackages%2F537371977" anchor-label="karya.core.entities.requests" id="1952243694%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.entities.requests/index.html">karya.core.entities.requests</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1952243694%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1712316564%2FPackages%2F537371977" anchor-label="karya.core.entities.responses" id="-1712316564%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.entities.responses/index.html">karya.core.entities.responses</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1712316564%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-2066865333%2FPackages%2F537371977" anchor-label="karya.core.exceptions" id="-2066865333%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.exceptions/index.html">karya.core.exceptions</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2066865333%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="2133483269%2FPackages%2F537371977" anchor-label="karya.core.locks" id="2133483269%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.locks/index.html">karya.core.locks</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2133483269%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-796285106%2FPackages%2F537371977" anchor-label="karya.core.locks.entities" id="-796285106%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.locks.entities/index.html">karya.core.locks.entities</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-796285106%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1232475191%2FPackages%2F537371977" anchor-label="karya.core.queues" id="-1232475191%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.queues/index.html">karya.core.queues</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1232475191%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-1507707126%2FPackages%2F537371977" anchor-label="karya.core.queues.entities" id="-1507707126%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.queues.entities/index.html">karya.core.queues.entities</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1507707126%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="-768404386%2FPackages%2F537371977" anchor-label="karya.core.repos" id="-768404386%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.repos/index.html">karya.core.repos</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-768404386%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1090840085%2FPackages%2F537371977" anchor-label="karya.core.repos.entities" id="1090840085%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.repos.entities/index.html">karya.core.repos.entities</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1090840085%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="1830949539%2FPackages%2F537371977" anchor-label="karya.core.usecases" id="1830949539%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.usecases/index.html">karya.core.usecases</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1830949539%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<a data-name="661202382%2FPackages%2F537371977" anchor-label="karya.core.utils" id="661202382%2FPackages%2F537371977" data-filterable-set=":core:dokkaHtmlPartial/main"></a>
+    <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main">
+      <div>
+        <div class="main-subrow ">
+          <div class=""><span class="inline-flex">
+              <div><a href="karya.core.utils/index.html">karya.core.utils</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="661202382%2FPackages%2F537371977"></span>
+                <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+              </span></span></div>
+          <div class="pull-right">
+            <div class="platform-tags no-gutters">
+              <div class="platform-tag jvm-like">jvm</div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

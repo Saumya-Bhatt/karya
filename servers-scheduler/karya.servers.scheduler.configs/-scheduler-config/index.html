@@ -1,0 +1,258 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SchedulerConfig</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Karya
+                    </a>            </div>
+            <div class="library-version">
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":servers-scheduler:dokkaHtmlPartial/main">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="servers-scheduler::karya.servers.scheduler.configs/SchedulerConfig///PointingToDeclaration//1383828060">
+  <div class="breadcrumbs"><a href="../../index.html">servers-scheduler</a><span class="delimiter">/</span><a href="../index.html">karya.servers.scheduler.configs</a><span class="delimiter">/</span><span class="current">SchedulerConfig</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Scheduler</span><wbr><span><span>Config</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">SchedulerConfig</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>threadCount<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>workers<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>channelCapacity<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>pollFrequency<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>partitions<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>executionBufferInMilli<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>repoConfig<span class="token operator">: </span><a href="../../../core/karya.core.configs/-repo-config/index.html">RepoConfig</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>locksConfig<span class="token operator">: </span><a href="../../../core/karya.core.configs/-locks-config/index.html">LocksConfig</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>queueConfig<span class="token operator">: </span><a href="../../../core/karya.core.configs/-queue-config/index.html">QueueConfig</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">Configuration class for the scheduler.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1370995360%2FConstructors%2F1383828060" anchor-label="SchedulerConfig" id="1370995360%2FConstructors%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scheduler-config.html"><span>Scheduler</span><wbr><span><span>Config</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1370995360%2FConstructors%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">threadCount<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">workers<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">channelCapacity<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">pollFrequency<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">partitions<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">executionBufferInMilli<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">repoConfig<span class="token operator">: </span><a href="../../../core/karya.core.configs/-repo-config/index.html">RepoConfig</a><span class="token punctuation">, </span></span><span class="parameter ">locksConfig<span class="token operator">: </span><a href="../../../core/karya.core.configs/-locks-config/index.html">LocksConfig</a><span class="token punctuation">, </span></span><span class="parameter ">queueConfig<span class="token operator">: </span><a href="../../../core/karya.core.configs/-queue-config/index.html">QueueConfig</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-954214289%2FClasslikes%2F1383828060" anchor-label="Companion" id="-954214289%2FClasslikes%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-954214289%2FClasslikes%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-468235605%2FProperties%2F1383828060" anchor-label="channelCapacity" id="-468235605%2FProperties%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="channel-capacity.html"><span>channel</span><wbr><span><span>Capacity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-468235605%2FProperties%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="channel-capacity.html">channelCapacity</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The capacity of the task channel.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1196343518%2FProperties%2F1383828060" anchor-label="executionBufferInMilli" id="-1196343518%2FProperties%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="execution-buffer-in-milli.html"><span>execution</span><wbr><span>Buffer</span><wbr><span>In</span><wbr><span><span>Milli</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1196343518%2FProperties%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="execution-buffer-in-milli.html">executionBufferInMilli</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">The buffer time in milliseconds while fetching a task to be executed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-29874786%2FProperties%2F1383828060" anchor-label="locksConfig" id="-29874786%2FProperties%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="locks-config.html"><span>locks</span><wbr><span><span>Config</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-29874786%2FProperties%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="locks-config.html">locksConfig</a><span class="token operator">: </span><a href="../../../core/karya.core.configs/-locks-config/index.html">LocksConfig</a></div><div class="brief "><p class="paragraph">The configuration for the locks.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1176967415%2FProperties%2F1383828060" anchor-label="partitions" id="-1176967415%2FProperties%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="partitions.html"><span><span>partitions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1176967415%2FProperties%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="partitions.html">partitions</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The list of partitions from which to poll from.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1207912469%2FProperties%2F1383828060" anchor-label="pollFrequency" id="-1207912469%2FProperties%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="poll-frequency.html"><span>poll</span><wbr><span><span>Frequency</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1207912469%2FProperties%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="poll-frequency.html">pollFrequency</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">The frequency at which tasks are polled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1634590699%2FProperties%2F1383828060" anchor-label="queueConfig" id="-1634590699%2FProperties%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="queue-config.html"><span>queue</span><wbr><span><span>Config</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1634590699%2FProperties%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="queue-config.html">queueConfig</a><span class="token operator">: </span><a href="../../../core/karya.core.configs/-queue-config/index.html">QueueConfig</a></div><div class="brief "><p class="paragraph">The configuration for the queue.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-605247778%2FProperties%2F1383828060" anchor-label="repoConfig" id="-605247778%2FProperties%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="repo-config.html"><span>repo</span><wbr><span><span>Config</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-605247778%2FProperties%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="repo-config.html">repoConfig</a><span class="token operator">: </span><a href="../../../core/karya.core.configs/-repo-config/index.html">RepoConfig</a></div><div class="brief "><p class="paragraph">The configuration for the repository.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-282037533%2FProperties%2F1383828060" anchor-label="threadCount" id="-282037533%2FProperties%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="thread-count.html"><span>thread</span><wbr><span><span>Count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-282037533%2FProperties%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="thread-count.html">threadCount</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The number of threads to be used by the scheduler.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1682050771%2FProperties%2F1383828060" anchor-label="workers" id="1682050771%2FProperties%2F1383828060" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main"></a>
+          <div class="table-row" data-filterable-current=":servers-scheduler:dokkaHtmlPartial/main" data-filterable-set=":servers-scheduler:dokkaHtmlPartial/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="workers.html"><span><span>workers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1682050771%2FProperties%2F1383828060"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="workers.html">workers</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The number of worker instances.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
