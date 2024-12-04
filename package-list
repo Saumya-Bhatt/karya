@@ -10,6 +10,10 @@ karya.client.ktor.utils
 module:connectors-chainedplan
 karya.connector.chainedplan
 karya.connector.chainedplan.di
+module:connectors-email
+karya.connectors.email
+karya.connectors.email.configs
+karya.connectors.email.di
 module:connectors-restapi
 karya.connectors.restapi
 karya.connectors.restapi.configs
