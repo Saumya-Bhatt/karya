@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>SchedulerWorker</title>
+    <title>push</title>
 <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="filter-section" id="filter-section">
-                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":servers-scheduler:dokkaHtmlPartial/main">jvm</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":core:dokkaHtmlPartial/main">jvm</button>
         </div>
     </div>
     <div class="navigation-controls">
@@ -58,12 +58,12 @@
                 <div class="sidebar--inner" id="sideMenu"></div>
             </div>
             <div id="main">
-<div class="main-content" data-page-type="member" id="content" pageids="servers-scheduler::karya.servers.scheduler.usecases/SchedulerWorker/SchedulerWorker/#karya.servers.scheduler.usecases.external.WorkerService#karya.core.repos.RepoConnector#karya.core.locks.LocksClient#karya.core.queues.ProducerQueueClient/PointingToDeclaration//1383828060">
-  <div class="breadcrumbs"><a href="../../index.html">servers-scheduler</a><span class="delimiter">/</span><a href="../index.html">karya.servers.scheduler.usecases</a><span class="delimiter">/</span><a href="index.html">SchedulerWorker</a><span class="delimiter">/</span><span class="current">SchedulerWorker</span></div>
+<div class="main-content" data-page-type="member" id="content" pageids="core::karya.core.queues/ProducerQueueClient/push/#karya.core.queues.entities.QueueMessage#karya.core.queues.entities.QueueType/PointingToDeclaration//537371977">
+  <div class="breadcrumbs"><a href="../../index.html">core</a><span class="delimiter">/</span><a href="../index.html">karya.core.queues</a><span class="delimiter">/</span><a href="index.html">ProducerQueueClient</a><span class="delimiter">/</span><span class="current">push</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>Scheduler</span><wbr><span><span>Worker</span></span></h1>
+    <h1 class="cover"><span><span>push</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":servers-scheduler:dokkaHtmlPartial/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="javax.inject/Inject///PointingToDeclaration/"><span class="token annotation builtin">Inject</span></span></div></div><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">workerService<span class="token operator">: </span><a href="../../karya.servers.scheduler.usecases.external/-worker-service/index.html">WorkerService</a><span class="token punctuation">, </span></span><span class="parameter ">repoConnector<span class="token operator">: </span><a href="../../../core/karya.core.repos/-repo-connector/index.html">RepoConnector</a><span class="token punctuation">, </span></span><span class="parameter ">locksClient<span class="token operator">: </span><a href="../../../core/karya.core.locks/-locks-client/index.html">LocksClient</a><span class="token punctuation">, </span></span><span class="parameter ">queueClient<span class="token operator">: </span><a href="../../../core/karya.core.queues/-producer-queue-client/index.html">ProducerQueueClient</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">Creates an instance of <a href="index.html">SchedulerWorker</a> with the specified dependencies.</p></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="push.html"><span class="token function">push</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">message<span class="token operator">: </span><a href="../../karya.core.queues.entities/-queue-message/index.html">QueueMessage</a><span class="token punctuation">, </span></span><span class="parameter ">queueType<span class="token operator">: </span><a href="../../karya.core.queues.entities/-queue-type/index.html">QueueType</a><span class="token operator"> = </span>EXECUTOR</span></span><span class="token punctuation">)</span></div><p class="paragraph">Pushes a message to the specified queue.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>message</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The message to be pushed to the queue.</p></div></div></div></div><div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/main" data-filterable-set=":core:dokkaHtmlPartial/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>queue</span><wbr><span><span>Type</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the queue to which the message will be pushed. Defaults to <a href="../../karya.core.queues.entities/-queue-type/-e-x-e-c-u-t-o-r/index.html">QueueType.EXECUTOR</a>.</p></div></div></div></div></div></div></div>
 </div>
       <div class="footer">
         <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
