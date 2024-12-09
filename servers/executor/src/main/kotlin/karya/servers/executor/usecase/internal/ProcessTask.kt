@@ -4,7 +4,7 @@ import karya.core.entities.ErrorLog
 import karya.core.entities.ErrorLogType
 import karya.core.entities.ExecutorResult
 import karya.core.entities.enums.TaskStatus
-import karya.core.queues.QueueClient
+import karya.core.queues.ProducerQueueClient
 import karya.core.queues.entities.QueueMessage
 import karya.core.queues.entities.QueueType
 import karya.core.repos.ErrorLogsRepo
@@ -18,7 +18,7 @@ import javax.inject.Inject
  *
  * @property tasksRepo The repository for managing tasks.
  * @property errorLogsRepo The repository for managing error logs.
- * @property queueClient The client for interacting with the queue.
+ * @property queueClient The producer client for interacting with the queue.
  * @constructor Creates an instance of [ProcessTask] with the specified repositories and queue client.
  */
 class ProcessTask
@@ -26,7 +26,7 @@ class ProcessTask
 constructor(
   private val tasksRepo: TasksRepo,
   private val errorLogsRepo: ErrorLogsRepo,
-  private val queueClient: QueueClient
+  private val queueClient: ProducerQueueClient
 ) {
 
   companion object : Logging

@@ -2,7 +2,7 @@ package karya.servers.scheduler.usecases
 
 import karya.core.entities.Task
 import karya.core.locks.LocksClient
-import karya.core.queues.QueueClient
+import karya.core.queues.ProducerQueueClient
 import karya.core.repos.RepoConnector
 import karya.servers.scheduler.usecases.external.WorkerService
 import karya.servers.scheduler.usecases.utils.withNamedContext
@@ -16,7 +16,7 @@ import javax.inject.Inject
  * @property workerService The service used to process tasks.
  * @property repoConnector The repository connector for managing database connections.
  * @property locksClient The client for managing distributed locks.
- * @property queueClient The client for managing task queues.
+ * @property queueClient The producer client for managing task queues.
  * @constructor Creates an instance of [SchedulerWorker] with the specified dependencies.
  */
 class SchedulerWorker
@@ -25,7 +25,7 @@ constructor(
   private val workerService: WorkerService,
   private val repoConnector: RepoConnector,
   private val locksClient: LocksClient,
-  private val queueClient: QueueClient,
+  private val queueClient: ProducerQueueClient,
 ) {
   companion object : Logging
 

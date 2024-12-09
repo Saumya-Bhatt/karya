@@ -5,7 +5,7 @@ import karya.core.entities.PlanType
 import karya.core.entities.enums.PlanStatus
 import karya.core.exceptions.KaryaException
 import karya.core.exceptions.PlanException
-import karya.core.queues.QueueClient
+import karya.core.queues.ProducerQueueClient
 import karya.core.queues.entities.QueueMessage
 import karya.core.queues.entities.QueueType
 import karya.core.repos.PlansRepo
@@ -19,7 +19,7 @@ import javax.inject.Inject
 /**
  * Use case class responsible for processing executor messages.
  *
- * @property queueClient The client for interacting with the queue.
+ * @property queueClient The producer client for interacting with the queue.
  * @property plansRepo The repository for managing plans.
  * @property processTask The use case for processing tasks.
  * @property triggerHook The use case for triggering hooks.
@@ -29,7 +29,7 @@ import javax.inject.Inject
 class ProcessExecutorMessage
 @Inject
 constructor(
-  private val queueClient: QueueClient,
+  private val queueClient: ProducerQueueClient,
   private val plansRepo: PlansRepo,
   private val processTask: ProcessTask,
   private val triggerHook: TriggerHook,

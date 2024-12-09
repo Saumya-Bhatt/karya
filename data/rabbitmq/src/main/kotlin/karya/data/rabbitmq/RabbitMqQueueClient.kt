@@ -3,7 +3,8 @@ package karya.data.rabbitmq
 import com.rabbitmq.client.AMQP.BasicProperties
 import com.rabbitmq.client.Channel
 import com.rabbitmq.client.Connection
-import karya.core.queues.QueueClient
+import karya.core.queues.ConsumerQueueClient
+import karya.core.queues.ProducerQueueClient
 import karya.core.queues.entities.QueueMessage
 import karya.core.queues.entities.QueueType
 import karya.data.rabbitmq.configs.ExchangeConfig.DL_EXCHANGE_NAME
@@ -27,7 +28,7 @@ constructor(
   private val consumer: RabbitMqConsumer,
   private val messageEncoder: MessageEncoder,
   private val initializeConfiguration: InitializeConfiguration
-) : QueueClient {
+) : ProducerQueueClient, ConsumerQueueClient {
 
   companion object : Logging {
     private const val CONTENT_TYPE = "application/json"
