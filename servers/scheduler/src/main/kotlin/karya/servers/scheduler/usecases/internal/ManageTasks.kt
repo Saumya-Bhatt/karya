@@ -4,7 +4,7 @@ import karya.core.entities.Plan
 import karya.core.entities.Task
 import karya.core.entities.enums.PlanStatus
 import karya.core.entities.enums.TaskStatus
-import karya.core.queues.QueueClient
+import karya.core.queues.ProducerQueueClient
 import karya.core.queues.entities.QueueMessage.ExecutorMessage
 import karya.core.repos.RepoConnector
 import karya.core.repos.TasksRepo
@@ -22,7 +22,7 @@ import javax.inject.Inject
  *
  * @property tasksRepo The repository for task entities.
  * @property repoConnector The connector for repository interactions.
- * @property queueClient The client for interacting with the queue.
+ * @property queueClient The producer client for interacting with the queue.
  * @property shouldCreateNextTask The use case to determine if the next task should be created.
  * @constructor Creates an instance of [ManageTasks] with the specified dependencies.
  */
@@ -31,7 +31,7 @@ class ManageTasks
 constructor(
   private val tasksRepo: TasksRepo,
   private val repoConnector: RepoConnector,
-  private val queueClient: QueueClient,
+  private val queueClient: ProducerQueueClient,
   private val shouldCreateNextTask: ShouldCreateNextTask
 ) {
   companion object : Logging

@@ -1,6 +1,7 @@
 package karya.servers.executor.usecase
 
-import karya.core.queues.QueueClient
+import karya.core.queues.ConsumerQueueClient
+import karya.core.queues.ProducerQueueClient
 import karya.core.repos.RepoConnector
 import karya.servers.executor.configs.ExecutorConfig
 import karya.servers.executor.usecase.external.ProcessMessage
@@ -12,18 +13,20 @@ import javax.inject.Inject
  * Service class responsible for managing the executor service.
  *
  * @property repoConnector The connector for repository interactions.
- * @property queueClient The client for interacting with the queue.
  * @property config The configuration for the executor service.
  * @property processMessage The use case for processing messages.
+ * @property producerClient The producer client for interacting with the queue.
+ * @property consumerClient The consumer client for interacting with the queue.
  * @constructor Creates an instance of [ExecutorService] with the specified dependencies.
  */
 class ExecutorService
 @Inject
 constructor(
   private val repoConnector: RepoConnector,
-  private val queueClient: QueueClient,
   private val config: ExecutorConfig,
-  private val processMessage: ProcessMessage
+  private val processMessage: ProcessMessage,
+  private val producerClient: ProducerQueueClient,
+  private val consumerClient: ConsumerQueueClient
 ) {
 
   companion object : Logging
@@ -33,8 +36,8 @@ constructor(
    */
   suspend fun start() {
     logger.info("Starting executor service...")
-    queueClient.initialize()
-    queueClient.consume { message -> processMessage.invoke(message) }
+    producerClient.initialize()
+    consumerClient.consume { message -> processMessage.invoke(message) }
   }
 
   /**
@@ -42,7 +45,8 @@ constructor(
    */
   fun stop() = runBlocking {
     logger.info("Shutting down executor service...")
-    queueClient.shutdown()
+    producerClient.shutdown()
+    consumerClient.shutdown()
     repoConnector.shutdown()
     config.connectors.forEach { action, connector ->
       runBlocking {

@@ -9,7 +9,7 @@ import karya.core.entities.PlanType
 import karya.core.entities.enums.Trigger
 import karya.core.entities.enums.Trigger.ON_COMPLETION
 import karya.core.entities.enums.Trigger.ON_FAILURE
-import karya.core.queues.QueueClient
+import karya.core.queues.ProducerQueueClient
 import karya.core.queues.entities.QueueMessage
 import karya.core.queues.entities.QueueType
 import org.apache.logging.log4j.kotlin.Logging
@@ -19,13 +19,13 @@ import javax.inject.Inject
 /**
  * Use case class responsible for triggering hooks based on the executor result.
  *
- * @property queueClient The client for interacting with the queue.
+ * @property queueClient The producer client for interacting with the queue.
  * @constructor Creates an instance of [TriggerHook] with the specified queue client.
  */
 class TriggerHook
 @Inject
 constructor(
-  private val queueClient: QueueClient
+  private val queueClient: ProducerQueueClient
 ) {
 
   companion object : Logging

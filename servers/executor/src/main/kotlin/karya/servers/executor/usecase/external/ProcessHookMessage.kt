@@ -3,7 +3,7 @@ package karya.servers.executor.usecase.external
 import karya.core.entities.ErrorLog
 import karya.core.entities.ErrorLogType
 import karya.core.entities.ExecutorResult
-import karya.core.queues.QueueClient
+import karya.core.queues.ProducerQueueClient
 import karya.core.queues.entities.QueueMessage
 import karya.core.queues.entities.QueueType
 import karya.core.repos.ErrorLogsRepo
@@ -16,7 +16,7 @@ import javax.inject.Inject
  * Use case class responsible for processing hook messages.
  *
  * @property getConnector The use case for retrieving connectors.
- * @property queueClient The client for interacting with the queue.
+ * @property queueClient The producer client for interacting with the queue.
  * @property errorLogsRepo The repository for managing error logs.
  * @constructor Creates an instance of [ProcessHookMessage] with the specified dependencies.
  */
@@ -24,7 +24,7 @@ class ProcessHookMessage
 @Inject
 constructor(
   private val getConnector: GetConnector,
-  private val queueClient: QueueClient,
+  private val queueClient: ProducerQueueClient,
   private val errorLogsRepo: ErrorLogsRepo
 ) {
 

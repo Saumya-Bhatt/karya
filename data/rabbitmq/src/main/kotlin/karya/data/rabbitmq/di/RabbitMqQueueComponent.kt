@@ -2,7 +2,8 @@ package karya.data.rabbitmq.di
 
 import dagger.BindsInstance
 import dagger.Component
-import karya.core.queues.QueueClient
+import karya.core.queues.ConsumerQueueClient
+import karya.core.queues.ProducerQueueClient
 import karya.data.rabbitmq.configs.RabbitMqQueueConfig
 import javax.inject.Singleton
 
@@ -14,7 +15,9 @@ import javax.inject.Singleton
   ],
 )
 interface RabbitMqQueueComponent {
-  val queueClient: QueueClient
+
+  val producerQueueClient: ProducerQueueClient
+  val consumerQueueClient: ConsumerQueueClient
 
   @Component.Builder
   interface Builder {

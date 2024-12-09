@@ -2,14 +2,15 @@ package karya.core.queues
 
 import karya.core.queues.entities.QueueMessage
 import karya.core.queues.entities.QueueType
+import karya.core.queues.entities.QueueType.EXECUTOR
 
 /**
- * Interface representing a client for managing queue operations.
+ * Interface representing a producer client for managing queue operations.
  */
-interface QueueClient {
+interface ProducerQueueClient {
 
   /**
-   * Initializes the queue client.
+   * Initializes the queue producer client.
    */
   suspend fun initialize()
 
@@ -19,14 +20,7 @@ interface QueueClient {
    * @param message The message to be pushed to the queue.
    * @param queueType The type of the queue to which the message will be pushed. Defaults to [QueueType.EXECUTOR].
    */
-  suspend fun push(message: QueueMessage, queueType: QueueType = QueueType.EXECUTOR)
-
-  /**
-   * Consumes messages from the queue and processes them using the provided handler.
-   *
-   * @param onMessage The handler function to process each consumed message.
-   */
-  suspend fun consume(onMessage: suspend (QueueMessage) -> Unit)
+  suspend fun push(message: QueueMessage, queueType: QueueType = EXECUTOR)
 
   /**
    * Shuts down the queue client.
