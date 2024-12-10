@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+
+  redis-node-1:
+    image: redis:latest
+    volumes:
+      - ./redis/redis.sh:/tmp/redis.sh
+    command: >
+      redis-server
+      --port 6379
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --appendonly yes
+      --requirepass karya
+    ports:
+      - "6379:6379"
+
+  redis-node-2:
+    image: redis:latest
+    command: >
+      redis-server
+      --port 6380
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --appendonly yes
+      --requirepass karya
+    ports:
+      - "6380:6380"
+
+  redis-node-3:
+    image: redis:latest
+    command: >
+      redis-server
+      --port 6381
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --appendonly yes
+      --requirepass karya
+    ports:
+      - "6381:6381"
+
+  redis-cluster-creator:
+    image: redis:latest
+    depends_on:
+      - redis-node-1
+      - redis-node-2
+      - redis-node-3
+    command: >
+      /bin/sh -c "
+      sleep 10 &&
+      echo 'yes' | redis-cli -h redis-node-1 -p 6379 -a karya --cluster create redis-node-1:6379 redis-node-2:6380 redis-node-3:6381 --cluster-replicas 0
+      "

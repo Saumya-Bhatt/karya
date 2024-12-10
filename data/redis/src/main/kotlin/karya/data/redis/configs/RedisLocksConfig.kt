@@ -4,8 +4,7 @@ import karya.core.configs.LocksConfig
 import karya.core.utils.readValue
 
 data class RedisLocksConfig(
-  val hostname: String,
-  val port: Int,
+  val host: String,
   val waitTime: Long,
   val leaseTime: Long,
 ) : LocksConfig(REDIS_IDENTIFIER) {
@@ -15,11 +14,8 @@ data class RedisLocksConfig(
   }
 
   constructor(props: Map<*, *>) : this(
-    hostname = props.readValue("hostname"),
-    port = props.readValue("port"),
+    host = props.readValue("host"),
     leaseTime = props.readValue("leaseTime"),
     waitTime = props.readValue("waitTime"),
   )
-
-  fun getUrl() = "redis://$hostname:$port"
 }

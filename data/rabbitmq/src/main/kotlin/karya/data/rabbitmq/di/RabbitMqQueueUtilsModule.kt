@@ -19,9 +19,8 @@ class RabbitMqQueueUtilsModule {
     factory.username = config.username
     factory.password = config.password
     factory.virtualHost = config.virtualHost
-    factory.host = config.hostname
-    factory.port = config.port
-
+    factory.setUri(config.provideAmqpUri())
+    factory.isAutomaticRecoveryEnabled = true
     return factory.newConnection("karya-rabbitMq")
   }
 

@@ -23,7 +23,7 @@ class RedisLocksModule {
   @Singleton
   fun provideRedissonClient(redisLocksConfig: RedisLocksConfig): RedissonClient {
     val config = Config()
-    config.useSingleServer().address = redisLocksConfig.getUrl()
+    config.useSingleServer().address = redisLocksConfig.host
     return Redisson.create(config)
   }
 }

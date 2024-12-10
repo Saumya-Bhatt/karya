@@ -4,18 +4,18 @@ version: '3.8'
 
 services:
 
-  postgres:
-    image: postgres
-    container_name: karya-postgres
-    environment:
-      - POSTGRES_USER=karya
-      - POSTGRES_PASSWORD=karya
-      - POSTGRES_DB=karya
-    ports:
-      - "5432:5432"
-    networks:
-      - karya-network
-    restart: unless-stopped
+#  postgres:
+#    image: postgres
+#    container_name: karya-postgres
+#    environment:
+#      - POSTGRES_USER=karya
+#      - POSTGRES_PASSWORD=karya
+#      - POSTGRES_DB=karya
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - karya-network
+#    restart: unless-stopped
 
   rabbitmq:
     image: rabbitmq:management

@@ -7,20 +7,14 @@ repo:
       dataSource.user: "karya"
       dataSource.password: "karya"
       dataSource.databaseName: "karya"
-      dataSource.portNumber: 5432
-      dataSource.serverName: "localhost"
-      maximumPoolSize: 1
+      dataSource.url: "jdbc:postgresql://localhost:5432,localhost:5433/karya?loadBalanceStrategy=bestResponse"
+      maximumPoolSize: 10
       connectionTimeout: 5000
-    flyway:
-      url: "jdbc:postgresql://localhost:5432/karya"
-      user: "karya"
-      password: "karya"
 
 lock:
   provider: "redis"
   properties:
-    hostname: "localhost"
-    port: 6379
+    host: "redis://localhost:6379"
     waitTime: 1000
     leaseTime: 5000
 
@@ -30,5 +24,6 @@ queue:
     username: "karya"
     password: "karya"
     virtualHost: "/"
-    hostname: "localhost"
-    port: 5672
+    clusterNodes:
+      - "localhost:5672"
+      - "localhost:5673"
