@@ -3,8 +3,8 @@
 Distributed, scalable Task Scheduler built for high throughput.
 
 - [How to contribute](.github/CONTRIBUTING.md)
-- [Architecture Overview](./docs/documentation/ARCHITECTURE.md)
-- [API Kdocs](https://saumya-bhatt.github.io/karya/)
+- [Architecture Overview](./docs/documentation/OVERVIEW)
+- [API Docs](https://saumya-bhatt.github.io/karya/)
 
 Overview:
 

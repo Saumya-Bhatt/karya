@@ -1,66 +1,13 @@
 # Contributing to Karya
 
-## Local Setup
+Firstly, thank you for considering contributing to Karya! Here are a few guidelines to help you get started.
 
-This will help set up and run the application locally. For this, we shall be creating a Postgres instance as a repo
-provider, Redis for locks provider and RabbitMq as queue provider.
+## Getting Started
 
-### Pre-Requisites
-
-- Make sure docker is installed on your machine
-- Run the following command to start the required provider services
-  ```shell
-  docker-compose -f ./docs/local-setup/providers.docker-compose.yml up -d
-  ```
-- Create a `providers.yml` file.
-    - A sample file can be found [here](../configs/providers.yml).
-    - For more information on how to configure the providers, refer to the [Connectors](../README.md/#connectors)
-      section.
-- Create a `executor.yml` file.
-    - A sample file can be found [here](../configs/executor.yml).
-    - For more information on how to configure the executor, refer to the [Executor](../README.md/#executor) section.
-- Create a `scheduler.yml` file.
-    - A sample file can be found [here](../configs/scheduler.yml).
-    - For more information on how to configure the scheduler, refer to the [Scheduler](../README.md/#scheduler) section.
-
-### Running the application
-
-Start the application in the following order:
-
-1. Start the server
-   ```shell 
-    export KARYA_PROVIDERS_CONFIG_PATH=path/to/providers.yml
-   EXPORT KARYA_SERVER_CONFIG_PATH=path/to/server.yml
-   
-    ./gradlew servers-server:run
-   ```
-
-2. Start the executor (can start multiple instances)
-    ```shell 
-    export KARYA_PROVIDERS_CONFIG_PATH=path/to/providers.yml
-    export KARYA_EXECUTOR_CONFIG_PATH=path/to/executor.yml
-   
-    ./gradlew servers-executor:run
-   ```
-
-3. Start the scheduler (can start multiple instances)
-    ```shell 
-    export KARYA_PROVIDERS_CONFIG_PATH=path/to/providers.yml
-    export KARYA_SCHEDULER_CONFIG_PATH=path/to/scheduler.yml
-   
-    ./gradlew servers-scheduler:run
-    ```
-
-A sample [MakePeriodicApiCall.kt.kt](../docs/samples/src/main/kotlin/karya/docs/samples/MakePeriodicApiCall.kt) file is
-provided to schedule a dummy plan and check if the setup is working fine.
-
-### For testing Kafka Connector
-
-- Start the Kafka service
-- In the Kafka UI dashboard, create a cluster and provide the bootstrap server as `kafka:9090`
-  ```shell
-  docker-compose -f ./docs/local-setup/kafka.docker-compose.yml up -d
-  ```
+1. Go through the [Architecture Overview](../docs/documentation/OVERVIEW.md) to understand the components of Karya.
+2. Set up the application locally by following the [Local Setup](../docs/documentation/LOCAL_SETUP.md) guide.
+3. Follow the contribution guidelines mentioned below.
+4. Fork the repository and start contributing!
 
 ## Linting and Formatting
 

@@ -24,6 +24,7 @@ The following interfaces are currently implemented within Karya with rest more o
 |-----------------------------------------|----------------------------|---------------------------------------|
 | [Postgres](https://www.postgresql.org/) | [Redis](https://redis.io/) | [RabbitMQ](https://www.rabbitmq.com/) |
 
+> All the adapters that Karya support can be used in a cluster mode as well making Karya even more fault tolerant.
 ---
 
 ## How to configure adapters?
@@ -77,12 +78,11 @@ These are the properties that can/should be set for the Postgres repo interface:
 | Key      | Description                                                                                                   |
 |----------|---------------------------------------------------------------------------------------------------------------|
 | *hikari* | One can set all the configurable options provided by hikari here just as you set them in a *.properties* file |
-| *flyway.url* | The URL to the flyway migration scripts. This is used to migrate the database schema.                         |
-| *flyway.user* | The user to connect to the flyway migration scripts.                                                          |
-| *flyway.password* | The password to connect to the flyway migration scripts.                                                    |
 
 <details>
 <summary><strong>Example</strong></summary>
+
+> *Note* : Configure the `datasource.url` accordingly to connect to a cluster of databases. The `loadBalanceStrategy` will pick the node with the best response time. If want to use in standalone mode, just provide the url of the database.
 
 ```yml
 repo:
@@ -94,14 +94,9 @@ repo:
       dataSource.user: "karya"
       dataSource.password: "karya"
       dataSource.databaseName: "karya"
-      dataSource.portNumber: 5432
-      dataSource.serverName: "localhost"
-      maximumPoolSize: 1
+      dataSource.url: "jdbc:postgresql://localhost:5432,localhost:5433/karya?loadBalanceStrategy=bestResponse"
+      maximumPoolSize: 10
       connectionTimeout: 5000
-    flyway:
-      url: "jdbc:postgresql://localhost:5432/karya"
-      user: "karya"
-      password: "karya"
 ```
 
 </details>
@@ -118,12 +113,16 @@ This section describes the various locks interfaces that can be configured on Ka
 
 These are the properties that can/should be set for the Redis locks interface:
 
-| Key        | Description                                                              |
-|------------|--------------------------------------------------------------------------|
-| *hostName* | The host where the Redis server is running                               |
-| *port*     | The port on which the Redis server is running                            |
-| *waitTime* | Set the wait time for which redisson should wait before releasing a lock |
-| *leaseTime*| Set the lease time for which the lock should be held                     |
+| Key           | Description                                                                                                                    |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------|
+| *clusterMode* | Set to true if you are using a Redis cluster                                                                                   |
+| *password*    | The password to connect to the Redis cluster. Provide empty string if using in standalone mode (`clusterMode` is set to false) |
+| *connection.timeout* | The timeout for the connection to the Redis server/cluster.                                                                    |
+| *connection.poolSize* | The pool size for the connection to the Redis server/cluster.                                                                  |
+| *connection.minimumIdleSize* | The minimum idle connections to the Redis server/cluster.                                                                      |
+| *waitTime*    | Set the wait time for which redisson should wait before releasing a lock                                                       |
+| *leaseTime*   | Set the lease time for which the lock should be held                                                                           |
+| *clusterNodes* | The list of nodes in the Redis cluster. Provide the host and port of each node. When in standalone mode, the first node in the list will be used. |
 
 <details>
 <summary><strong>Example</strong></summary>
@@ -132,10 +131,17 @@ These are the properties that can/should be set for the Redis locks interface:
 lock:
   provider: "redis"
   properties:
-    hostname: "localhost"
-    port: 6379
+    clusterMode: true
+    password: karya
     waitTime: 1000
     leaseTime: 5000
+    connection.timeout: 5000
+    connection.poolSize: 5
+    connection.minimumIdleSize: 2
+    clusterNodes:
+      - "redis://localhost:7001"
+      - "redis://localhost:7002"
+      - "redis://localhost:7003"
 ```
 
 </details>
@@ -152,17 +158,18 @@ This section describes the various queue interfaces that can be configured on Ka
 
 These are the properties that can/should be set for the RabbitMQ queue interface:
 
-| Key        | Description                                                                 |
-|------------|-----------------------------------------------------------------------------|
-| *hostName* | The host where the RabbitMQ server is running                               |
-| *port*     | The port on which the RabbitMQ server is running                            |
-| *username* | The username to connect to the RabbitMQ server                               |
-| *password* | The password to connect to the RabbitMQ server                               |
-| *virtualHost* | The virtual host to connect to the RabbitMQ server                          |
+| Key            | Description                                                                 |
+|----------------|-----------------------------------------------------------------------------|
+| *username*     | The username to connect to the RabbitMQ server                               |
+| *password*     | The password to connect to the RabbitMQ server                               |
+| *virtualHost*  | The virtual host to connect to the RabbitMQ server                          |
+| *clusterNodes* | The list of nodes in the RabbitMQ cluster. Provide the host and port of each node. When in standalone mode, the first node in the list will be used. |
 
 <details>
 
 <summary><strong>Example</strong></summary>
+
+> *Note* : Configure the `clusterNodes` accordingly to connect to a cluster of RabbitMQ servers. If want to use in standalone mode, just provide the url of the RabbitMQ server.
 
 ```yml
 queue:
@@ -171,8 +178,9 @@ queue:
     username: "karya"
     password: "karya"
     virtualHost: "/"
-    hostname: "localhost"
-    port: 5672
+    clusterNodes:
+      - "localhost:5672"
+      - "localhost:5673"
 ```
 
 </details>
