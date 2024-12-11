@@ -20,20 +20,6 @@ services:
     volumes:
       - ./redis/redis.sh:/tmp/redis.sh
 
-  redis-cluster-creator:
-    image: redis:latest
-    command: >
-      sleep 10 &&
-      redis-cli -a 'karya'
-      --cluster create ${LOCAL_IP}:7001 ${LOCAL_IP}:7002 ${LOCAL_IP}:7003
-      --cluster-replicas 0
-      --cluster-yes
-    depends_on:
-      - redis-node-1
-      - redis-node-2
-      - redis-node-3
-      - redis-proxy
-
   redis-proxy:
     image: haproxytech/haproxy-alpine
     volumes:

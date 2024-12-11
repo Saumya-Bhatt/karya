@@ -1,35 +1,33 @@
-# docs/local-setup/providers.docker-compose.yml
-
 version: '3.8'
 
 services:
 
-#  postgres:
-#    image: postgres
-#    container_name: karya-postgres
-#    environment:
-#      - POSTGRES_USER=karya
-#      - POSTGRES_PASSWORD=karya
-#      - POSTGRES_DB=karya
-#    ports:
-#      - "5432:5432"
-#    networks:
-#      - karya-network
-#    restart: unless-stopped
+  postgres:
+    image: postgres
+    container_name: karya-postgres
+    environment:
+      - POSTGRES_USER=karya
+      - POSTGRES_PASSWORD=karya
+      - POSTGRES_DB=karya
+    ports:
+      - "5432:5432"
+    networks:
+      - karya-network
+    restart: unless-stopped
 
-#  rabbitmq:
-#    image: rabbitmq:management
-#    container_name: karya-rabbitmq
-#    environment:
-#      - RABBITMQ_DEFAULT_USER=karya
-#      - RABBITMQ_DEFAULT_PASS=karya
-#      - RABBITMQ_DEFAULT_VHOST=/
-#    ports:
-#      - "5672:5672"      # AMQP (RabbitMQ messaging protocol)
-#      - "15672:15672"    # HTTP API (management console)
-#    networks:
-#      - karya-network
-#    restart: unless-stopped
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: karya-rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=karya
+      - RABBITMQ_DEFAULT_PASS=karya
+      - RABBITMQ_DEFAULT_VHOST=/
+    ports:
+      - "5672:5672"      # AMQP (RabbitMQ messaging protocol)
+      - "15672:15672"    # HTTP API (management console)
+    networks:
+      - karya-network
+    restart: unless-stopped
 
   redis:
     image: redis
