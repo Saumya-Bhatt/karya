@@ -14,9 +14,17 @@ repo:
 lock:
   provider: "redis"
   properties:
-    host: "redis://localhost:6379"
+    clusterMode: true
+    password: karya
     waitTime: 1000
     leaseTime: 5000
+    connection.timeout: 5000
+    connection.poolSize: 5
+    connection.minimumIdleSize: 2
+    clusterNodes:
+      - "redis://localhost:7001"
+      - "redis://localhost:7002"
+      - "redis://localhost:7003"
 
 queue:
   provider: "rabbitmq"

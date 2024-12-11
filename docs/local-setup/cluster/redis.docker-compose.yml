@@ -1,53 +1,56 @@
-version: '3.8'
+name: redis-cluster
 
 services:
 
   redis-node-1:
     image: redis:latest
+    command: ["/tmp/redis.sh", "${LOCAL_IP}", "7001"]
     volumes:
       - ./redis/redis.sh:/tmp/redis.sh
-    command: >
-      redis-server
-      --port 6379
-      --cluster-enabled yes
-      --cluster-config-file nodes.conf
-      --appendonly yes
-      --requirepass karya
-    ports:
-      - "6379:6379"
 
   redis-node-2:
     image: redis:latest
-    command: >
-      redis-server
-      --port 6380
-      --cluster-enabled yes
-      --cluster-config-file nodes.conf
-      --appendonly yes
-      --requirepass karya
-    ports:
-      - "6380:6380"
+    command: ["/tmp/redis.sh", "${LOCAL_IP}", "7002"]
+    volumes:
+      - ./redis/redis.sh:/tmp/redis.sh
 
   redis-node-3:
     image: redis:latest
-    command: >
-      redis-server
-      --port 6381
-      --cluster-enabled yes
-      --cluster-config-file nodes.conf
-      --appendonly yes
-      --requirepass karya
-    ports:
-      - "6381:6381"
+    command: ["/tmp/redis.sh", "${LOCAL_IP}", "7003"]
+    volumes:
+      - ./redis/redis.sh:/tmp/redis.sh
 
   redis-cluster-creator:
     image: redis:latest
+    command: >
+      sleep 10 &&
+      redis-cli -a 'karya'
+      --cluster create ${LOCAL_IP}:7001 ${LOCAL_IP}:7002 ${LOCAL_IP}:7003
+      --cluster-replicas 0
+      --cluster-yes
     depends_on:
       - redis-node-1
       - redis-node-2
       - redis-node-3
-    command: >
-      /bin/sh -c "
-      sleep 10 &&
-      echo 'yes' | redis-cli -h redis-node-1 -p 6379 -a karya --cluster create redis-node-1:6379 redis-node-2:6380 redis-node-3:6381 --cluster-replicas 0
-      "
+      - redis-proxy
+
+  redis-proxy:
+    image: haproxytech/haproxy-alpine
+    volumes:
+      - ./redis/:/usr/local/etc/haproxy:ro
+    ports:
+      - 8404:8404
+      - 7001-7006:9001-9006
+      - 7101-7106:9101-9106
+    depends_on:
+      - redis-node-1
+      - redis-node-2
+      - redis-node-3
+
+#  redis-insight:
+#    container_name: redis-insight
+#    image: redislabs/redisinsight
+#    ports:
+#      - 8001:8001
+#    depends_on:
+#      - redis-proxy

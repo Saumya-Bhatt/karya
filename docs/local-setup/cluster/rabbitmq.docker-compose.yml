@@ -1,6 +1,7 @@
-version: '3.8'
+name: rabbitmq-cluster
 
 services:
+
   rabbitmq1:
     image: rabbitmq:3.11-management
     hostname: rabbitmq1
