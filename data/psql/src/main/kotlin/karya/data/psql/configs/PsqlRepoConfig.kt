@@ -6,7 +6,6 @@ import java.util.*
 
 data class PsqlRepoConfig(
   val hikariProperties: Properties,
-  val flywayProperties: Properties,
   override val partitions: Int,
 ) : RepoConfig(PSQL_IDENTIFIER, partitions) {
 
@@ -16,7 +15,6 @@ data class PsqlRepoConfig(
 
   constructor(props: Map<*, *>, partitions: Int) : this(
     hikariProperties = extractProperties(props, "hikari"),
-    flywayProperties = extractProperties(props, "flyway"),
     partitions = partitions,
   )
 }

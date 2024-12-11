@@ -1,0 +1,53 @@
+name: rabbitmq-cluster
+
+services:
+
+  rabbitmq1:
+    image: rabbitmq:3.11-management
+    hostname: rabbitmq1
+    container_name: rabbitmq1
+    environment:
+      - RABBITMQ_DEFAULT_USER=karya
+      - RABBITMQ_DEFAULT_PASS=karya
+      - RABBITMQ_ERLANG_COOKIE=CLUSTERCOOKIE
+    ports:
+      - "5672:5672"   # AMQP port
+      - "15672:15672" # Management UI port
+    command:
+      - /bin/bash
+      - -c
+      - |
+        rabbitmq-server &
+        rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit@rabbitmq1.pid
+        echo "RabbitMQ node is ready"
+        tail -f /dev/null
+
+  rabbitmq2:
+    image: rabbitmq:3.11-management
+    hostname: rabbitmq2
+    container_name: rabbitmq2
+    environment:
+      - RABBITMQ_DEFAULT_USER=karya
+      - RABBITMQ_DEFAULT_PASS=karya
+      - RABBITMQ_ERLANG_COOKIE=CLUSTERCOOKIE
+    ports:
+      - "5673:5672"   # Different host port for the second node
+      - "15673:15672" # Different management UI port
+    depends_on:
+      - rabbitmq1
+    command:
+      - /bin/bash
+      - -c
+      - |
+        rabbitmq-server &
+        # Wait for rabbitmq1 to be fully ready
+        until rabbitmqctl await_startup; do
+          echo "Waiting for RabbitMQ to start on rabbitmq1..."
+          sleep 2
+        done
+        # Stop app, join the cluster, and start app
+        rabbitmqctl stop_app
+        rabbitmqctl join_cluster rabbit@rabbitmq1
+        rabbitmqctl start_app
+        rabbitmqctl set_cluster_name karya_cluster
+        tail -f /dev/null

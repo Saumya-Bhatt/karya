@@ -7,9 +7,9 @@ data class RabbitMqQueueConfig(
   val username: String,
   val password: String,
   val virtualHost: String,
-  val hostname: String,
-  val port: Int,
+  val clusterNodes: List<String>
 ) : QueueConfig(RABBITMQ_IDENTIFIER) {
+
   companion object {
     const val RABBITMQ_IDENTIFIER = "rabbitmq"
   }
@@ -18,7 +18,11 @@ data class RabbitMqQueueConfig(
     username = props.readValue("username"),
     password = props.readValue("password"),
     virtualHost = props.readValue("virtualHost"),
-    hostname = props.readValue("hostname"),
-    port = props.readValue("port"),
+    clusterNodes = props.readValue("clusterNodes"),
   )
+
+  fun provideAmqpUri(): String {
+    val nodes = clusterNodes.joinToString(",")
+    return "amqp://${username}:${password}@$nodes"
+  }
 }

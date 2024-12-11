@@ -1,0 +1,42 @@
+name: redis-cluster
+
+services:
+
+  redis-node-1:
+    image: redis:latest
+    command: ["/tmp/redis.sh", "${LOCAL_IP}", "7001"]
+    volumes:
+      - ./redis/redis.sh:/tmp/redis.sh
+
+  redis-node-2:
+    image: redis:latest
+    command: ["/tmp/redis.sh", "${LOCAL_IP}", "7002"]
+    volumes:
+      - ./redis/redis.sh:/tmp/redis.sh
+
+  redis-node-3:
+    image: redis:latest
+    command: ["/tmp/redis.sh", "${LOCAL_IP}", "7003"]
+    volumes:
+      - ./redis/redis.sh:/tmp/redis.sh
+
+  redis-proxy:
+    image: haproxytech/haproxy-alpine
+    volumes:
+      - ./redis/:/usr/local/etc/haproxy:ro
+    ports:
+      - "8404:8404"
+      - "7001-7006:9001-9006"
+      - "7101-7106:9101-9106"
+    depends_on:
+      - redis-node-1
+      - redis-node-2
+      - redis-node-3
+
+#  redis-insight:
+#    container_name: redis-insight
+#    image: redislabs/redisinsight
+#    ports:
+#      - 8001:8001
+#    depends_on:
+#      - redis-proxy

@@ -7,22 +7,39 @@ repo:
       dataSource.user: "karya"
       dataSource.password: "karya"
       dataSource.databaseName: "karya"
-      dataSource.portNumber: 5432
-      dataSource.serverName: "localhost"
-      maximumPoolSize: 1
+      dataSource.url: "jdbc:postgresql://localhost:5432,localhost:5433/karya?loadBalanceStrategy=bestResponse&targetServerType=any&connectTimeout=1&failoverTimeout=30"
+      maximumPoolSize: 10
       connectionTimeout: 5000
-    flyway:
-      url: "jdbc:postgresql://localhost:5432/karya"
-      user: "karya"
-      password: "karya"
 
+# Using redis in cluster mode
 lock:
   provider: "redis"
   properties:
-    hostname: "localhost"
-    port: 6379
+    clusterMode: true
+    password: karya
     waitTime: 1000
     leaseTime: 5000
+    connection.timeout: 5000
+    connection.poolSize: 5
+    connection.minimumIdleSize: 2
+    clusterNodes:
+      - "redis://localhost:7001"
+      - "redis://localhost:7002"
+      - "redis://localhost:7003"
+
+# using redis in standalone mode
+#lock:
+#  provider: "redis"
+#  properties:
+#    clusterMode: false
+#    password: karya
+#    waitTime: 1000
+#    leaseTime: 5000
+#    connection.timeout: 5000
+#    connection.poolSize: 5
+#    connection.minimumIdleSize: 2
+#    clusterNodes:
+#      - "redis://localhost:6379"
 
 queue:
   provider: "rabbitmq"
@@ -30,5 +47,6 @@ queue:
     username: "karya"
     password: "karya"
     virtualHost: "/"
-    hostname: "localhost"
-    port: 5672
+    clusterNodes:
+      - "localhost:5672"
+      - "localhost:5673"

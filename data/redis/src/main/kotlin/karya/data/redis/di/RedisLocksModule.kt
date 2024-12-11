@@ -12,6 +12,11 @@ import javax.inject.Singleton
 
 @Module
 class RedisLocksModule {
+
+  companion object {
+    private const val CLIENT_NAME = "karya-redis"
+  }
+
   @Provides
   @Singleton
   fun provideRedisLocksClient(
@@ -21,9 +26,33 @@ class RedisLocksModule {
 
   @Provides
   @Singleton
-  fun provideRedissonClient(redisLocksConfig: RedisLocksConfig): RedissonClient {
+  fun provideRedissonClient(redisLocksConfig: RedisLocksConfig): RedissonClient = when (redisLocksConfig.clusterMode) {
+    true -> provideClusterRedissonClient(redisLocksConfig)
+    false -> provideSingleRedissonClient(redisLocksConfig)
+  }
+
+  private fun provideSingleRedissonClient(redisLocksConfig: RedisLocksConfig): RedissonClient {
     val config = Config()
-    config.useSingleServer().address = redisLocksConfig.getUrl()
+    config.useSingleServer()
+      .setAddress(redisLocksConfig.clusterNodes.first())
+      .setClientName(CLIENT_NAME)
+      .setConnectionPoolSize(redisLocksConfig.connectionPoolSize)
+      .setConnectionMinimumIdleSize(redisLocksConfig.connectionMinimumIdleSize)
+      .setConnectTimeout(redisLocksConfig.connectionTimeout)
+    return Redisson.create(config)
+  }
+
+  private fun provideClusterRedissonClient(redisLocksConfig: RedisLocksConfig): RedissonClient {
+    val config = Config()
+    config.useClusterServers()
+      .addNodeAddress(*redisLocksConfig.clusterNodes.toTypedArray())
+      .setClientName(CLIENT_NAME)
+      .setConnectTimeout(redisLocksConfig.connectionTimeout)
+      .setMasterConnectionPoolSize(redisLocksConfig.connectionPoolSize/2)
+      .setMasterConnectionMinimumIdleSize(redisLocksConfig.connectionMinimumIdleSize/2)
+      .setSlaveConnectionPoolSize(redisLocksConfig.connectionPoolSize/2)
+      .setSlaveConnectionMinimumIdleSize(redisLocksConfig.connectionMinimumIdleSize/2)
+      .password = redisLocksConfig.password
     return Redisson.create(config)
   }
 }

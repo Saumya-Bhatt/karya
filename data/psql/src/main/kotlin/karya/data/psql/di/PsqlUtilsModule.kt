@@ -13,19 +13,12 @@ import javax.inject.Singleton
 class PsqlUtilsModule {
   @Provides
   @Singleton
-  fun provideFlyway(config: PsqlRepoConfig): Flyway {
-    val properties = config.flywayProperties
-    return Flyway
-      .configure()
-      .dataSource(
-        properties.getProperty("url"),
-        properties.getProperty("user"),
-        properties.getProperty("password"),
-      ).locations("classpath:db/migrations")
-      .baselineOnMigrate(true)
-      .placeholderReplacement(true)
-      .load()
-  }
+  fun provideFlyway(dataSource: HikariDataSource): Flyway = Flyway
+    .configure()
+    .dataSource(dataSource).locations("classpath:db/migrations")
+    .baselineOnMigrate(true)
+    .placeholderReplacement(true)
+    .load()
 
   @Provides
   @Singleton

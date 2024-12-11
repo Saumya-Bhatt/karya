@@ -1,0 +1,49 @@
+name: postgres-cluster
+
+services:
+
+  postgres-master:
+    image: postgres:15
+    container_name: postgres-master
+    environment:
+      - POSTGRES_DB=karya
+      - POSTGRES_USER=karya
+      - POSTGRES_PASSWORD=karya
+      - POSTGRES_REPLICATION_MODE=master
+      - POSTGRES_REPLICATION_USER=repl
+      - POSTGRES_REPLICATION_PASSWORD=replication_password
+    tmpfs:
+      - /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U karya -d karya"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres-slave:
+    image: postgres:15
+    container_name: postgres-slave
+    restart: "on-failure"
+    environment:
+      - POSTGRES_DB=karya
+      - POSTGRES_USER=karya
+      - POSTGRES_PASSWORD=karya
+      - POSTGRES_REPLICATION_MODE=slave
+      - POSTGRES_MASTER_HOST=postgres-master
+      - POSTGRES_MASTER_PORT=5432
+      - POSTGRES_REPLICATION_USER=repl
+      - POSTGRES_REPLICATION_PASSWORD=replication_password
+    tmpfs:
+      - /var/lib/postgresql/data
+    depends_on:
+      postgres-master:
+        condition: service_healthy
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U karya -d karya"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
