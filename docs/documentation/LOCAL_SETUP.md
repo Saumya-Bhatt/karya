@@ -33,7 +33,7 @@ For testing Karya's ability to work in a distributed environment, you can run th
 <details>
 <summary><strong>Postgres Cluster</strong></summary>
 
-- This will setup a postgres cluster (1 Master, 1 Slave)
+- This will set up a postgres cluster (1 Master, 1 Slave)
 - Master runs on port `5432` and Slave runs on port `5433`
 
 ```shell
@@ -49,25 +49,21 @@ docker-compose -f ./docs/local-setup/cluster/postgres.docker-compose.yml up -d
 - Replication has been purposely disabled for simplicity.
 - All 3 run on different ports `7000`, `7001`, `7002`
 
-1. Get the Local IP address of your machine
+1. Get the Local IP address of your machine and set it as environment variable.
 
-    For linux/Mac users:
     ```shell
-   # get the local ip address
+   # For linux/mac users
     ifconfig | grep "inet "
    
+   # For windows users:
+   ipconfig | findstr "IPv4"
+   ```
+   
+   ```
     # set it as environment variable
     export LOCAL_IP=192.168.0.111
     ```
-   
-    For Windows users:
-    ```shell
-   # get the local ip address
-    ipconfig | findstr "IPv4"
-   
-    # set it as environment variable
-    SET LOCAL_IP=192.168.0.111
-   ```
+
 2. Spin up the redis nodes:
     ```shell
     docker-compose -f ./docs/local-setup/cluster/redis.docker-compose.yml up -d

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-PARENT_PATH=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
-COMPOSE_FILE_PATH="$PARENT_PATH/docs/local-setup/cluster/redis.docker-compose.yml"
+COMPOSE_FILE_PATH="$(pwd)/docs/local-setup/cluster/redis.docker-compose.yml"
 
 echo "COMPOSE_FILE_PATH: $COMPOSE_FILE_PATH"
 
