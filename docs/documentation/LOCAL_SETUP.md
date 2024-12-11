@@ -49,14 +49,25 @@ docker-compose -f ./docs/local-setup/cluster/postgres.docker-compose.yml up -d
 - Replication has been purposely disabled for simplicity.
 - All 3 run on different ports `7000`, `7001`, `7002`
 
-1. Get the Local IP address of your machine and set it to environment variable
+1. Get the Local IP address of your machine
+
+    For linux/Mac users:
     ```shell
-   # For linux/mac users
-    export LOCAL_IP=$(ifconfig | grep "inet ")
+   # get the local ip address
+    ifconfig | grep "inet "
    
-   # For windows users
-    set LOCAL_IP=(ipconfig | findstr "IPv4")
+    # set it as environment variable
+    export LOCAL_IP=192.168.0.111
     ```
+   
+    For Windows users:
+    ```shell
+   # get the local ip address
+    ipconfig | findstr "IPv4"
+   
+    # set it as environment variable
+    SET LOCAL_IP=192.168.0.111
+   ```
 2. Spin up the redis nodes:
     ```shell
     docker-compose -f ./docs/local-setup/cluster/redis.docker-compose.yml up -d

@@ -4,6 +4,8 @@ ANNOUNCE_BUS_PORT=$(expr $ANNOUNCE_PORT + 100)
 
 CONF_FILE="/tmp/redis.conf"
 
+echo "ANNOUNCE_IP: $ANNOUNCE_IP"
+
 # generate redis.conf file
 echo "port 6379
 cluster-enabled yes

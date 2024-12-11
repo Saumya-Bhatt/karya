@@ -1,6 +1,5 @@
 #!/bin/bash
 
-LOCAL_IP=$1
 PARENT_PATH=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 COMPOSE_FILE_PATH="$PARENT_PATH/docs/local-setup/cluster/redis.docker-compose.yml"
 
