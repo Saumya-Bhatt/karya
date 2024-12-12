@@ -7,6 +7,7 @@ import karya.core.queues.ConsumerQueueClient
 import karya.core.queues.ProducerQueueClient
 import karya.core.queues.entities.QueueMessage
 import karya.core.queues.entities.QueueType
+import karya.core.utils.encodeToByteArray
 import karya.data.rabbitmq.configs.ExchangeConfig.DL_EXCHANGE_NAME
 import karya.data.rabbitmq.configs.ExchangeConfig.DL_ROUTING_KEY
 import karya.data.rabbitmq.configs.ExchangeConfig.EXCHANGE_NAME
@@ -14,19 +15,19 @@ import karya.data.rabbitmq.configs.ExchangeConfig.EXECUTOR_QUEUE_NAME
 import karya.data.rabbitmq.configs.ExchangeConfig.EXECUTOR_ROUTING_KEY
 import karya.data.rabbitmq.configs.ExchangeConfig.HOOKS_QUEUE_NAME
 import karya.data.rabbitmq.configs.ExchangeConfig.HOOKS_ROUTING_KEY
-import karya.data.rabbitmq.usecases.external.InitializeConfiguration
-import karya.data.rabbitmq.usecases.external.RabbitMqConsumer
-import karya.data.rabbitmq.usecases.internal.MessageEncoder
+import karya.data.rabbitmq.usecases.InitializeConfiguration
+import karya.data.rabbitmq.usecases.RabbitMqConsumer
+import kotlinx.serialization.json.Json
 import org.apache.logging.log4j.kotlin.Logging
 import javax.inject.Inject
 
 class RabbitMqQueueClient
 @Inject
 constructor(
+  private val json: Json,
   private val channel: Channel,
   private val connection: Connection,
   private val consumer: RabbitMqConsumer,
-  private val messageEncoder: MessageEncoder,
   private val initializeConfiguration: InitializeConfiguration
 ) : ProducerQueueClient, ConsumerQueueClient {
 
@@ -44,7 +45,7 @@ constructor(
 
   override suspend fun push(message: QueueMessage, queueType: QueueType) {
     try {
-      val messageBytes = messageEncoder.encode(message)
+      val messageBytes = message.encodeToByteArray(json)
       val properties = buildProperties()
       val (exchangeToUse, routingKeyToUse) = provideExchangeAndRoutingKey(queueType)
       channel.basicPublish(exchangeToUse, routingKeyToUse, properties, messageBytes)
