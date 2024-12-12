@@ -3,35 +3,31 @@ repo:
   partitions: 5
   properties:
     hikari:
-      dataSourceClassName: "org.postgresql.ds.PGSimpleDataSource"
+
+      # postgres configs
+#      dataSourceClassName: "org.postgresql.ds.PGSimpleDataSource"
+#      dataSource.user: "karya"
+#      dataSource.password: "karya"
+#      dataSource.databaseName: "karya"
+#      dataSource.url: "jdbc:postgresql://localhost:5432,localhost:5433/karya?loadBalanceStrategy=bestResponse&targetServerType=any&connectTimeout=1&failoverTimeout=30"
+#      maximumPoolSize: 10
+#      connectionTimeout: 5000
+
+      # mysql configs
+      dataSourceClassName: "com.mysql.cj.jdbc.MysqlDataSource"
       dataSource.user: "karya"
       dataSource.password: "karya"
       dataSource.databaseName: "karya"
-      dataSource.url: "jdbc:postgresql://localhost:5432,localhost:5433/karya?loadBalanceStrategy=bestResponse&targetServerType=any&connectTimeout=1&failoverTimeout=30"
+      dataSource.url: "jdbc:mysql://localhost:3306/karya?loadBalanceStrategy=bestResponse&connectTimeout=1&failoverTimeout=30"
       maximumPoolSize: 10
       connectionTimeout: 5000
 
-# Using redis in cluster mode
-lock:
-  provider: "redis"
-  properties:
-    clusterMode: true
-    password: karya
-    waitTime: 1000
-    leaseTime: 5000
-    connection.timeout: 5000
-    connection.poolSize: 5
-    connection.minimumIdleSize: 2
-    clusterNodes:
-      - "redis://localhost:7001"
-      - "redis://localhost:7002"
-      - "redis://localhost:7003"
 
-# using redis in standalone mode
+# Using redis in cluster mode
 #lock:
 #  provider: "redis"
 #  properties:
-#    clusterMode: false
+#    clusterMode: true
 #    password: karya
 #    waitTime: 1000
 #    leaseTime: 5000
@@ -39,7 +35,23 @@ lock:
 #    connection.poolSize: 5
 #    connection.minimumIdleSize: 2
 #    clusterNodes:
-#      - "redis://localhost:6379"
+#      - "redis://localhost:7001"
+#      - "redis://localhost:7002"
+#      - "redis://localhost:7003"
+
+# using redis in standalone mode
+lock:
+  provider: "redis"
+  properties:
+    clusterMode: false
+    password: karya
+    waitTime: 1000
+    leaseTime: 5000
+    connection.timeout: 5000
+    connection.poolSize: 5
+    connection.minimumIdleSize: 2
+    clusterNodes:
+      - "redis://localhost:6379"
 
 queue:
   provider: "rabbitmq"

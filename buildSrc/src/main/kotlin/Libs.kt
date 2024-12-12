@@ -1,7 +1,9 @@
 object Libs {
+
   const val KOTLIN_REFLECT = "org.jetbrains.kotlin:kotlin-reflect:1.8.10"
   const val SLF4J = "org.slf4j:slf4j-simple:2.0.0"
   const val POSTGRES = "org.postgresql:postgresql:42.7.1"
+  const val MYSQL = "mysql:mysql-connector-java:8.0.32"
   const val HIKARI = "com.zaxxer:HikariCP:6.0.0"
   const val REDISSON = "org.redisson:redisson:3.17.6"
   const val FLYWAY = "org.flywaydb:flyway-core:9.2.0"

@@ -10,7 +10,9 @@ dependencies {
   implementation(Libs.Exposed.JAVA_TIME)
   implementation(Libs.Exposed.JDBC)
   implementation(Libs.Exposed.JSON)
+
   implementation(Libs.POSTGRES)
+  implementation(Libs.MYSQL)
 
   implementation(Libs.Dagger.LIBRARY)
   implementation(Libs.FLYWAY)
