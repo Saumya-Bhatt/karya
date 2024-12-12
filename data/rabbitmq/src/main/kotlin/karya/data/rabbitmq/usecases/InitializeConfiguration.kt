@@ -1,4 +1,4 @@
-package karya.data.rabbitmq.usecases.external
+package karya.data.rabbitmq.usecases
 
 import com.rabbitmq.client.Channel
 import karya.data.rabbitmq.configs.ExchangeConfig.DL_EXCHANGE_NAME

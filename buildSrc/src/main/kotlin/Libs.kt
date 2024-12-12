@@ -10,6 +10,7 @@ object Libs {
   const val RABBIT_MQ = "com.rabbitmq:amqp-client:5.22.0"
   const val SLACK_API = "com.slack.api:slack-api-client:1.44.2"
   const val KAFKA_CLIENT = "org.apache.kafka:kafka-clients:3.0.0"
+  const val SQS = "software.amazon.awssdk:sqs:2.25.11"
 
   object Log4j {
     private const val GROUP = "org.apache.logging.log4j"

@@ -23,6 +23,7 @@ The following interfaces are currently implemented within Karya with rest more o
 | Repo Adapter                            | Locks Adapter              | Queue Adapter                         |
 |-----------------------------------------|----------------------------|---------------------------------------|
 | [Postgres](https://www.postgresql.org/) | [Redis](https://redis.io/) | [RabbitMQ](https://www.rabbitmq.com/) |
+| | | [SQS](https://aws.amazon.com/sqs/)    |
 
 > All the adapters that Karya support can be used in a cluster mode as well making Karya even more fault tolerant.
 ---
@@ -54,14 +55,7 @@ queue:
     // Properties of the queue provider
 ```
 
-[Sample providers.yml file](../../configs/providers.yml)
-
-The above sample .yml file describes a way where we are using *Postgres as repo*, *Redis as Locks* and *RabbitMQ as
-queue*. But you can connect any interface of your choice and provided Karya has the ability to support it, it should
-work seamlessly.
-
-To swap in a different interfaces, change the `provider` key in any of repo/lock/queue section and pass in the
-properties accordingly.
+[This section](../../configs/README.md#providers) has sample `providers.yml` files that can be used to get started quickly.
 
 ---
 
@@ -80,9 +74,7 @@ These are the properties that can/should be set for the Postgres repo interface:
 | *hikari* | One can set all the configurable options provided by hikari here just as you set them in a *.properties* file |
 
 <details>
-<summary><strong>Example</strong></summary>
-
-> *Note* : Configure the `datasource.url` accordingly to connect to a cluster of databases. The `loadBalanceStrategy` will pick the node with the best response time. If want to use in standalone mode, just provide the url of the database.
+<summary><strong>Standalone mode example</strong></summary>
 
 ```yml
 repo:
@@ -94,7 +86,28 @@ repo:
       dataSource.user: "karya"
       dataSource.password: "karya"
       dataSource.databaseName: "karya"
-      dataSource.url: "jdbc:postgresql://localhost:5432,localhost:5433/karya?loadBalanceStrategy=bestResponse"
+      dataSource.portNumber: 5432
+      dataSource.serverName: "localhost"
+      maximumPoolSize: 10
+      connectionTimeout: 5000
+```
+
+</details>
+
+<details>
+<summary><strong>Cluster mode example</strong></summary>
+
+```yml
+repo:
+  provider: "psql"
+  partitions: 5
+  properties:
+    hikari:
+      dataSourceClassName: "org.postgresql.ds.PGSimpleDataSource"
+      dataSource.user: "karya"
+      dataSource.password: "karya"
+      dataSource.databaseName: "karya"
+      dataSource.url: "jdbc:postgresql://localhost:5432,localhost:5433/karya?loadBalanceStrategy=bestResponse&targetServerType=any&connectTimeout=1&failoverTimeout=30"
       maximumPoolSize: 10
       connectionTimeout: 5000
 ```
@@ -125,7 +138,27 @@ These are the properties that can/should be set for the Redis locks interface:
 | *clusterNodes* | The list of nodes in the Redis cluster. Provide the host and port of each node. When in standalone mode, the first node in the list will be used. |
 
 <details>
-<summary><strong>Example</strong></summary>
+<summary><strong>Standalone mode example</strong></summary>
+
+```yml
+lock:
+  provider: "redis"
+  properties:
+    clusterMode: false
+    password: karya
+    waitTime: 1000
+    leaseTime: 5000
+    connection.timeout: 5000
+    connection.poolSize: 5
+    connection.minimumIdleSize: 2
+    clusterNodes:
+      - "redis://localhost:6379"
+```
+
+</details>
+
+<details>
+<summary><strong>Cluster mode example</strong></summary>
 
 ```yml
 lock:
@@ -167,9 +200,24 @@ These are the properties that can/should be set for the RabbitMQ queue interface
 
 <details>
 
-<summary><strong>Example</strong></summary>
+<summary><strong>Standalone mode example</strong></summary>
 
-> *Note* : Configure the `clusterNodes` accordingly to connect to a cluster of RabbitMQ servers. If want to use in standalone mode, just provide the url of the RabbitMQ server.
+```yml
+queue:
+  provider: "rabbitmq"
+  properties:
+    username: "karya"
+    password: "karya"
+    virtualHost: "/"
+    clusterNodes:
+      - "localhost:5672"
+```
+
+</details>
+
+<details>
+
+<summary><strong>Cluster mode example</strong></summary>
 
 ```yml
 queue:
@@ -184,4 +232,48 @@ queue:
 ```
 
 </details>
+
+### Configuring SQS
+
+> **providers.yml key:** *sqs*
+
+These are the properties that can/should be set for the SQS queue interface:
+
+| Key                     | Description                                                                                                                                           |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *overrideLocalUrl*      | The local URL to override the SQS server URL. This is more useful when setting up locally using LocalStack. For production, set this to empty string. |
+| *awsConfig.region*      | The region where the SQS server is hosted                                                                                                             |
+| *awsConfig.accessKeyId* | The access key to connect to the SQS server                                                                                                           |
+| *awsConfig.secretKey*   | The secret key to connect to the SQS server                                                                                                           |
+| *queueConfig.executorQueueUrl*          | The URL of the Executor SQS queue to connect to                                                                                                       |
+| *queueConfig.hooksQueueUrl*             | The URL of the Hooks SQS queue to connect to                                                                                                          |
+| *queueConfig.deadLetterQueueUrl*        | The URL of the Dead Letter SQS queue to connect to                                                                                                    |
+| *queueConfig.maxMessageFetched*         | The maximum number of messages to fetch at a time                                                                                                     |
+| *queueConfig.longPollingWaitTime*       | The long polling wait time for the SQS queue                                                                                                          |
+| *queueConfig.visibilityTimeout*         | The visibility timeout for the SQS queue                                                                                                              |
+
+<details>
+
+<summary><strong>Example</strong></summary>
+
+```yml
+queue:
+  provider: "sqs"
+  properties:
+    overrideLocalUrl: "http://localhost:4566"
+    awsConfig:
+      region: "us-east-1"
+      accessKeyId: " 1234"
+      secretAccessKey: "1234"
+    queueConfig:
+      executorQueueUrl: "http://localhost:4566/000000000000/executor_queue.fifo"
+      hooksQueueUrl: "http://localhost:4566/000000000000/hooks_queue.fifo"
+      deadLetterQueueUrl: "http://localhost:4566/000000000000/dead_letter_queue.fifo"
+      maxMessageFetched: 10
+      longPollingWaitTime: 5
+      visibilityTimeout: 60
+```
+
+</details>
+
 

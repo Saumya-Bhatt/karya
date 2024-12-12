@@ -4,7 +4,7 @@ Firstly, thank you for considering contributing to Karya! Here are a few guideli
 
 ## Getting Started
 
-1. Go through the [Architecture Overview](../docs/documentation/OVERVIEW.md) to understand the components of Karya.
+1. Go through the [Architecture Overview](../docs/documentation/ARCHITECTURE) to understand the components of Karya.
 2. Set up the application locally by following the [Local Setup](../docs/documentation/LOCAL_SETUP.md) guide.
 3. Follow the contribution guidelines mentioned below.
 4. Fork the repository and start contributing!

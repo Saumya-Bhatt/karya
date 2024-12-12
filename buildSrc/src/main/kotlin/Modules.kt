@@ -6,6 +6,7 @@ object Modules {
   object Data {
     private const val DATA = ":data"
 
+    const val SQS = "$DATA-sqs"
     const val PSQL = "$DATA-psql"
     const val FUSED = "$DATA-fused"
     const val REDIS = "$DATA-redis"

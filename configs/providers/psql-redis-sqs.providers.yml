@@ -1,0 +1,42 @@
+repo:
+  provider: "psql"
+  partitions: 5
+  properties:
+    hikari:
+      dataSourceClassName: "org.postgresql.ds.PGSimpleDataSource"
+      dataSource.user: "karya"
+      dataSource.password: "karya"
+      dataSource.databaseName: "karya"
+      dataSource.portNumber: 5432
+      dataSource.serverName: "localhost"
+      maximumPoolSize: 10
+      connectionTimeout: 5000
+
+lock:
+  provider: "redis"
+  properties:
+    clusterMode: false
+    password: karya
+    waitTime: 1000
+    leaseTime: 5000
+    connection.timeout: 5000
+    connection.poolSize: 5
+    connection.minimumIdleSize: 2
+    clusterNodes:
+      - "redis://localhost:6379"
+
+queue:
+  provider: "sqs"
+  properties:
+    overrideLocalUrl: "http://localhost:4566"
+    awsConfig:
+      region: "us-east-1"
+      accessKeyId: " 1234"
+      secretAccessKey: "1234"
+    queueConfig:
+      executorQueueUrl: "http://localhost:4566/000000000000/executor_queue.fifo"
+      hooksQueueUrl: "http://localhost:4566/000000000000/hooks_queue.fifo"
+      deadLetterQueueUrl: "http://localhost:4566/000000000000/dead_letter_queue.fifo"
+      maxMessageFetched: 10
+      longPollingWaitTime: 5
+      visibilityTimeout: 60
