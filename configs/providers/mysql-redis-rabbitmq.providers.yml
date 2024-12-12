@@ -3,11 +3,12 @@ repo:
   partitions: 5
   properties:
     hikari:
-      dataSourceClassName: "org.postgresql.ds.PGSimpleDataSource"
+      dataSourceClassName: "com.mysql.cj.jdbc.MysqlDataSource"
       dataSource.user: "karya"
       dataSource.password: "karya"
       dataSource.databaseName: "karya"
-      dataSource.url: "jdbc:postgresql://localhost:5432,localhost:5433/karya?loadBalanceStrategy=bestResponse&targetServerType=any&connectTimeout=1&failoverTimeout=30"
+      dataSource.portNumber: 5432
+      dataSource.serverName: "localhost"
       maximumPoolSize: 10
       connectionTimeout: 5000
 
