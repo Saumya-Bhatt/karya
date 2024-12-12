@@ -25,7 +25,6 @@ suspend fun KaryaException.toHttpResponse(call: ApplicationCall) =
 
     is TaskException.UnknownTaskStatusException -> call.respond(HttpStatusCode.InternalServerError, this.message)
     is TaskException.TaskNotCreatedException -> call.respond(HttpStatusCode.InternalServerError, this.message)
-    is TaskException.TaskNotFoundException -> call.respond(HttpStatusCode.NotFound, this.message)
 
     is LocksException.UnableToAcquireLockException -> call.respond(HttpStatusCode.ServiceUnavailable, this.message)
 

@@ -28,15 +28,4 @@ sealed class TaskException : KaryaException() {
     private val taskStatusId: Int,
     override val message: String = "Unknown Task Status ID --- $taskStatusId",
   ) : TaskException()
-
-  /***
-   * Exception thrown when a task is not found.
-   *
-   * @property taskId The unique identifier of the task that was not found.
-   * @property message The error message.
-   */
-  data class TaskNotFoundException(
-    private val taskId: UUID,
-    override val message: String = "Task not found --- $taskId",
-  ) : TaskException()
 }
