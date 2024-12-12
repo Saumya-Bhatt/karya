@@ -16,6 +16,8 @@ Karya requires at least these 3 interfaces to be implemented for it to work:
 
 ## Supported Adapters
 
+> All the adapters that Karya support can be used in a cluster mode as well making Karya even more fault tolerant.
+
 Karya provides ability to just plug and play provided the implementation for the said interface is supported by it.
 Users can easily connect their existing repo/locks/queues with Karya, spin up Karya's nodes and start scheduling tasks!
 The following interfaces are currently implemented within Karya with rest more on the way:
@@ -25,7 +27,6 @@ The following interfaces are currently implemented within Karya with rest more o
 | [Postgres](https://www.postgresql.org/) | [Redis](https://redis.io/) | [RabbitMQ](https://www.rabbitmq.com/) |
 | | | [SQS](https://aws.amazon.com/sqs/)    |
 
-> All the adapters that Karya support can be used in a cluster mode as well making Karya even more fault tolerant.
 ---
 
 ## How to configure adapters?
@@ -57,11 +58,13 @@ queue:
 
 [This section](../../configs/README.md#providers) has sample `providers.yml` files that can be used to get started quickly.
 
+Follow the below sections to configure exactly the data interface that you would want to attatch with Karya.
+
 ---
 
-## Configuring Repo Adapter
+## Repo Adapters
 
-This section describes the various repo interfaces that can be configured on Karya
+This section describes the various repo interfaces that can be configured to work with Karya
 
 ### Configuring Postgres
 
@@ -116,9 +119,9 @@ repo:
 
 ---
 
-## Configuring Locks Adapter
+## Locks Adapters
 
-This section describes the various locks interfaces that can be configured on Karya
+This section describes the various locks interfaces that can be configured to work with Karya
 
 ### Configuring Redis
 
@@ -181,9 +184,9 @@ lock:
 
 ---
 
-## Configuring Queue Adapter
+## Queue Adapters
 
-This section describes the various queue interfaces that can be configured on Karya
+This section describes the various queue interfaces that can be configured to work with Karya
 
 ### Configuring RabbitMQ
 
