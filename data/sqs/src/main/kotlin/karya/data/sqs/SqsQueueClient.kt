@@ -8,12 +8,13 @@ import karya.core.utils.encodeToString
 import karya.data.sqs.configs.QueueConfig
 import karya.data.sqs.usecases.CheckIfQueueCreated
 import karya.data.sqs.usecases.ConsumeMessage
-import kotlinx.coroutines.delay
 import kotlinx.serialization.json.Json
 import org.apache.logging.log4j.kotlin.Logging
 import org.apache.logging.log4j.kotlin.logger
 import software.amazon.awssdk.services.sqs.SqsClient
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
@@ -29,6 +30,9 @@ constructor(
 
   companion object : Logging {
     val isRunning = AtomicBoolean(true)
+
+    private val shutdownLatch = CountDownLatch(1)
+    private const val SHUTDOWN_DELAY_SECONDS = 5L
 
     private const val EXECUTOR_QUEUE_ID = "executor"
     private const val HOOKS_QUEUE_ID = "hooks"
@@ -79,8 +83,9 @@ constructor(
   override suspend fun shutdown(): Boolean {
     return try {
       isRunning.set(false)
-      delay(config.longPollingWaitTime * 60L)
-      sqsClient.close()
+      if (shutdownLatch.await(SHUTDOWN_DELAY_SECONDS, TimeUnit.SECONDS)) {
+        sqsClient.close()
+      }
       true
     } catch (e: Exception) {
       logger.error(e) { "Error during shutdown: ${e.message}" }
