@@ -9,7 +9,7 @@ This section describes how to set up and run the application locally for testing
 
 ## Setting up Providers
 
-Before running the application, you need to set up the providers. The providers are the external services that Karya uses to store data, manage locks, and communicate between different components. The providers can be configured in the `providers.yml` file. A sample file can be found [here](../../configs/providers.yml).
+Before running the application, you need to set up the providers. The providers are the external services that Karya uses to store data, manage locks, and communicate between different components. The providers can be configured in the `providers.yml` file. A sample file can be found [here](../../configs/providers/psql-redis-rabbitmq.providers.yml).
 
 ### Providers in standalone mode
 
@@ -89,11 +89,11 @@ docker-compose -f ./docs/local-setup/cluster/rabbitmq.docker-compose.yml up -d
 
 ## Running the application
 
-Now that the providers have been setup, it is time to run the application.
+Now that the providers have been set up, it is time to run the application.
 
 ### Providing configuration files
 
-1. Create a `providers.yml` file ([sample](../../configs/providers.yml)). Refer to the [data-adapters](./DATA_ADAPTERS.md) section for more information on how to configure the providers.
+1. Create a `providers.yml`. Refer to the [data-adapters](./DATA_ADAPTERS.md) section for more information on how to configure the providers. Sample files can be found [here](../../configs/README.md#providers).
 2. Create a `server.yml` file ([sample](../../configs/server.yml)). Refer to the [server](./COMPONENTS.md/#server) section for more information on how to configure the server.
 3. Create a `scheduler.yml` file ([sample](../../configs/scheduler.yml)). Refer to the [scheduler](./COMPONENTS.md/#scheduler) section for more information on how to configure the scheduler.
 4. Create a `executor.yml` file ([sample](../../configs/executor.yml)). Refer to the [executor](./COMPONENTS.md/#executor) section for more information on how to configure the executor.
@@ -122,10 +122,22 @@ Now that the providers have been setup, it is time to run the application.
 
 Run a [MakePeriodicApiCall.kt.kt](../docs/samples/src/main/kotlin/karya/docs/samples/MakePeriodicApiCall.kt) to schedule a dummy plan and check if the setup is working fine.
 
+---
+
+## Testing
+
 ### For testing Kafka Connector
 
 - Start the Kafka service
 - In the Kafka UI dashboard, create a cluster and provide the bootstrap server as `kafka:9090`
   ```shell
-  docker-compose -f ./docs/local-setup/kafka.docker-compose.yml up -d
+  docker-compose -f ./docs/local-setup/test-helpers/kafka.docker-compose.yml up -d
   ```
+
+### For testing locally with AWS SQS as a queue provider
+
+- Start the SQS service and create the necessary queues.
+    ```shell
+    docker-compose -f ./docs/local-setup/test-helpers/sqs.docker-compose.yml up -d
+    ```
+- Fetch the queue URL from the `create-queues` container logs and update the `providers.yml` file accordingly.

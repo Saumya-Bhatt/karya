@@ -1,0 +1,32 @@
+services:
+
+  localstack:
+    container_name: localstack
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"  # Primary LocalStack endpoint
+    environment:
+      - SERVICES=sqs
+      - DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=1234
+      - AWS_SECRET_ACCESS_KEY=1234
+      - LOCALSTACK_HOST=localhost
+      - EDGE_PORT=4566
+      - GATEWAY_PORT=4571
+
+  create-queues:
+    image: amazon/aws-cli
+    depends_on:
+      - localstack
+    environment:
+      - AWS_ACCESS_KEY_ID=1234
+      - AWS_SECRET_ACCESS_KEY=1234
+      - AWS_DEFAULT_REGION=us-east-1
+    entrypoint: /bin/sh -c
+    command: >
+      "
+      sleep 10;
+      aws --endpoint-url=http://localstack:4566 sqs create-queue --queue-name executor_queue.fifo --attributes FifoQueue=true,ContentBasedDeduplication=true;
+      aws --endpoint-url=http://localstack:4566 sqs create-queue --queue-name hooks_queue.fifo --attributes FifoQueue=true,ContentBasedDeduplication=true;
+      aws --endpoint-url=http://localstack:4566 sqs create-queue --queue-name dead_letter_queue.fifo --attributes FifoQueue=true,ContentBasedDeduplication=true;
+      "

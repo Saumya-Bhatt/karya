@@ -11,7 +11,6 @@ repo:
       maximumPoolSize: 10
       connectionTimeout: 5000
 
-# Using redis in cluster mode
 lock:
   provider: "redis"
   properties:
@@ -27,20 +26,6 @@ lock:
       - "redis://localhost:7002"
       - "redis://localhost:7003"
 
-# using redis in standalone mode
-#lock:
-#  provider: "redis"
-#  properties:
-#    clusterMode: false
-#    password: karya
-#    waitTime: 1000
-#    leaseTime: 5000
-#    connection.timeout: 5000
-#    connection.poolSize: 5
-#    connection.minimumIdleSize: 2
-#    clusterNodes:
-#      - "redis://localhost:6379"
-
 queue:
   provider: "rabbitmq"
   properties:
@@ -50,3 +35,4 @@ queue:
     clusterNodes:
       - "localhost:5672"
       - "localhost:5673"
+

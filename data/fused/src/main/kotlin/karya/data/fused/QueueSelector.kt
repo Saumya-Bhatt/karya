@@ -5,6 +5,8 @@ import karya.core.utils.getSection
 import karya.data.fused.exceptions.FusedDataException.UnknownProviderException
 import karya.data.rabbitmq.configs.RabbitMqQueueConfig
 import karya.data.rabbitmq.configs.RabbitMqQueueConfig.Companion.RABBITMQ_IDENTIFIER
+import karya.data.sqs.configs.SqsQueueConfig
+import karya.data.sqs.configs.SqsQueueConfig.Companion.SQS_IDENTIFIER
 
 /**
  * Object responsible for selecting the appropriate queue configuration
@@ -25,6 +27,7 @@ object QueueSelector {
 
     return when (val provider = section["provider"]) {
       RABBITMQ_IDENTIFIER -> RabbitMqQueueConfig(properties)
+      SQS_IDENTIFIER -> SqsQueueConfig(properties)
 
       else -> throw UnknownProviderException("queue", provider.toString())
     }
