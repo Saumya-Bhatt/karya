@@ -59,7 +59,7 @@ queue:
 
 ---
 
-## Configuring Repo Adapter
+## Repo Adapters
 
 This section describes the various repo interfaces that can be configured on Karya
 
@@ -116,7 +116,7 @@ repo:
 
 ---
 
-## Configuring Locks Adapter
+## Locks Adapters
 
 This section describes the various locks interfaces that can be configured on Karya
 
@@ -181,7 +181,7 @@ lock:
 
 ---
 
-## Configuring Queue Adapter
+## Queue Adapters
 
 This section describes the various queue interfaces that can be configured on Karya
 
