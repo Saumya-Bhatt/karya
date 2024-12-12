@@ -1,3 +1,5 @@
+name: local-sqs
+
 services:
 
   localstack:
