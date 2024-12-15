@@ -240,6 +240,8 @@ queue:
 
 > **providers.yml key:** *sqs*
 
+**NOTE:** The SQS queue should be a FIFO queue.
+
 These are the properties that can/should be set for the SQS queue interface:
 
 | Key                     | Description                                                                                                                                           |

@@ -3,6 +3,13 @@
 Karya has the following components which helps it achieve its functionality. Note that **all of the components are
 stateless** hence can be scaled in numbers according to your requirements without any issue.
 
+Also refer to following sections for more info:
+
+- [Data Adapters](./DATA_ADAPTERS.md)
+- [Connectors](./CONNECTORS.md)
+- [Hooks](./HOOKS.md)
+- [Observability](./OBSERVABILITY.md)
+
 ---
 
 ## Client

@@ -1,5 +1,6 @@
 package karya.servers.executor.usecase
 
+import io.prometheus.client.Counter
 import io.prometheus.client.Summary
 import io.prometheus.client.exporter.HTTPServer
 import karya.servers.executor.app.logger
@@ -23,7 +24,7 @@ object MetricsManager {
    * Summary of time from when the task was meant to be executed to when it was fetched by the executor
    */
   val taskPolledLatencySummary: Summary = Summary.build()
-    .name("task_polled_latency_seconds_summary")
+    .name("karya_executor_task_polled_latency_summary")
     .help(
       """
       Summary of time from when the task was meant to be executed to when it was fetched by the executor.
@@ -41,7 +42,7 @@ object MetricsManager {
    * Summary of time from when the executor started executing the task to when it was marked as complete
    */
   val taskExecutionLatencySummary: Summary = Summary.build()
-    .name("task_execution_latency_seconds_summary")
+    .name("karya_executor_task_execution_latency_summary")
     .help(
       """
       Summary of time from when the executor started executing the task to when it was marked as complete.
@@ -54,6 +55,22 @@ object MetricsManager {
     .quantile(P90, ALLOWED_TOLERANCE)
     .quantile(P95, ALLOWED_TOLERANCE)
     .quantile(P99, ALLOWED_TOLERANCE)
+    .register()
+
+  /**
+   * Counter for the number of tasks that were successfully executed
+   */
+  val taskSuccessExecutionCount: Counter = Counter.build()
+    .name("karya_executor_task_success_execution_count")
+    .help("Number of tasks that were successfully executed.")
+    .register()
+
+  /**
+   * Counter for the number of tasks that failed to execute
+   */
+  val taskFailedExecutionCount: Counter = Counter.build()
+    .name("karya_executor_task_failed_execution_count")
+    .help("Number of tasks that failed to execute.")
     .register()
 
   /**

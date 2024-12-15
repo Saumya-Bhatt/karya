@@ -24,7 +24,7 @@ object MetricsManager {
    * and pushed to the internal queue.
    */
   val taskFetchLatencySummary: Summary = Summary.build()
-    .name("task_fetch_latency_seconds_summary")
+    .name("karya_scheduler_task_fetch_latency_seconds_summary")
     .help(
       """
       Summary of time from when the task was meant to be executed to when it was fetched by the scheduler
@@ -44,7 +44,7 @@ object MetricsManager {
    * and pushed to the external queue.
    */
   val taskProcessLatencySummary: Summary = Summary.build()
-    .name("task_process_latency_seconds_summary")
+    .name("karya_scheduler_task_process_latency_seconds_summary")
     .help(
       """
       Summary of time from when the task was fetched from the internal queue to when it was processed by the worker

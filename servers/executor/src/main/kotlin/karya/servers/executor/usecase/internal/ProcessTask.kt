@@ -53,6 +53,7 @@ constructor(
   private suspend fun handleSuccess(result: ExecutorResult.Success, message: QueueMessage.ExecutorMessage) =
     tasksRepo.updateStatus(message.taskId, TaskStatus.SUCCESS, Instant.ofEpochMilli(result.timestamp))
       .also { logger.info("[TASK EXECUTED SUCCESSFULLY] --- [taskId : ${message.taskId} | result : $result]") }
+      .also { MetricsManager.taskSuccessExecutionCount.inc() }
 
   /**
    * Handles the failure of a task execution.
@@ -72,6 +73,7 @@ constructor(
     }
     tasksRepo.updateStatus(message.taskId, TaskStatus.FAILURE, Instant.ofEpochMilli(result.timestamp))
     pushErrorLog(message, result)
+    MetricsManager.taskFailedExecutionCount.inc()
   }
 
   /**
