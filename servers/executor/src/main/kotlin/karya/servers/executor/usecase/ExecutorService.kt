@@ -36,6 +36,7 @@ constructor(
    */
   suspend fun start() {
     logger.info("Starting executor service...")
+    if (config.metricsEnabled) MetricsManager.startMetrics()
     producerClient.initialize()
     consumerClient.consume { message -> processMessage.invoke(message) }
   }
@@ -54,6 +55,7 @@ constructor(
         logger.info("Connector for action [$action] shutdown complete.")
       }
     }
+    if (config.metricsEnabled) MetricsManager.stopMetrics()
     logger.info("Executor service shutdown complete.")
   }
 }

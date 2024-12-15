@@ -9,6 +9,7 @@ object Libs {
   const val SLACK_API = "com.slack.api:slack-api-client:1.44.2"
   const val KAFKA_CLIENT = "org.apache.kafka:kafka-clients:3.0.0"
   const val SQS = "software.amazon.awssdk:sqs:2.25.11"
+  const val MICROMETER_PROMETHEUS = "io.micrometer:micrometer-registry-prometheus:1.14.2"
 
   object Log4j {
     private const val GROUP = "org.apache.logging.log4j"
@@ -48,6 +49,7 @@ object Libs {
       const val CIO = "$GROUP:ktor-server-cio:$VERSION"
       const val CALL_LOGGING = "$GROUP:ktor-server-call-logging:$VERSION"
       const val CONTENT_NEGOTIATION = "$GROUP:ktor-server-content-negotiation:$VERSION"
+      const val MICROMETER = "$GROUP:ktor-server-metrics-micrometer:$VERSION"
     }
 
     object Client {
@@ -78,5 +80,12 @@ object Libs {
 
     const val API = "javax.mail:javax.mail-api:$VERSION"
     const val IMPL = "com.sun.mail:javax.mail:$VERSION"
+  }
+
+  object Prometheus {
+    private const val GROUP = "io.prometheus"
+    private const val VERSION = "0.11.0"
+
+    const val HTTP_SERVER = "$GROUP:simpleclient_httpserver:$VERSION"
   }
 }

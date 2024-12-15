@@ -28,6 +28,7 @@ sealed class QueueMessage {
     val taskId: UUID,
     val action: Action,
     val maxFailureRetry: Int,
+    val toBeExecutedAt: Long
   ) : QueueMessage()
 
   /**

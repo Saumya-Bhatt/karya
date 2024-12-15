@@ -4,6 +4,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import karya.servers.server.api.router.PlanRouter
 import karya.servers.server.api.router.UserRouter
 import javax.inject.Inject
@@ -26,10 +27,16 @@ constructor(
    *
    * @receiver The Ktor application instance.
    */
-  fun Application.wireRoutes() {
+  fun Application.wireRoutes(meterRegistry: PrometheusMeterRegistry) {
     routing {
+
       // Responds with HTTP 200 OK for the root path
       get { call.respond(HttpStatusCode.OK, Unit) }
+
+      // Prometheus metrics will be exposed here automatically by Micrometer
+      get("/metrics") {
+        call.respond(meterRegistry.scrape())
+      }
 
       // Defines the version 1 API routes
       route("v1") {

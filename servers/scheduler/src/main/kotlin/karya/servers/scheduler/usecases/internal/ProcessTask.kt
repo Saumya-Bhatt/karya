@@ -9,8 +9,11 @@ import karya.core.locks.LocksClient
 import karya.core.locks.entities.LockResult
 import karya.core.repos.PlansRepo
 import karya.core.repos.TasksRepo
+import karya.servers.scheduler.usecases.MetricsManager
 import karya.servers.scheduler.usecases.utils.getInstanceName
 import org.apache.logging.log4j.kotlin.Logging
+import java.time.Duration
+import java.time.Instant
 import javax.inject.Inject
 
 /**
@@ -53,12 +56,14 @@ constructor(
    * @throws PlanNotFoundException If the plan associated with the task is not found.
    */
   private suspend fun processTaskInternal(task: Task) {
+    val now = Instant.now()
     logger.info("[${getInstanceName()}] : [PROCESSING TASK] --- TaskId : ${task.id}")
     val plan = plansRepo.get(task.planId) ?: throw PlanNotFoundException(task.planId)
     updateTaskStatus(plan, task)
 
     val updatedPlan = transitionPlanStatus(plan)
     manageTasks.invoke(updatedPlan, task)
+    measureAndRecordProcessLatency(now)
   }
 
   /**
@@ -91,5 +96,16 @@ constructor(
       .also { logger.info("[${getInstanceName()}] : Plan Status updated : ${plan.status} -> ${it.status}") }
 
     else -> plan
+  }
+
+  /**
+   * Measures the latency of the task processing and records it in the metrics manager.
+   *
+   * @param startTime The time at which the task processing started.
+   */
+  private fun measureAndRecordProcessLatency(startTime: Instant) {
+    val taskFetchedAt = Instant.now()
+    val latency = Duration.between(startTime, taskFetchedAt).toMillis()
+    MetricsManager.taskProcessLatencySummary.observe(latency.toDouble())
   }
 }

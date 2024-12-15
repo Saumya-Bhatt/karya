@@ -2,9 +2,14 @@ package karya.servers.server.app.ktor
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.metrics.micrometer.*
 import io.ktor.server.plugins.calllogging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.request.*
+import io.micrometer.core.instrument.binder.jvm.JvmGcMetrics
+import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics
+import io.micrometer.core.instrument.binder.system.ProcessorMetrics
+import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonNamingStrategy
@@ -25,7 +30,7 @@ constructor() {
    * @receiver The Ktor application instance.
    */
   @OptIn(ExperimentalSerializationApi::class)
-  fun Application.wireFeatures() {
+  fun Application.wireFeatures(meterRegistry: PrometheusMeterRegistry) {
     install(ContentNegotiation) {
       json(
         Json {
@@ -45,6 +50,15 @@ constructor() {
         val endpoint = call.request.uri
         "$status - $httpMethod $endpoint"
       }
+    }
+
+    install(MicrometerMetrics) {
+      registry = meterRegistry
+      meterBinders = listOf(
+        JvmMemoryMetrics(),
+        JvmGcMetrics(),
+        ProcessorMetrics()
+      )
     }
   }
 }

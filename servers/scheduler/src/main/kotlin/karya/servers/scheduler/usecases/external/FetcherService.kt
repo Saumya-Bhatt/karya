@@ -6,6 +6,7 @@ import karya.core.repos.TasksRepo
 import karya.core.repos.entities.GetTasksRequest
 import karya.servers.scheduler.app.SchedulerManager
 import karya.servers.scheduler.configs.SchedulerConfig
+import karya.servers.scheduler.usecases.MetricsManager
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import org.apache.logging.log4j.kotlin.Logging
@@ -39,6 +40,7 @@ constructor(
       val task = getOpenTask()
       if (task != null) {
         taskChannel.send(task)
+        measureAndRecordLatency(task)
       } else {
         logger.info("Poller fetched 0 tasks...")
       }
@@ -58,4 +60,16 @@ constructor(
     status = TaskStatus.CREATED,
   ).let { tasksRepo.get(it) }
     ?.also { tasksRepo.updateStatus(it.id, TaskStatus.PROCESSING) }
+
+  /**
+    * Measures the latency of the task fetch and records it in the metrics manager.
+    *
+    * @param task The task that was fetched.
+   */
+  private fun measureAndRecordLatency(task: Task) {
+    val taskSupposedToHappenAt = task.nextExecutionAt?.let { Instant.ofEpochMilli(it) } ?: return
+    val taskFetchedAt = Instant.now()
+    val latency = Duration.between(taskSupposedToHappenAt, taskFetchedAt).toMillis()
+    MetricsManager.taskFetchLatencySummary.observe(latency.toDouble())
+  }
 }

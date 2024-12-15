@@ -57,7 +57,7 @@ constructor(
    * Wires the features and routes to the Ktor application.
    */
   private fun Application.main() {
-    featureManager.apply { wireFeatures() }
-    routeManager.apply { wireRoutes() }
+    featureManager.apply { wireFeatures(config.meterRegistry) }
+    routeManager.apply { wireRoutes(config.meterRegistry) }
   }
 }

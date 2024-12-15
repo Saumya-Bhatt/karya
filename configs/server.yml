@@ -1,4 +1,5 @@
 application:
+  metricsEnabled: true
   strictMode: true
   maxChainedDepth: 2
   port: 8080

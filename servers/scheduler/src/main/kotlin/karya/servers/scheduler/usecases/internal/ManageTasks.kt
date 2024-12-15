@@ -59,6 +59,7 @@ constructor(
     taskId = task.id,
     action = plan.action,
     maxFailureRetry = plan.maxFailureRetry,
+    toBeExecutedAt = task.nextExecutionAt!!
   ).also { queueClient.push(it) }
 
   /**

@@ -3,6 +3,7 @@ package karya.servers.scheduler.app
 import karya.servers.scheduler.configs.SchedulerConfig
 import karya.servers.scheduler.di.factories.SchedulerFetcherFactory
 import karya.servers.scheduler.di.factories.SchedulerWorkerFactory
+import karya.servers.scheduler.usecases.MetricsManager
 import karya.servers.scheduler.usecases.SchedulerWorker
 import kotlinx.coroutines.*
 import org.apache.logging.log4j.kotlin.Logging
@@ -38,6 +39,7 @@ class SchedulerManager(
    */
   fun start() {
     runBlocking {
+      if (config.metricsEnabled) MetricsManager.startMetrics()
       scope.launch(fetcherErrorHandler) { fetcher.start() }
       workers.forEachIndexed { index, worker ->
         scope.launch(workerErrorHandlerFor(index, worker)) { worker.start(index, fetcher.taskReadChannel) }
@@ -56,6 +58,7 @@ class SchedulerManager(
           workers.forEachIndexed { index, worker -> worker.stop(index) }
         }
         dispatcher.close()
+        if (config.metricsEnabled) MetricsManager.stopMetrics()
         logger.info { "Scheduler manager stopped completely." }
       }
     }
