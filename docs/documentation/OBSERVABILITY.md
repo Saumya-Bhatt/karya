@@ -30,3 +30,19 @@ All the metrics are exposed via the following ports and are prometheus compatibl
 Karya provides a Grafana dashboard that can be used to visualize the metrics. The dashboard can be found [here](../local-setup/observability/Karya_Monitoring_Dashboard_v1.json)
 
 ![Grafana Dashboard Screenshot](../media/monitoring_dashboard_v1_screenshot.png)
+
+## Alerting
+
+Karya does not provide any alerting mechanism out of the box. However, one can use Prometheus AlertManager to set up alerts based on the metrics exposed by Karya.
+
+Some of the common alerts based on the metrics listed above that can be set up are:
+
+1. Alert when the number of tasks in the external queue exceeds a certain threshold. This can be setup at the `queue` adapter that you are using.
+2. Alert when the success rate goes down below a certain threshold.
+3. Alert when the latency of fetching tasks from the repo exceeds a certain threshold. This can be used to adjust the polling frequency.
+4. Alert when the latency of processing tasks by the scheduler exceeds a certain threshold. This can be used to adjust the number of workers in the scheduler.
+5. Alert when the latency of executing tasks by the executor exceeds a certain threshold. This can be used to adjust the number of executors.
+
+> ### Failure Hooks
+> 
+> One can also attach an [on-failure hook](./HOOKS.md) to a task that can be used to send alerts via email, slack, etc. when a task fails.
