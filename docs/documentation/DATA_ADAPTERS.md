@@ -22,10 +22,10 @@ Karya provides ability to just plug and play provided the implementation for the
 Users can easily connect their existing repo/locks/queues with Karya, spin up Karya's nodes and start scheduling tasks!
 The following interfaces are currently implemented within Karya with rest more on the way:
 
-| Repo Adapter                            | Locks Adapter              | Queue Adapter                         |
-|-----------------------------------------|----------------------------|---------------------------------------|
-| [Postgres](https://www.postgresql.org/) | [Redis](https://redis.io/) | [RabbitMQ](https://www.rabbitmq.com/) |
-| | | [SQS](https://aws.amazon.com/sqs/)    |
+| Repo Adapter                                     | Locks Adapter                                            | Queue Adapter                         |
+|--------------------------------------------------|----------------------------------------------------------|---------------------------------------|
+| [Postgres](https://www.postgresql.org/)          | [Redis](https://redis.io/)                               | [RabbitMQ](https://www.rabbitmq.com/) |
+| [AWS Aurora](https://aws.amazon.com/rds/aurora/) | [ElastiCache](https://aws.amazon.com/elasticache/redis/) | [SQS](https://aws.amazon.com/sqs/)    |
 
 ---
 
@@ -66,7 +66,7 @@ Follow the below sections to configure exactly the data interface that you would
 
 This section describes the various repo interfaces that can be configured to work with Karya
 
-### Configuring Postgres
+### Configuring Postgres/Aurora
 
 > **providers.yml key:** *psql*
 
@@ -123,7 +123,7 @@ repo:
 
 This section describes the various locks interfaces that can be configured to work with Karya
 
-### Configuring Redis
+### Configuring Redis/Elasticache
 
 > **providers.yml key:** *redis*
 
