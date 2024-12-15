@@ -143,3 +143,15 @@ Run a [MakePeriodicApiCall.kt.kt](../docs/samples/src/main/kotlin/karya/docs/sam
     docker-compose -f ./docs/local-setup/test-helpers/sqs.docker-compose.yml up -d
     ```
 - Fetch the queue URL from the `create-queues` container logs and update the `providers.yml` file accordingly.
+
+### For testing observability/creating new metrics
+
+Refer to the [Observability](./OBSERVABILITY.md) section for more details on how to create new metrics.
+
+- Start the Prometheus and Grafana services.
+    ```shell
+    docker-compose -f ./docs/local-setup/test-helpers/observability.docker-compose.yml up -d
+    ```
+- Access the Grafana dashboard at `http://localhost:3000` with credentials `admin/admin`.
+- Add the Prometheus data source with URL `http://prometheus:9090`.
+- Import the dashboard from [Karya Monitoring Dashboard v1.json](../local-setup/observability/Karya_Monitoring_Dashboard_v1.json).

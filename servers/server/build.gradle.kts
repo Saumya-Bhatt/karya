@@ -8,6 +8,7 @@ dependencies {
   implementation(project(Modules.Data.FUSED))
 
   implementation(Libs.SLF4J)
+  implementation(Libs.MICROMETER_PROMETHEUS)
 
   implementation(Libs.Log4j.API)
   implementation(Libs.Log4j.CORE)
@@ -17,6 +18,7 @@ dependencies {
   implementation(Libs.Ktor.Server.CORE)
   implementation(Libs.Ktor.Server.CIO)
   implementation(Libs.Ktor.Server.CALL_LOGGING)
+  implementation(Libs.Ktor.Server.MICROMETER)
   implementation(Libs.Ktor.Server.CONTENT_NEGOTIATION)
 
   implementation(Libs.Kotlinx.COROUTINES)

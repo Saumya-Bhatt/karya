@@ -1,4 +1,5 @@
 application:
+  metricsEnabled: true
   threadCount: 2
   workers: 3
   fetcher:

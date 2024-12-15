@@ -26,11 +26,13 @@ import karya.connectors.slack.SlackConnectorConfig as Slack
 /**
  * Configuration class for the executor.
  *
+ * @property metricsEnabled Whether metrics are enabled for the executor.
  * @property fusedDataRepoComponent The component for fused data repository.
  * @property fusedDataQueueComponent The component for fused data queue.
  * @property connectors A map of action types to their corresponding connectors.
  */
 data class ExecutorConfig(
+  val metricsEnabled: Boolean,
   val fusedDataRepoComponent: FusedDataRepoComponent,
   val fusedDataQueueComponent: FusedDataQueueComponent
 ) {
@@ -53,6 +55,7 @@ data class ExecutorConfig(
       val queueConfig = QueueSelector.get(providerFilePath)
 
       return ExecutorConfig(
+        metricsEnabled = application["metricsEnabled"] as Boolean,
         fusedDataRepoComponent = FusedDataRepoComponentFactory.build(repoConfig),
         fusedDataQueueComponent = FusedDataQueueComponentFactory.build(queueConfig)
       )

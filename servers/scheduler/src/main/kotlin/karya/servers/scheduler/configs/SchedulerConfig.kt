@@ -19,6 +19,7 @@ import karya.data.fused.RepoSelector
  * @property pollFrequency The frequency at which tasks are polled.
  * @property partitions The list of partitions from which to poll from.
  * @property executionBufferInMilli The buffer time in milliseconds while fetching a task to be executed.
+ * @property metricsEnabled Whether metrics are enabled.
  * @property repoConfig The configuration for the repository.
  * @property locksConfig The configuration for the locks.
  * @property queueConfig The configuration for the queue.
@@ -30,6 +31,7 @@ data class SchedulerConfig(
   val pollFrequency: Long,
   val partitions: List<Int>,
   val executionBufferInMilli: Long,
+  val metricsEnabled: Boolean,
   val repoConfig: RepoConfig,
   val locksConfig: LocksConfig,
   val queueConfig: QueueConfig,
@@ -54,6 +56,7 @@ data class SchedulerConfig(
         ?: throw YamlMapKeyNotSetException("application.fetcher")
 
       return SchedulerConfig(
+        metricsEnabled = application.readValue("metricsEnabled"),
         threadCount = application.readValue("threadCount"),
         workers = application.readValue("workers"),
 

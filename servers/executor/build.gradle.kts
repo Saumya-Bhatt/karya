@@ -15,6 +15,7 @@ dependencies {
   implementation(Libs.Log4j.CORE)
   implementation(Libs.Log4j.KOTLIN_API)
 
+  implementation(Libs.Prometheus.HTTP_SERVER)
   implementation(Libs.Kotlinx.COROUTINES)
   implementation(Libs.Dagger.LIBRARY)
 

@@ -9,7 +9,9 @@ import karya.core.queues.entities.QueueMessage
 import karya.core.queues.entities.QueueType
 import karya.core.repos.ErrorLogsRepo
 import karya.core.repos.TasksRepo
+import karya.servers.executor.usecase.MetricsManager
 import org.apache.logging.log4j.kotlin.Logging
+import java.time.Duration
 import java.time.Instant
 import javax.inject.Inject
 
@@ -37,10 +39,10 @@ constructor(
    * @param result The result of the executor's operation.
    * @param message The message containing task details.
    */
-  suspend fun invoke(result: ExecutorResult, message: QueueMessage.ExecutorMessage) = when (result) {
+  suspend fun invoke(result: ExecutorResult, message: QueueMessage.ExecutorMessage, start: Instant) = when (result) {
     is ExecutorResult.Success -> handleSuccess(result, message)
     is ExecutorResult.Failure -> handleFailure(result, message)
-  }
+  }.also { measureAndRecordMarkTaskComplete(start) }
 
   /**
    * Handles the successful execution of a task.
@@ -51,6 +53,7 @@ constructor(
   private suspend fun handleSuccess(result: ExecutorResult.Success, message: QueueMessage.ExecutorMessage) =
     tasksRepo.updateStatus(message.taskId, TaskStatus.SUCCESS, Instant.ofEpochMilli(result.timestamp))
       .also { logger.info("[TASK EXECUTED SUCCESSFULLY] --- [taskId : ${message.taskId} | result : $result]") }
+      .also { MetricsManager.taskSuccessExecutionCount.inc() }
 
   /**
    * Handles the failure of a task execution.
@@ -70,6 +73,7 @@ constructor(
     }
     tasksRepo.updateStatus(message.taskId, TaskStatus.FAILURE, Instant.ofEpochMilli(result.timestamp))
     pushErrorLog(message, result)
+    MetricsManager.taskFailedExecutionCount.inc()
   }
 
   /**
@@ -84,4 +88,15 @@ constructor(
     type = ErrorLogType.ExecutorErrorLog(taskId = message.taskId),
     timestamp = result.timestamp
   ).let { errorLogsRepo.push(it) }
+
+  /**
+   * Measures and records the latency of the task execution.
+   *
+   * @param startTime The time at which the task was started.
+   */
+  private fun measureAndRecordMarkTaskComplete(startTime: Instant) {
+    val taskMarkedCompletedAt = Instant.now()
+    val latency = Duration.between(startTime, taskMarkedCompletedAt).toMillis()
+    MetricsManager.taskExecutionLatencySummary.observe(latency.toDouble())
+  }
 }

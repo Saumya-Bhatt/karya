@@ -1,5 +1,7 @@
 package karya.servers.server.configs
 
+import io.micrometer.prometheusmetrics.PrometheusConfig
+import io.micrometer.prometheusmetrics.PrometheusMeterRegistry
 import karya.core.configs.LocksConfig
 import karya.core.configs.RepoConfig
 import karya.core.utils.getSection
@@ -13,6 +15,7 @@ import karya.data.fused.RepoSelector
  * @property maxChainedDepth The maximum depth of chained operations.
  * @property repoConfig The configuration for the repository.
  * @property locksConfig The configuration for the locks.
+ * @property metricsEnabled Indicates if metrics are enabled.
  * @property port The port on which the server will run.
  */
 data class ServerConfig(
@@ -20,8 +23,11 @@ data class ServerConfig(
   val maxChainedDepth: Int,
   val repoConfig: RepoConfig,
   val locksConfig: LocksConfig,
+  val metricsEnabled: Boolean,
   val port: Int
 ) {
+
+  lateinit var meterRegistry: PrometheusMeterRegistry
 
   companion object {
     /**
@@ -39,8 +45,9 @@ data class ServerConfig(
         maxChainedDepth = section["maxChainedDepth"] as Int,
         repoConfig = RepoSelector.get(providersFilePath),
         locksConfig = LocksSelector.get(providersFilePath),
+        metricsEnabled = section["metricsEnabled"] as Boolean,
         port = section["port"] as Int
-      )
+      ).apply { if (metricsEnabled) meterRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT) }
     }
   }
 

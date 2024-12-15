@@ -9,10 +9,13 @@ import karya.core.queues.ProducerQueueClient
 import karya.core.queues.entities.QueueMessage
 import karya.core.queues.entities.QueueType
 import karya.core.repos.PlansRepo
+import karya.servers.executor.usecase.MetricsManager
 import karya.servers.executor.usecase.internal.GetConnector
 import karya.servers.executor.usecase.internal.ProcessTask
 import karya.servers.executor.usecase.internal.TriggerHook
 import org.apache.logging.log4j.kotlin.Logging
+import java.time.Duration
+import java.time.Instant
 import java.util.*
 import javax.inject.Inject
 
@@ -44,11 +47,14 @@ constructor(
    * @param message The executor message to be processed.
    */
   suspend fun invoke(message: QueueMessage.ExecutorMessage) = try {
+    val now = Instant.now()
+    measureAndRecordPolledLatency(message.toBeExecutedAt, now)
+
     val connector = getConnector.invoke(message.action)
     val result = connector.invoke(message.planId, message.action)
     val plan = plansRepo.get(message.planId) ?: throw PlanException.PlanNotFoundException(message.planId)
 
-    processTask.invoke(result, message)
+    processTask.invoke(result, message, now)
     processPlan(plan)
     plan.hook.forEach { triggerHook.invoke(plan, it, result) }
 
@@ -77,4 +83,16 @@ constructor(
    */
   private suspend fun markPlanCompleted(planId: UUID) =
     plansRepo.updateStatus(planId, PlanStatus.COMPLETED)
+
+  /**
+   * Measures and records the latency between the expected execution time and the time the task was polled.
+   *
+   * @param startTime The time at which the task was expected to
+   * @param now The current time.
+   */
+  private fun measureAndRecordPolledLatency(startTime: Long, now: Instant) {
+    val expectedExecutionTime = Instant.ofEpochMilli(startTime)
+    val latency = Duration.between(expectedExecutionTime, now).toMillis()
+    MetricsManager.taskPolledLatencySummary.observe(latency.toDouble())
+  }
 }
