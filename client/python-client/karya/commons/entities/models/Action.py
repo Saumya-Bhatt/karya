@@ -36,9 +36,9 @@ class EmailRequest(ActionType):
 
 @dataclass
 class KafkaProducerRequest(ActionType):
-    key: Optional[str]
     topic: str
     message: str
+    key: Optional[str] = field(default=None)
     type: str = "karya.core.entities.Action.KafkaProducerRequest"
 
 

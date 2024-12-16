@@ -9,8 +9,8 @@ from karya.commons.entities.requests import (
     CreateUserRequest,
     SubmitPlanRequest,
 )
-from karya.commons.entities.models.Action import EmailRequest
-from karya.commons.entities.models.Plan import OneTime
+from karya.commons.entities.models.Action import KafkaProducerRequest
+from karya.commons.entities.models.Plan import Recurring
 from karya.clients.KaryaRestClient import KaryaRestClient
 
 
@@ -22,24 +22,27 @@ async def main():
     user = await client.create_user(create_user_request)
     print(user)
 
-    email_action = EmailRequest(
-        recipient="recipient@gmail.com",
-        subject="Karya notification",
-        message="Hello from Karya!",
+    kafka_action = KafkaProducerRequest(
+        topic="karya-test",
+        message="Published from executor",
     )
 
     plan_request = SubmitPlanRequest(
         user_id=user.id,
-        description="Make a one-time email request python client with failure hook",
-        period_time="PT5S",
-        max_failure_retry=1,
-        plan_type=OneTime(),
-        action=email_action,
+        description="Make a recurring API call from python client",
+        period_time="PT7S",
+        max_failure_retry=3,
+        plan_type=Recurring(
+            end_at=None,
+        ),
+        action=kafka_action,
     )
 
     plan = await client.submit_plan(plan_request)
     print(plan)
 
+
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(main())
