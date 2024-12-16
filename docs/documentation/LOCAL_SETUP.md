@@ -2,10 +2,14 @@
 
 This section describes how to set up and run the application locally for testing/debugging/developing purpose.
 
+---
+
 ## Pre-Requisites
 
 1. Java version 11 or higher (if running via gradle).
 2. Docker installed on your machine.
+
+---
 
 ## Setting up Providers
 
@@ -87,6 +91,8 @@ docker-compose -f ./docs/local-setup/cluster/rabbitmq.docker-compose.yml up -d
 
 </details>
 
+---
+
 ## Running the application
 
 Now that the providers have been set up, it is time to run the application.
@@ -122,11 +128,19 @@ Now that the providers have been set up, it is time to run the application.
 ./gradlew servers-scheduler:run
 ```
 
-Run a [MakePeriodicApiCall.kt.kt](../docs/samples/src/main/kotlin/karya/docs/samples/MakePeriodicApiCall.kt) to schedule a dummy plan and check if the setup is working fine.
+Run a [MakePeriodicApiCall.kt.kt](../samples/src/main/kotlin/karya/docs/samples/MakePeriodicApiCall.kt) to schedule a dummy plan and check if the setup is working fine. More samples can be found [here](../samples/src/main/kotlin/karya/docs/samples).
 
 ---
 
-## Testing
+## Karya Server API docs
+
+The Karya server exposes a set of REST APIs that can be used to interact with the server. The Postman collection for the same can be found [here](../media/Karya.postman_collection.json).
+
+---
+
+## Testing with external services
+
+Sample docker-compose files are provided in the `docs/local-setup/test-helpers` directory to test the application with external services like Kafka, SQS, etc.
 
 ### For testing Kafka Connector
 

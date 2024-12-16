@@ -102,6 +102,8 @@ Refer to the [Action.EmailRequest](../../core/src/main/kotlin/karya/core/entitie
 
 > **executor.yml type key:** *kafka*
 
+**NOTE:** Message pushed will be a JSON string. The message will be pushed to the topic specified in the plan.
+
 | Key                 | Description                                                                                                                      |
 |---------------------|----------------------------------------------------------------------------------------------------------------------------------|
 | *bootstrap.servers* | The Kafka bootstrap servers to be used to publish the message.                                                                  |

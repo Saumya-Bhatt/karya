@@ -6,6 +6,7 @@ Firstly, thank you for considering contributing to Karya! Here are a few guideli
 
 1. Go through the [Architecture Overview](../docs/documentation/ARCHITECTURE) to understand the components of Karya.
 2. Set up the application locally by following the [Local Setup](../docs/documentation/LOCAL_SETUP.md) guide.
+3. Go through the [Postman Collection](../docs/media/Karya.postman_collection.json) to understand the REST endpoints exposed by the server.
 3. Follow the contribution guidelines mentioned below.
 4. Fork the repository and start contributing!
 
