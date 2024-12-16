@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "python-client"
+version = "0.1.0"
+description = ""
+authors = ["Saumya Bhatt <108668549+SaumyaBhatt106@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+ruff = "^0.8.3"
+pydantic = "^2.10.3"
+httpx = "^0.28.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
