@@ -63,7 +63,7 @@ constructor(
    */
   private suspend fun handleFailure(result: ExecutorResult.Failure, message: QueueMessage.ExecutorMessage) {
     val updatedMessage = message.copy(maxFailureRetry = message.maxFailureRetry - 1)
-    if (message.maxFailureRetry <= 0) {
+    if (updatedMessage.maxFailureRetry <= 0) {
       queueClient.push(updatedMessage, QueueType.DEAD_LETTER)
       logger.error("[MESSAGE PUSHED TO DLQ] --- max retry exceeded | result : $result")
 
