@@ -40,6 +40,8 @@ async def main():
     plan = await client.submit_plan(plan_request)
     print(plan)
 
+
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(main())

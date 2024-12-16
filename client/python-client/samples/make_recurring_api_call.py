@@ -15,24 +15,22 @@ from karya.commons.entities.models.Plan import Recurring
 from karya.clients.KaryaRestClient import KaryaRestClient
 from karya.commons.entities.enums import Protocol, Method
 
-async def main():
 
+async def main():
     config = ClientConfig.dev()
     client = KaryaRestClient(config)
 
-    create_user_request = CreateUserRequest(
-        name="python-client"
-    )
+    create_user_request = CreateUserRequest(name="python-client")
     user = await client.create_user(create_user_request)
     print(user)
-    
+
     rest_action = RestApiRequest(
         protocol=Protocol.HTTPS,
         base_url="eox7wbcodh9parh.m.pipedream.net",
         method=Method.POST,
         headers={"content-type": "application/json"},
         body=JsonBody.from_dict({"message": "Hello from python client"}),
-        timeout=2000
+        timeout=2000,
     )
 
     plan_request = SubmitPlanRequest(
@@ -49,6 +47,8 @@ async def main():
     plan = await client.submit_plan(plan_request)
     print(plan)
 
+
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(main())

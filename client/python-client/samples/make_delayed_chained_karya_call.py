@@ -18,9 +18,7 @@ async def main():
     config = ClientConfig.dev()
     client = KaryaRestClient(config)
 
-    create_user_request = CreateUserRequest(
-        name="python-client"
-    )
+    create_user_request = CreateUserRequest(name="python-client")
     user = await client.create_user(create_user_request)
     print(user)
 
@@ -33,7 +31,7 @@ async def main():
             plan_type=Recurring(
                 end_at=None,
             ),
-            action=RestApiRequest(base_url="eox7wbcodh9parh.m.pipedream.net")
+            action=RestApiRequest(base_url="eox7wbcodh9parh.m.pipedream.net"),
         )
     )
 
@@ -49,6 +47,8 @@ async def main():
     plan = await client.submit_plan(plan_request)
     print(plan)
 
+
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(main())

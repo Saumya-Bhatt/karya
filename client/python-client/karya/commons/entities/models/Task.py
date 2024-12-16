@@ -2,6 +2,7 @@ from karya.commons.entities.enums import TaskStatus
 from typing import Optional
 from dataclasses import dataclass
 
+
 @dataclass
 class Task:
     id: str

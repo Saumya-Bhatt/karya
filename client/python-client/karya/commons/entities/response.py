@@ -10,6 +10,7 @@ class GetPlanResponse:
     plan: Plan
     latest_task: Task
 
+
 @dataclass
 class GetSummaryResponse:
     plan: Plan

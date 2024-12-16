@@ -5,8 +5,10 @@ from karya.commons.entities.enums import Method, Protocol
 from karya.commons.entities.models.HttpBody import EmptyBody
 
 from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
     from karya.commons.entities.requests import SubmitPlanRequest
+
 
 @dataclass
 class RestApiRequest(ActionType):
@@ -14,7 +16,7 @@ class RestApiRequest(ActionType):
     body: HttpBodyType = field(default_factory=lambda: EmptyBody())
     protocol: Protocol = Protocol.HTTP
     method: Method = Method.GET
-    headers: dict = field(default_factory=lambda : {"content-type": "application/json"})
+    headers: dict = field(default_factory=lambda: {"content-type": "application/json"})
     timeout: int = 2000
     type: str = "karya.core.entities.Action.RestApiRequest"
 

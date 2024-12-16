@@ -3,6 +3,7 @@ import json
 from karya.commons.entities.base import HttpBodyType
 from dataclasses import dataclass
 
+
 @dataclass
 class JsonBody(HttpBodyType):
     json_string: str
@@ -11,6 +12,7 @@ class JsonBody(HttpBodyType):
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "JsonBody":
         return cls(json_string=json.dumps(data))
+
 
 @dataclass
 class EmptyBody(HttpBodyType):

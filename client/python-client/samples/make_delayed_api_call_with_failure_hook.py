@@ -19,9 +19,7 @@ async def main():
     config = ClientConfig.dev()
     client = KaryaRestClient(config)
 
-    create_user_request = CreateUserRequest(
-        name="python-client"
-    )
+    create_user_request = CreateUserRequest(name="python-client")
     user = await client.create_user(create_user_request)
     print(user)
 
@@ -50,4 +48,5 @@ async def main():
 
 if __name__ == "__main__":
     import asyncio
+
     asyncio.run(main())

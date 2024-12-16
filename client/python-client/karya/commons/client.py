@@ -12,8 +12,8 @@ from karya.commons.entities.response import (
 )
 import uuid
 
-class Client(ABC):
 
+class Client(ABC):
     @abstractmethod
     async def create_user(self, request: CreateUserRequest) -> User:
         pass
