@@ -1,0 +1,1361 @@
+{
+	"info": {
+		"_postman_id": "a2967252-7ce5-48e7-bf97-749230a1da60",
+		"name": "Karya",
+		"description": "This is the Postman collection to interract with the REST APIs exposed by the Karya Server. This can be used to create various clients so that they can interract with Karya. Do have a look at the [documentation](https://github.com/Saumya-Bhatt/karya/blob/main/docs/documentation/ARCHITECTURE.md) online for more details.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25022880"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"alice\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"user"
+							]
+						},
+						"description": "This endpoint will create a user according to the details specified. Currently there are no validations to this endpoint and is not idempotent."
+					},
+					"response": [
+						{
+							"name": "200 Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"alice\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "87"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"e23e7ddf-0393-446e-a858-a2009195603e\",\n    \"name\": \"alice\",\n    \"created_at\": 1734335664076\n}"
+						}
+					]
+				}
+			],
+			"description": "Only a user which has been registered with Karya can submit plans. This section here details how to interract with the user data component."
+		},
+		{
+			"name": "Plans",
+			"item": [
+				{
+					"name": "Submit Plan",
+					"item": [
+						{
+							"name": "Recurring REST API Action",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_id\": \"2ae1409c-f201-4d45-93ad-e0c238219848\",\n    \"description\": \"Sample run\",\n    \"period_time\": \"PT7S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734292775918\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.RestApiRequest\",\n        \"protocol\": \"HTTPS\",\n        \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n        \"method\": \"POST\",\n        \"headers\": {\n            \"content-type\": \"application/json\",\n            \"client-header\": \"Alice\"\n        },\n        \"body\": {\n            \"type\": \"karya.core.entities.http.Body.JsonBody\",\n            \"json_string\": \"{\\\"udf1\\\":\\\"value\\\",\\\"udf2\\\":1,\\\"udf3\\\":true,\\\"udf4\\\":1.2,\\\"udf5\\\":[1,2,3,4],\\\"udf6\\\":{\\\"nested-udf1\\\":[\\\"a\\\",\\\"b\\\",\\\"c\\\"],\\\"nested-udf2\\\":{\\\"nested-nested-udf1\\\":true}},\\\"udf7\\\":[{\\\"nested-udf3\\\":[1,2,3]}]}\"\n        },\n        \"timeout\": 1000\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/plan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan"
+									]
+								},
+								"description": "This sample here provides a plan to:\n\n- Creating a **bounded recurring** action.\n    \n- Action is making a POST call to an endpoint provided."
+							},
+							"response": [
+								{
+									"name": "200 Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"2ae1409c-f201-4d45-93ad-e0c238219848\",\n    \"description\": \"Sample run\",\n    \"period_time\": \"PT7S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734292775918\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.RestApiRequest\",\n        \"protocol\": \"HTTPS\",\n        \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n        \"method\": \"POST\",\n        \"headers\": {\n            \"content-type\": \"application/json\",\n            \"client-header\": \"Alice\"\n        },\n        \"body\": {\n            \"type\": \"karya.core.entities.http.Body.JsonBody\",\n            \"json_string\": \"{\\\"udf1\\\":\\\"value\\\",\\\"udf2\\\":1,\\\"udf3\\\":true,\\\"udf4\\\":1.2,\\\"udf5\\\":[1,2,3,4],\\\"udf6\\\":{\\\"nested-udf1\\\":[\\\"a\\\",\\\"b\\\",\\\"c\\\"],\\\"nested-udf2\\\":{\\\"nested-nested-udf1\\\":true}},\\\"udf7\\\":[{\\\"nested-udf3\\\":[1,2,3]}]}\"\n        },\n        \"timeout\": 1000\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/v1/plan",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "857"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"06ad0682-63ef-41d1-a8e8-851aff024c07\",\n    \"user_id\": \"2ae1409c-f201-4d45-93ad-e0c238219848\",\n    \"description\": \"Sample run\",\n    \"period_time\": \"PT7S\",\n    \"type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734292775918\n    },\n    \"status\": \"CREATED\",\n    \"max_failure_retry\": 3,\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.RestApiRequest\",\n        \"protocol\": \"HTTPS\",\n        \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n        \"method\": \"POST\",\n        \"headers\": {\n            \"content-type\": \"application/json\",\n            \"client-header\": \"Alice\"\n        },\n        \"body\": {\n            \"type\": \"karya.core.entities.http.Body.JsonBody\",\n            \"json_string\": \"{\\\"udf1\\\":\\\"value\\\",\\\"udf2\\\":1,\\\"udf3\\\":true,\\\"udf4\\\":1.2,\\\"udf5\\\":[1,2,3,4],\\\"udf6\\\":{\\\"nested-udf1\\\":[\\\"a\\\",\\\"b\\\",\\\"c\\\"],\\\"nested-udf2\\\":{\\\"nested-nested-udf1\\\":true}},\\\"udf7\\\":[{\\\"nested-udf3\\\":[1,2,3]}]}\"\n        },\n        \"timeout\": 1000\n    },\n    \"hook\": [],\n    \"parent_plan_id\": null,\n    \"created_at\": 1734335481748,\n    \"updated_at\": 1734335481748\n}"
+								},
+								{
+									"name": "404 - User not found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"1ae1409c-f201-4d45-93ad-e0c238219848\",\n    \"description\": \"Sample run\",\n    \"period_time\": \"PT7S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734292775918\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.RestApiRequest\",\n        \"protocol\": \"HTTPS\",\n        \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n        \"method\": \"POST\",\n        \"headers\": {\n            \"content-type\": \"application/json\",\n            \"client-header\": \"Alice\"\n        },\n        \"body\": {\n            \"type\": \"karya.core.entities.http.Body.JsonBody\",\n            \"json_string\": \"{\\\"udf1\\\":\\\"value\\\",\\\"udf2\\\":1,\\\"udf3\\\":true,\\\"udf4\\\":1.2,\\\"udf5\\\":[1,2,3,4],\\\"udf6\\\":{\\\"nested-udf1\\\":[\\\"a\\\",\\\"b\\\",\\\"c\\\"],\\\"nested-udf2\\\":{\\\"nested-nested-udf1\\\":true}},\\\"udf7\\\":[{\\\"nested-udf3\\\":[1,2,3]}]}\"\n        },\n        \"timeout\": 1000\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/v1/plan",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "53"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=UTF-8"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "User (1ae1409c-f201-4d45-93ad-e0c238219848) not found"
+								}
+							]
+						},
+						{
+							"name": "Recurring Push-to-Kafka Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_id\": \"d02053ab-6514-4cdf-beb5-e95acd07f469\",\n    \"description\": \"Sample run\",\n    \"period_time\": \"PT15S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734333463524\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.KafkaProducerRequest\",\n        \"key\": null,\n        \"topic\": \"karya-test\",\n        \"message\": \"Published from executor\"\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/plan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan"
+									]
+								},
+								"description": "This sample here provides a plan to:\n\n- Creating a **bounded recurring** action.\n    \n- Action is to push a message to a Kafka Topic\n    \n\n> NOTE: The message pushed will be a JSON message"
+							},
+							"response": [
+								{
+									"name": "200 Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"d02053ab-6514-4cdf-beb5-e95acd07f469\",\n    \"description\": \"Sample run\",\n    \"period_time\": \"PT15S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734333463524\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.KafkaProducerRequest\",\n        \"key\": null,\n        \"topic\": \"karya-test\",\n        \"message\": \"Published from executor\"\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/v1/plan",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "486"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"53e606c2-6893-452c-8cc1-1d3870f5a071\",\n    \"user_id\": \"d02053ab-6514-4cdf-beb5-e95acd07f469\",\n    \"description\": \"Sample run\",\n    \"period_time\": \"PT15S\",\n    \"type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734333463524\n    },\n    \"status\": \"CREATED\",\n    \"max_failure_retry\": 3,\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.KafkaProducerRequest\",\n        \"key\": null,\n        \"topic\": \"karya-test\",\n        \"message\": \"Published from executor\"\n    },\n    \"hook\": [],\n    \"parent_plan_id\": null,\n    \"created_at\": 1734335508385,\n    \"updated_at\": 1734335508385\n}"
+								},
+								{
+									"name": "404 - User not found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"d12053ab-6514-4cdf-beb5-e95acd07f469\",\n    \"description\": \"Sample run\",\n    \"period_time\": \"PT15S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734333463524\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.KafkaProducerRequest\",\n        \"key\": null,\n        \"topic\": \"karya-test\",\n        \"message\": \"Published from executor\"\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/v1/plan",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "53"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=UTF-8"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "User (d12053ab-6514-4cdf-beb5-e95acd07f469) not found"
+								}
+							]
+						},
+						{
+							"name": "One-Time Chained Plan",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_id\": \"3ec1d489-4cd6-4a48-b8a7-70a424aa0d9d\",\n    \"description\": \"Sample chained run\",\n    \"period_time\": \"PT15S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.ChainedRequest\",\n        \"request\": {\n            \"user_id\": \"3ec1d489-4cd6-4a48-b8a7-70a424aa0d9d\",\n            \"description\": \"Chained delay run\",\n            \"period_time\": \"PT5S\",\n            \"plan_type\": {\n                \"type\": \"karya.core.entities.PlanType.Recurring\",\n                \"end_at\": 1734333140751\n            },\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            },\n            \"hooks\": [],\n            \"max_failure_retry\": 3\n        }\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/plan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan"
+									]
+								},
+								"description": "This sample here provides a plan to:\n\n- Create a one-time action.\n    \n- Action is to trigger another plan once the current one is triggered.\n    \n    - The chained plan is a bounded recurring plan.\n        \n    - The action of this chained plan is to make a GET request to the endpoint specified."
+							},
+							"response": [
+								{
+									"name": "200 Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"3ec1d489-4cd6-4a48-b8a7-70a424aa0d9d\",\n    \"description\": \"Sample chained run\",\n    \"period_time\": \"PT15S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.ChainedRequest\",\n        \"request\": {\n            \"user_id\": \"3ec1d489-4cd6-4a48-b8a7-70a424aa0d9d\",\n            \"description\": \"Chained delay run\",\n            \"period_time\": \"PT5S\",\n            \"plan_type\": {\n                \"type\": \"karya.core.entities.PlanType.Recurring\",\n                \"end_at\": 1734333140751\n            },\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            },\n            \"hooks\": [],\n            \"max_failure_retry\": 3\n        }\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/v1/plan",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "888"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"1bf044ac-7b28-4d1c-a042-0de4461b51ab\",\n    \"user_id\": \"3ec1d489-4cd6-4a48-b8a7-70a424aa0d9d\",\n    \"description\": \"Sample chained run\",\n    \"period_time\": \"PT15S\",\n    \"type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"status\": \"CREATED\",\n    \"max_failure_retry\": 3,\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.ChainedRequest\",\n        \"request\": {\n            \"user_id\": \"3ec1d489-4cd6-4a48-b8a7-70a424aa0d9d\",\n            \"description\": \"Chained delay run\",\n            \"period_time\": \"PT5S\",\n            \"plan_type\": {\n                \"type\": \"karya.core.entities.PlanType.Recurring\",\n                \"end_at\": 1734333140751\n            },\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            },\n            \"hooks\": [],\n            \"max_failure_retry\": 3\n        }\n    },\n    \"hook\": [],\n    \"parent_plan_id\": null,\n    \"created_at\": 1734335525068,\n    \"updated_at\": 1734335525068\n}"
+								},
+								{
+									"name": "404 - User not found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"1ec1d489-4cd6-4a48-b8a7-70a424aa0d9d\",\n    \"description\": \"Sample chained run\",\n    \"period_time\": \"PT15S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.ChainedRequest\",\n        \"request\": {\n            \"user_id\": \"3ec1d489-4cd6-4a48-b8a7-70a424aa0d9d\",\n            \"description\": \"Chained delay run\",\n            \"period_time\": \"PT5S\",\n            \"plan_type\": {\n                \"type\": \"karya.core.entities.PlanType.Recurring\",\n                \"end_at\": 1734333140751\n            },\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            },\n            \"hooks\": [],\n            \"max_failure_retry\": 3\n        }\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/v1/plan",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "53"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=UTF-8"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "User (1ec1d489-4cd6-4a48-b8a7-70a424aa0d9d) not found"
+								}
+							]
+						},
+						{
+							"name": "One-Time REST API Action with Completion Hook",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_id\": \"070fae80-ded2-41f0-af8c-713d0079a604\",\n    \"description\": \"Delay API call with completion hook\",\n    \"period_time\": \"PT15S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.RestApiRequest\",\n        \"protocol\": \"HTTP\",\n        \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n        \"method\": \"GET\",\n        \"headers\": {\n            \"content-type\": \"application/json\"\n        },\n        \"body\": {\n            \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n        },\n        \"timeout\": 2000\n    },\n    \"hooks\": [\n        {\n            \"max_retry\": 1,\n            \"trigger\": \"ON_COMPLETION\",\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"http://localhost:35423\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            }\n        }\n    ],\n    \"max_failure_retry\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/plan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan"
+									]
+								},
+								"description": "This sample here provides a plan to:\n\n- Create a one-time action.\n    \n- Action is to make a REST API call to the endpoint specified.\n    \n- A completion hook is specified which wil make a REST call to the endpoint specified."
+							},
+							"response": [
+								{
+									"name": "200 Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"070fae80-ded2-41f0-af8c-713d0079a604\",\n    \"description\": \"Delay API call with completion hook\",\n    \"period_time\": \"PT15S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.RestApiRequest\",\n        \"protocol\": \"HTTP\",\n        \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n        \"method\": \"GET\",\n        \"headers\": {\n            \"content-type\": \"application/json\"\n        },\n        \"body\": {\n            \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n        },\n        \"timeout\": 2000\n    },\n    \"hooks\": [\n        {\n            \"max_retry\": 1,\n            \"trigger\": \"ON_COMPLETION\",\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"http://localhost:35423\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            }\n        }\n    ],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/v1/plan",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "900"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"b1fd6795-7ac0-49ca-9fc7-cd717de11498\",\n    \"user_id\": \"070fae80-ded2-41f0-af8c-713d0079a604\",\n    \"description\": \"Delay API call with completion hook\",\n    \"period_time\": \"PT15S\",\n    \"type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"status\": \"CREATED\",\n    \"max_failure_retry\": 3,\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.RestApiRequest\",\n        \"protocol\": \"HTTP\",\n        \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n        \"method\": \"GET\",\n        \"headers\": {\n            \"content-type\": \"application/json\"\n        },\n        \"body\": {\n            \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n        },\n        \"timeout\": 2000\n    },\n    \"hook\": [\n        {\n            \"max_retry\": 1,\n            \"trigger\": \"ON_COMPLETION\",\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"http://localhost:35423\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            }\n        }\n    ],\n    \"parent_plan_id\": null,\n    \"created_at\": 1734335539746,\n    \"updated_at\": 1734335539746\n}"
+								},
+								{
+									"name": "404 - User not found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"170fae80-ded2-41f0-af8c-713d0079a604\",\n    \"description\": \"Delay API call with completion hook\",\n    \"period_time\": \"PT15S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.RestApiRequest\",\n        \"protocol\": \"HTTP\",\n        \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n        \"method\": \"GET\",\n        \"headers\": {\n            \"content-type\": \"application/json\"\n        },\n        \"body\": {\n            \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n        },\n        \"timeout\": 2000\n    },\n    \"hooks\": [\n        {\n            \"max_retry\": 1,\n            \"trigger\": \"ON_COMPLETION\",\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"http://localhost:35423\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            }\n        }\n    ],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/v1/plan",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "53"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=UTF-8"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "User (170fae80-ded2-41f0-af8c-713d0079a604) not found"
+								}
+							]
+						},
+						{
+							"name": "One-Time Email Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_id\": \"f9663146-1a82-476a-b097-3e5e1b8c113c\",\n    \"description\": \"Sample delay email run\",\n    \"period_time\": \"PT5S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.EmailRequest\",\n        \"recipient\": \"recipient@gmail.com\",\n        \"subject\": \"Karya notification\",\n        \"message\": \"Hello from Karya!\"\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/plan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan"
+									]
+								},
+								"description": "This sample here provides a plan to:\n\n- Create a one-time action.\n    \n- Action is to send an email with the contents specified to the reciever mentioned in the plan."
+							},
+							"response": [
+								{
+									"name": "200 Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"f9663146-1a82-476a-b097-3e5e1b8c113c\",\n    \"description\": \"Sample delay email run\",\n    \"period_time\": \"PT5S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.EmailRequest\",\n        \"recipient\": \"recipient@gmail.com\",\n        \"subject\": \"Karya notification\",\n        \"message\": \"Hello from Karya!\"\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/v1/plan",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "491"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"af3ae25c-47d6-40a6-b69d-ba66377129b7\",\n    \"user_id\": \"f9663146-1a82-476a-b097-3e5e1b8c113c\",\n    \"description\": \"Sample delay email run\",\n    \"period_time\": \"PT5S\",\n    \"type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"status\": \"CREATED\",\n    \"max_failure_retry\": 3,\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.EmailRequest\",\n        \"recipient\": \"recipient@gmail.com\",\n        \"subject\": \"Karya notification\",\n        \"message\": \"Hello from Karya!\"\n    },\n    \"hook\": [],\n    \"parent_plan_id\": null,\n    \"created_at\": 1734335554279,\n    \"updated_at\": 1734335554279\n}"
+								},
+								{
+									"name": "404 - User not found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"f1663146-1a82-476a-b097-3e5e1b8c113c\",\n    \"description\": \"Sample delay email run\",\n    \"period_time\": \"PT5S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.OneTime\"\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.EmailRequest\",\n        \"recipient\": \"recipient@gmail.com\",\n        \"subject\": \"Karya notification\",\n        \"message\": \"Hello from Karya!\"\n    },\n    \"hooks\": [],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/v1/plan",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "53"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=UTF-8"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "User (f1663146-1a82-476a-b097-3e5e1b8c113c) not found"
+								}
+							]
+						},
+						{
+							"name": "Recurring SlackMessage Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_id\": \"430c0222-bf4e-4c61-a8f0-da77f41f2396\",\n    \"description\": \"Sample periodic slack run\",\n    \"period_time\": \"PT10S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734333518205\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.SlackMessageRequest\",\n        \"channel\": \"C083L324V99\",\n        \"message\": \"[\\n    {\\n        \\\"type\\\": \\\"section\\\",\\n        \\\"text\\\": {\\n            \\\"type\\\": \\\"mrkdwn\\\",\\n            \\\"text\\\": \\\"Hello, this is periodic slack message from Karya!\\\"\\n        }\\n    }\\n]\"\n    },\n    \"hooks\": [\n        {\n            \"max_retry\": 3,\n            \"trigger\": \"ON_FAILURE\",\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            }\n        }\n    ],\n    \"max_failure_retry\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/plan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan"
+									]
+								},
+								"description": "This sample here provides a plan to:\n\n- Create a bounded recurring action.\n    \n- Action is to write a message to a slack channel."
+							},
+							"response": [
+								{
+									"name": "200 Response",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"430c0222-bf4e-4c61-a8f0-da77f41f2396\",\n    \"description\": \"Sample periodic slack run\",\n    \"period_time\": \"PT10S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734333518205\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.SlackMessageRequest\",\n        \"channel\": \"C083L324V99\",\n        \"message\": \"[\\n    {\\n        \\\"type\\\": \\\"section\\\",\\n        \\\"text\\\": {\\n            \\\"type\\\": \\\"mrkdwn\\\",\\n            \\\"text\\\": \\\"Hello, this is periodic slack message from Karya!\\\"\\n        }\\n    }\\n]\"\n    },\n    \"hooks\": [\n        {\n            \"max_retry\": 3,\n            \"trigger\": \"ON_FAILURE\",\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            }\n        }\n    ],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/v1/plan",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "960"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": \"611b994a-e65d-436f-bdfc-e5b636213f07\",\n    \"user_id\": \"430c0222-bf4e-4c61-a8f0-da77f41f2396\",\n    \"description\": \"Sample periodic slack run\",\n    \"period_time\": \"PT10S\",\n    \"type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734333518205\n    },\n    \"status\": \"CREATED\",\n    \"max_failure_retry\": 3,\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.SlackMessageRequest\",\n        \"channel\": \"C083L324V99\",\n        \"message\": \"[\\n    {\\n        \\\"type\\\": \\\"section\\\",\\n        \\\"text\\\": {\\n            \\\"type\\\": \\\"mrkdwn\\\",\\n            \\\"text\\\": \\\"Hello, this is periodic slack message from Karya!\\\"\\n        }\\n    }\\n]\"\n    },\n    \"hook\": [\n        {\n            \"max_retry\": 3,\n            \"trigger\": \"ON_FAILURE\",\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            }\n        }\n    ],\n    \"parent_plan_id\": null,\n    \"created_at\": 1734335567344,\n    \"updated_at\": 1734335567344\n}"
+								},
+								{
+									"name": "404 - User not found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"130c0222-bf4e-4c61-a8f0-da77f41f2396\",\n    \"description\": \"Sample periodic slack run\",\n    \"period_time\": \"PT10S\",\n    \"plan_type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734333518205\n    },\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.SlackMessageRequest\",\n        \"channel\": \"C083L324V99\",\n        \"message\": \"[\\n    {\\n        \\\"type\\\": \\\"section\\\",\\n        \\\"text\\\": {\\n            \\\"type\\\": \\\"mrkdwn\\\",\\n            \\\"text\\\": \\\"Hello, this is periodic slack message from Karya!\\\"\\n        }\\n    }\\n]\"\n    },\n    \"hooks\": [\n        {\n            \"max_retry\": 3,\n            \"trigger\": \"ON_FAILURE\",\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            }\n        }\n    ],\n    \"max_failure_retry\": 3\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/v1/plan",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"v1",
+												"plan"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "Content-Length",
+											"value": "53"
+										},
+										{
+											"key": "Content-Type",
+											"value": "text/plain; charset=UTF-8"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "User (130c0222-bf4e-4c61-a8f0-da77f41f2396) not found"
+								}
+							]
+						}
+					],
+					"description": "Karya provides enough flexibility to configure the following factors, hence allowing users to create their custom workflows:\n\n1. Should the plan be _one-time_ or _recurring_ in nature\n    \n2. What action to trigger. Currently supported actions are:\n    \n    1. Making REST API call.\n        \n    2. Pushing a message to a Kafka Topic.\n        \n    3. Writing a message to a Slack Channel.\n        \n    4. Sending an email.\n        \n    5. Chaining other plans.\n        \n3. Specify any hooks if needed. Currently supported hooks are:\n    \n    1. `ON_COMPLETION`\n        \n    2. `ON_FAILURE`\n        \n\nRefer to the documentation - [Connectors ](https://github.com/Saumya-Bhatt/karya/blob/main/docs/documentation/CONNECTORS.md) and [Hooks](https://github.com/Saumya-Bhatt/karya/blob/main/docs/documentation/HOOKS.md) section for more details.\n\n> **NOTE:** Setting `end_at` to `null` will make the plan **Unbounded** meaning it will run forever. It is recommended to provide some value to this key (making the plan **bounded**) so as to prevent a task from keep on running."
+				},
+				{
+					"name": "Get Plan By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"plan",
+								"030d905e-b6a6-4956-a9ce-081f28ddd2db"
+							]
+						},
+						"description": "This endpoint takes in the `plan_id` in the path and returns\n\n- The details of the plan submitted.\n    \n- The current status of the plan.\n    \n- The details of the next task in the plan to be executed if any."
+					},
+					"response": [
+						{
+							"name": "200 Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"plan",
+										"030d905e-b6a6-4956-a9ce-081f28ddd2db"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "1197"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"plan\": {\n        \"id\": \"030d905e-b6a6-4956-a9ce-081f28ddd2db\",\n        \"user_id\": \"430c0222-bf4e-4c61-a8f0-da77f41f2396\",\n        \"description\": \"Sample periodic slack run\",\n        \"period_time\": \"PT10S\",\n        \"type\": {\n            \"type\": \"karya.core.entities.PlanType.Recurring\",\n            \"end_at\": 1734333518205\n        },\n        \"status\": \"CANCELLED\",\n        \"max_failure_retry\": 3,\n        \"action\": {\n            \"type\": \"karya.core.entities.Action.SlackMessageRequest\",\n            \"channel\": \"C083L324V99\",\n            \"message\": \"[\\n    {\\n        \\\"type\\\": \\\"section\\\",\\n        \\\"text\\\": {\\n            \\\"type\\\": \\\"mrkdwn\\\",\\n            \\\"text\\\": \\\"Hello, this is periodic slack message from Karya!\\\"\\n        }\\n    }\\n]\"\n        },\n        \"hook\": [\n            {\n                \"max_retry\": 3,\n                \"trigger\": \"ON_FAILURE\",\n                \"action\": {\n                    \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                    \"protocol\": \"HTTP\",\n                    \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                    \"method\": \"GET\",\n                    \"headers\": {\n                        \"content-type\": \"application/json\"\n                    },\n                    \"body\": {\n                        \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                    },\n                    \"timeout\": 2000\n                }\n            }\n        ],\n        \"parent_plan_id\": null,\n        \"created_at\": 1734333488258,\n        \"updated_at\": 1734333874529\n    },\n    \"latest_task\": {\n        \"id\": \"13548c72-685e-4cd6-aa69-72f690053056\",\n        \"plan_id\": \"030d905e-b6a6-4956-a9ce-081f28ddd2db\",\n        \"partition_key\": 4,\n        \"status\": \"CREATED\",\n        \"created_at\": 1734333488283,\n        \"executed_at\": null,\n        \"next_execution_at\": 1734333498258\n    }\n}"
+						},
+						{
+							"name": "404 - Plan Not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/v1/plan/130d905e-b6a6-4956-a9ce-081f28ddd2db",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan",
+										"130d905e-b6a6-4956-a9ce-081f28ddd2db"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=UTF-8"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Plan not found --- 130d905e-b6a6-4956-a9ce-081f28ddd2db"
+						}
+					]
+				},
+				{
+					"name": "Get Plan Execution Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db/summary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"plan",
+								"030d905e-b6a6-4956-a9ce-081f28ddd2db",
+								"summary"
+							]
+						},
+						"description": "This endpoint here provides information regarding:\n\n- The details of the plan submitted.\n    \n- The current status of the plan.\n    \n- A list of all the tasks that were executed as part of the plan.\n    \n- Error logs of any of the tasks which were executed."
+					},
+					"response": [
+						{
+							"name": "200 Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db/summary",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"plan",
+										"030d905e-b6a6-4956-a9ce-081f28ddd2db",
+										"summary"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "1208"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"plan\": {\n        \"id\": \"030d905e-b6a6-4956-a9ce-081f28ddd2db\",\n        \"user_id\": \"430c0222-bf4e-4c61-a8f0-da77f41f2396\",\n        \"description\": \"Sample periodic slack run\",\n        \"period_time\": \"PT10S\",\n        \"type\": {\n            \"type\": \"karya.core.entities.PlanType.Recurring\",\n            \"end_at\": 1734333518205\n        },\n        \"status\": \"CANCELLED\",\n        \"max_failure_retry\": 3,\n        \"action\": {\n            \"type\": \"karya.core.entities.Action.SlackMessageRequest\",\n            \"channel\": \"C083L324V99\",\n            \"message\": \"[\\n    {\\n        \\\"type\\\": \\\"section\\\",\\n        \\\"text\\\": {\\n            \\\"type\\\": \\\"mrkdwn\\\",\\n            \\\"text\\\": \\\"Hello, this is periodic slack message from Karya!\\\"\\n        }\\n    }\\n]\"\n        },\n        \"hook\": [\n            {\n                \"max_retry\": 3,\n                \"trigger\": \"ON_FAILURE\",\n                \"action\": {\n                    \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                    \"protocol\": \"HTTP\",\n                    \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                    \"method\": \"GET\",\n                    \"headers\": {\n                        \"content-type\": \"application/json\"\n                    },\n                    \"body\": {\n                        \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                    },\n                    \"timeout\": 2000\n                }\n            }\n        ],\n        \"parent_plan_id\": null,\n        \"created_at\": 1734333488258,\n        \"updated_at\": 1734333874529\n    },\n    \"list\": [\n        {\n            \"id\": \"13548c72-685e-4cd6-aa69-72f690053056\",\n            \"plan_id\": \"030d905e-b6a6-4956-a9ce-081f28ddd2db\",\n            \"partition_key\": 4,\n            \"status\": \"CREATED\",\n            \"created_at\": 1734333488283,\n            \"executed_at\": null,\n            \"next_execution_at\": 1734333498258\n        }\n    ],\n    \"error_logs\": []\n}"
+						},
+						{
+							"name": "404 - Plan Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/v1/plan/130d905e-b6a6-4956-a9ce-081f28ddd2db/summary",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan",
+										"130d905e-b6a6-4956-a9ce-081f28ddd2db",
+										"summary"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=UTF-8"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Plan not found --- 130d905e-b6a6-4956-a9ce-081f28ddd2db"
+						}
+					]
+				},
+				{
+					"name": "Update Plan",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plan_id\": \"73383061-1e2b-4d67-8f7c-5122b3248766\",\n    \"period_time\": null,\n    \"max_failure_retry\": 4,\n    \"hooks\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/v1/plan",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"plan"
+							]
+						},
+						"description": "This endpoint helps update an existing plan. One can change:\n\n- the frequency of the plan\n    \n- the number of times to retry if a task within the plan fails\n    \n- attatch any hooks to the plan"
+					},
+					"response": [
+						{
+							"name": "200 Response",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plan_id\": \"73383061-1e2b-4d67-8f7c-5122b3248766\",\n    \"period_time\": null,\n    \"max_failure_retry\": 4,\n    \"hooks\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/v1/plan",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"plan"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "857"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"73383061-1e2b-4d67-8f7c-5122b3248766\",\n    \"user_id\": \"d6fa76b1-2455-4ef8-99cf-072ed6c32175\",\n    \"description\": \"Sample run\",\n    \"period_time\": \"PT7S\",\n    \"type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734333798049\n    },\n    \"status\": \"CREATED\",\n    \"max_failure_retry\": 4,\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.RestApiRequest\",\n        \"protocol\": \"HTTPS\",\n        \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n        \"method\": \"POST\",\n        \"headers\": {\n            \"content-type\": \"application/json\",\n            \"client-header\": \"Alice\"\n        },\n        \"body\": {\n            \"type\": \"karya.core.entities.http.Body.JsonBody\",\n            \"json_string\": \"{\\\"udf1\\\":\\\"value\\\",\\\"udf2\\\":1,\\\"udf3\\\":true,\\\"udf4\\\":1.2,\\\"udf5\\\":[1,2,3,4],\\\"udf6\\\":{\\\"nested-udf1\\\":[\\\"a\\\",\\\"b\\\",\\\"c\\\"],\\\"nested-udf2\\\":{\\\"nested-nested-udf1\\\":true}},\\\"udf7\\\":[{\\\"nested-udf3\\\":[1,2,3]}]}\"\n        },\n        \"timeout\": 1000\n    },\n    \"hook\": [],\n    \"parent_plan_id\": null,\n    \"created_at\": 1734333768097,\n    \"updated_at\": 1734335636261\n}"
+						},
+						{
+							"name": "404 - Plan Not found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"plan_id\": \"33383061-1e2b-4d67-8f7c-5122b3248766\",\n    \"period_time\": null,\n    \"max_failure_retry\": 4,\n    \"hooks\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/v1/plan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=UTF-8"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Plan not found --- 33383061-1e2b-4d67-8f7c-5122b3248766"
+						}
+					]
+				},
+				{
+					"name": "Cancel Plan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"plan",
+								"030d905e-b6a6-4956-a9ce-081f28ddd2db"
+							]
+						},
+						"description": "This endpoint takes in a `plan_id` in the request path and cancels the plan."
+					},
+					"response": [
+						{
+							"name": "200 Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"plan",
+										"030d905e-b6a6-4956-a9ce-081f28ddd2db"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "962"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"030d905e-b6a6-4956-a9ce-081f28ddd2db\",\n    \"user_id\": \"430c0222-bf4e-4c61-a8f0-da77f41f2396\",\n    \"description\": \"Sample periodic slack run\",\n    \"period_time\": \"PT10S\",\n    \"type\": {\n        \"type\": \"karya.core.entities.PlanType.Recurring\",\n        \"end_at\": 1734333518205\n    },\n    \"status\": \"CANCELLED\",\n    \"max_failure_retry\": 3,\n    \"action\": {\n        \"type\": \"karya.core.entities.Action.SlackMessageRequest\",\n        \"channel\": \"C083L324V99\",\n        \"message\": \"[\\n    {\\n        \\\"type\\\": \\\"section\\\",\\n        \\\"text\\\": {\\n            \\\"type\\\": \\\"mrkdwn\\\",\\n            \\\"text\\\": \\\"Hello, this is periodic slack message from Karya!\\\"\\n        }\\n    }\\n]\"\n    },\n    \"hook\": [\n        {\n            \"max_retry\": 3,\n            \"trigger\": \"ON_FAILURE\",\n            \"action\": {\n                \"type\": \"karya.core.entities.Action.RestApiRequest\",\n                \"protocol\": \"HTTP\",\n                \"base_url\": \"eox7wbcodh9parh.m.pipedream.net\",\n                \"method\": \"GET\",\n                \"headers\": {\n                    \"content-type\": \"application/json\"\n                },\n                \"body\": {\n                    \"type\": \"karya.core.entities.http.Body.EmptyBody\"\n                },\n                \"timeout\": 2000\n            }\n        }\n    ],\n    \"parent_plan_id\": null,\n    \"created_at\": 1734333488258,\n    \"updated_at\": 1734335651146\n}"
+						},
+						{
+							"name": "404 - Plan Not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/v1/plan/130d905e-b6a6-4956-a9ce-081f28ddd2db",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan",
+										"130d905e-b6a6-4956-a9ce-081f28ddd2db"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=UTF-8"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Plan not found --- 130d905e-b6a6-4956-a9ce-081f28ddd2db"
+						}
+					]
+				}
+			],
+			"description": "A user needs to provide a _plan._ A plan is the blueprint for:\n\n1. What action to perform.\n    \n2. At what frequency should the action be performed.\n    \n3. If/Any action to take if the said plan fails/finishes execution.\n    \n\nThis folder specifies all the endpoints that one needs to interract with plans."
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "A health check endpoint to see if the Karya Server is up and running."
+			},
+			"response": []
+		},
+		{
+			"name": "Metrics Endpoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/metrics",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"metrics"
+					]
+				},
+				"description": "If `metricsEnabled` is set to true in the `server.yml` config, Karya will expose a set of metrics that can be scraped by prometheus on this endpoint."
+			},
+			"response": [
+				{
+					"name": "200 Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/metrics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"metrics"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "13254"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=UTF-8"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "# HELP jvm_buffer_count_buffers An estimate of the number of buffers in the pool\n# TYPE jvm_buffer_count_buffers gauge\njvm_buffer_count_buffers{id=\"direct\"} 13.0\njvm_buffer_count_buffers{id=\"mapped\"} 0.0\n# HELP jvm_buffer_memory_used_bytes An estimate of the memory that the Java virtual machine is using for this buffer pool\n# TYPE jvm_buffer_memory_used_bytes gauge\njvm_buffer_memory_used_bytes{id=\"direct\"} 1.6842753E7\njvm_buffer_memory_used_bytes{id=\"mapped\"} 0.0\n# HELP jvm_buffer_total_capacity_bytes An estimate of the total capacity of the buffers in this pool\n# TYPE jvm_buffer_total_capacity_bytes gauge\njvm_buffer_total_capacity_bytes{id=\"direct\"} 1.6842752E7\njvm_buffer_total_capacity_bytes{id=\"mapped\"} 0.0\n# HELP jvm_gc_live_data_size_bytes Size of long-lived heap memory pool after reclamation\n# TYPE jvm_gc_live_data_size_bytes gauge\njvm_gc_live_data_size_bytes 0.0\n# HELP jvm_gc_max_data_size_bytes Max size of long-lived heap memory pool\n# TYPE jvm_gc_max_data_size_bytes gauge\njvm_gc_max_data_size_bytes 2.147483648E9\n# HELP jvm_gc_memory_allocated_bytes_total Incremented for an increase in the size of the (young) heap memory pool after one GC to before the next\n# TYPE jvm_gc_memory_allocated_bytes_total counter\njvm_gc_memory_allocated_bytes_total 8.8080384E7\n# HELP jvm_gc_memory_promoted_bytes_total Count of positive increases in the size of the old generation memory pool before GC to after GC\n# TYPE jvm_gc_memory_promoted_bytes_total counter\njvm_gc_memory_promoted_bytes_total 2543400.0\n# HELP jvm_gc_pause_seconds Time spent in GC pause\n# TYPE jvm_gc_pause_seconds summary\njvm_gc_pause_seconds_count{action=\"end of minor GC\",cause=\"G1 Evacuation Pause\",gc=\"G1 Young Generation\"} 1\njvm_gc_pause_seconds_sum{action=\"end of minor GC\",cause=\"G1 Evacuation Pause\",gc=\"G1 Young Generation\"} 0.281\n# HELP jvm_gc_pause_seconds_max Time spent in GC pause\n# TYPE jvm_gc_pause_seconds_max gauge\njvm_gc_pause_seconds_max{action=\"end of minor GC\",cause=\"G1 Evacuation Pause\",gc=\"G1 Young Generation\"} 0.0\n# HELP jvm_memory_committed_bytes The amount of memory in bytes that is committed for the Java virtual machine to use\n# TYPE jvm_memory_committed_bytes gauge\njvm_memory_committed_bytes{area=\"heap\",id=\"G1 Eden Space\"} 9.2274688E7\njvm_memory_committed_bytes{area=\"heap\",id=\"G1 Old Gen\"} 5.9768832E7\njvm_memory_committed_bytes{area=\"heap\",id=\"G1 Survivor Space\"} 9437184.0\njvm_memory_committed_bytes{area=\"nonheap\",id=\"CodeHeap 'non-nmethods'\"} 2555904.0\njvm_memory_committed_bytes{area=\"nonheap\",id=\"CodeHeap 'non-profiled nmethods'\"} 2621440.0\njvm_memory_committed_bytes{area=\"nonheap\",id=\"CodeHeap 'profiled nmethods'\"} 1.1665408E7\njvm_memory_committed_bytes{area=\"nonheap\",id=\"Compressed Class Space\"} 7077888.0\njvm_memory_committed_bytes{area=\"nonheap\",id=\"Metaspace\"} 5.767168E7\n# HELP jvm_memory_max_bytes The maximum amount of memory in bytes that can be used for memory management\n# TYPE jvm_memory_max_bytes gauge\njvm_memory_max_bytes{area=\"heap\",id=\"G1 Eden Space\"} -1.0\njvm_memory_max_bytes{area=\"heap\",id=\"G1 Old Gen\"} 2.147483648E9\njvm_memory_max_bytes{area=\"heap\",id=\"G1 Survivor Space\"} -1.0\njvm_memory_max_bytes{area=\"nonheap\",id=\"CodeHeap 'non-nmethods'\"} 5836800.0\njvm_memory_max_bytes{area=\"nonheap\",id=\"CodeHeap 'non-profiled nmethods'\"} 1.22912768E8\njvm_memory_max_bytes{area=\"nonheap\",id=\"CodeHeap 'profiled nmethods'\"} 1.22908672E8\njvm_memory_max_bytes{area=\"nonheap\",id=\"Compressed Class Space\"} 1.073741824E9\njvm_memory_max_bytes{area=\"nonheap\",id=\"Metaspace\"} -1.0\n# HELP jvm_memory_used_bytes The amount of used memory\n# TYPE jvm_memory_used_bytes gauge\njvm_memory_used_bytes{area=\"heap\",id=\"G1 Eden Space\"} 9437184.0\njvm_memory_used_bytes{area=\"heap\",id=\"G1 Old Gen\"} 9067696.0\njvm_memory_used_bytes{area=\"heap\",id=\"G1 Survivor Space\"} 9437184.0\njvm_memory_used_bytes{area=\"nonheap\",id=\"CodeHeap 'non-nmethods'\"} 1350400.0\njvm_memory_used_bytes{area=\"nonheap\",id=\"CodeHeap 'non-profiled nmethods'\"} 2606464.0\njvm_memory_used_bytes{area=\"nonheap\",id=\"CodeHeap 'profiled nmethods'\"} 1.1649664E7\njvm_memory_used_bytes{area=\"nonheap\",id=\"Compressed Class Space\"} 6286056.0\njvm_memory_used_bytes{area=\"nonheap\",id=\"Metaspace\"} 5.5744448E7\n# HELP ktor_http_server_requests_active  \n# TYPE ktor_http_server_requests_active gauge\nktor_http_server_requests_active 1.0\n# HELP ktor_http_server_requests_seconds  \n# TYPE ktor_http_server_requests_seconds summary\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/\",status=\"200\",throwable=\"n/a\",quantile=\"0.5\"} 0.007077888\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/\",status=\"200\",throwable=\"n/a\",quantile=\"0.9\"} 0.062652416\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/\",status=\"200\",throwable=\"n/a\",quantile=\"0.95\"} 0.062652416\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/\",status=\"200\",throwable=\"n/a\",quantile=\"0.99\"} 0.062652416\nktor_http_server_requests_seconds_count{address=\"localhost:8080\",method=\"GET\",route=\"/\",status=\"200\",throwable=\"n/a\"} 2\nktor_http_server_requests_seconds_sum{address=\"localhost:8080\",method=\"GET\",route=\"/\",status=\"200\",throwable=\"n/a\"} 0.069027375\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\",quantile=\"0.5\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\",quantile=\"0.9\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\",quantile=\"0.95\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\",quantile=\"0.99\"} 0.0\nktor_http_server_requests_seconds_count{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\"} 4\nktor_http_server_requests_seconds_sum{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\"} 0.373397833\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}/summary\",status=\"200\",throwable=\"n/a\",quantile=\"0.5\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}/summary\",status=\"200\",throwable=\"n/a\",quantile=\"0.9\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}/summary\",status=\"200\",throwable=\"n/a\",quantile=\"0.95\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}/summary\",status=\"200\",throwable=\"n/a\",quantile=\"0.99\"} 0.0\nktor_http_server_requests_seconds_count{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}/summary\",status=\"200\",throwable=\"n/a\"} 3\nktor_http_server_requests_seconds_sum{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}/summary\",status=\"200\",throwable=\"n/a\"} 0.3538445\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"PATCH\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\",quantile=\"0.5\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"PATCH\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\",quantile=\"0.9\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"PATCH\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\",quantile=\"0.95\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"PATCH\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\",quantile=\"0.99\"} 0.0\nktor_http_server_requests_seconds_count{address=\"localhost:8080\",method=\"PATCH\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\"} 3\nktor_http_server_requests_seconds_sum{address=\"localhost:8080\",method=\"PATCH\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\"} 0.670154417\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\",quantile=\"0.5\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\",quantile=\"0.9\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\",quantile=\"0.95\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\",quantile=\"0.99\"} 0.0\nktor_http_server_requests_seconds_count{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\"} 17\nktor_http_server_requests_seconds_sum{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\"} 2.228460917\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"404\",throwable=\"n/a\",quantile=\"0.5\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"404\",throwable=\"n/a\",quantile=\"0.9\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"404\",throwable=\"n/a\",quantile=\"0.95\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"404\",throwable=\"n/a\",quantile=\"0.99\"} 0.0\nktor_http_server_requests_seconds_count{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"404\",throwable=\"n/a\"} 1\nktor_http_server_requests_seconds_sum{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"404\",throwable=\"n/a\"} 0.670724875\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\",quantile=\"0.5\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\",quantile=\"0.9\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\",quantile=\"0.95\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\",quantile=\"0.99\"} 0.0\nktor_http_server_requests_seconds_count{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\"} 2\nktor_http_server_requests_seconds_sum{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\"} 0.475017792\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/user\",status=\"200\",throwable=\"n/a\",quantile=\"0.5\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/user\",status=\"200\",throwable=\"n/a\",quantile=\"0.9\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/user\",status=\"200\",throwable=\"n/a\",quantile=\"0.95\"} 0.0\nktor_http_server_requests_seconds{address=\"localhost:8080\",method=\"POST\",route=\"/v1/user\",status=\"200\",throwable=\"n/a\",quantile=\"0.99\"} 0.0\nktor_http_server_requests_seconds_count{address=\"localhost:8080\",method=\"POST\",route=\"/v1/user\",status=\"200\",throwable=\"n/a\"} 8\nktor_http_server_requests_seconds_sum{address=\"localhost:8080\",method=\"POST\",route=\"/v1/user\",status=\"200\",throwable=\"n/a\"} 1.735625334\n# HELP ktor_http_server_requests_seconds_max  \n# TYPE ktor_http_server_requests_seconds_max gauge\nktor_http_server_requests_seconds_max{address=\"localhost:8080\",method=\"GET\",route=\"/\",status=\"200\",throwable=\"n/a\"} 0.061778625\nktor_http_server_requests_seconds_max{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\"} 0.064454625\nktor_http_server_requests_seconds_max{address=\"localhost:8080\",method=\"GET\",route=\"/v1/plan/{plan_id}/summary\",status=\"200\",throwable=\"n/a\"} 0.058984166\nktor_http_server_requests_seconds_max{address=\"localhost:8080\",method=\"PATCH\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\"} 0.135783459\nktor_http_server_requests_seconds_max{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"200\",throwable=\"n/a\"} 0.074520166\nktor_http_server_requests_seconds_max{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan\",status=\"404\",throwable=\"n/a\"} 0.0\nktor_http_server_requests_seconds_max{address=\"localhost:8080\",method=\"POST\",route=\"/v1/plan/{plan_id}\",status=\"200\",throwable=\"n/a\"} 0.096789417\nktor_http_server_requests_seconds_max{address=\"localhost:8080\",method=\"POST\",route=\"/v1/user\",status=\"200\",throwable=\"n/a\"} 0.048221625\n# HELP process_cpu_time_ns_total The \"cpu time\" used by the Java Virtual Machine process\n# TYPE process_cpu_time_ns_total counter\nprocess_cpu_time_ns_total 5.0134702E10\n# HELP process_cpu_usage The \"recent cpu usage\" for the Java Virtual Machine process\n# TYPE process_cpu_usage gauge\nprocess_cpu_usage 0.0\n# HELP system_cpu_count The number of processors available to the Java virtual machine\n# TYPE system_cpu_count gauge\nsystem_cpu_count 8.0\n# HELP system_cpu_usage The \"recent cpu usage\" of the system the application is running in\n# TYPE system_cpu_usage gauge\nsystem_cpu_usage 0.0\n# HELP system_load_average_1m The sum of the number of runnable entities queued to available processors and the number of runnable entities running on the available processors averaged over a period of time\n# TYPE system_load_average_1m gauge\nsystem_load_average_1m 1.57958984375\n"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

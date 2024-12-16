@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import java.time.Instant
 
 /**
- * Sealed class representing the type of a plan.
+ * Sealed class representing the type of plan.
  */
 @Serializable
 sealed class PlanType {

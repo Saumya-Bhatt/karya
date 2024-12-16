@@ -67,8 +67,8 @@
   "description": "Dashboard to monitor all the servers/nodes of Karya",
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
-  "id": null,
+  "graphTooltip": 1,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -173,7 +173,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "ktor_http_server_requests_seconds_count{instance=\"host.docker.internal:8080\"}",
+          "expr": "ktor_http_server_requests_seconds_count{route!=\"/metrics\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{address}} {{method}} {{route}} - {{status}}",
@@ -1008,6 +1008,10 @@
       "pluginVersion": "11.4.0",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "disableTextWrap": false,
           "editorMode": "builder",
           "expr": "karya_executor_task_execution_latency_summary{quantile=\"0.5\"}",
@@ -1016,11 +1020,7 @@
           "legendFormat": "__auto",
           "range": true,
           "refId": "A",
-          "useBackend": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          }
+          "useBackend": false
         }
       ],
       "title": "Average delta to execution",
@@ -1139,6 +1139,6 @@
   "timezone": "browser",
   "title": "Karya Monitoring Dashboard v1",
   "uid": "fe6zsvbc3kiyod",
-  "version": 5,
+  "version": 3,
   "weekStart": ""
 }

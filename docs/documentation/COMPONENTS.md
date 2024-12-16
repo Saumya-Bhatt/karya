@@ -24,6 +24,8 @@ Users can integrate the Karya client into their services to:
 
 ## Server
 
+> [Postman Collection](../media/Karya.postman_collection.json) for all the REST endpoints exposed by the server.
+
 This is a web server via which the client interacts. It has the following functions:
 
 1. Manage users. Only a registered user can schedule a task.
