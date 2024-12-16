@@ -10,7 +10,7 @@ from karya.commons.entities.requests import (
     SubmitPlanRequest,
 )
 from karya.commons.entities.models.Hook import Hook, Trigger
-from karya.commons.entities.models.Action import RestApiRequest
+from karya.commons.entities.models.Action import RestApiRequest, EmailRequest
 from karya.commons.entities.models.Plan import OneTime
 from karya.clients.KaryaRestClient import KaryaRestClient
 
@@ -19,34 +19,27 @@ async def main():
     config = ClientConfig.dev()
     client = KaryaRestClient(config)
 
-    create_user_request = CreateUserRequest(
-        name="python-client"
-    )
+    create_user_request = CreateUserRequest(name="python-client")
     user = await client.create_user(create_user_request)
     print(user)
 
-    failure_hook = Hook(
-        trigger=Trigger.ON_FAILURE,
-        action=RestApiRequest(base_url="eox7wbcodh9parh.m.pipedream.net"),
+    email_action = EmailRequest(
+        recipient="recipient@gmail.com",
+        subject="Karya notification",
+        message="Hello from Karya!",
     )
 
     plan_request = SubmitPlanRequest(
         user_id=user.id,
-        description="Make a one-time API call from python client with failure hook",
+        description="Make a one-time email request python client with failure hook",
         period_time="PT5S",
         max_failure_retry=1,
         plan_type=OneTime(),
-        action=RestApiRequest(base_url="eox7wbcodh9parh.m.pipedream.net----"),
-        hooks=[failure_hook],
+        action=email_action,
     )
 
     plan = await client.submit_plan(plan_request)
     print(plan)
-
-    summary = await client.get_summary("3ac19214-4212-44f7-bf13-1f919607be90")
-    print("\n")
-    print(summary)
-
 
 if __name__ == "__main__":
     import asyncio

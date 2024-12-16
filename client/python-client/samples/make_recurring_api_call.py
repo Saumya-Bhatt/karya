@@ -26,7 +26,7 @@ async def main():
     user = await client.create_user(create_user_request)
     print(user)
     
-    httpRequest = RestApiRequest(
+    rest_action = RestApiRequest(
         protocol=Protocol.HTTPS,
         base_url="eox7wbcodh9parh.m.pipedream.net",
         method=Method.POST,
@@ -35,7 +35,7 @@ async def main():
         timeout=2000
     )
 
-    planRequest = SubmitPlanRequest(
+    plan_request = SubmitPlanRequest(
         user_id=user.id,
         description="Make a recurring API call from python client",
         period_time="PT7S",
@@ -43,10 +43,10 @@ async def main():
         plan_type=Recurring(
             end_at=None,
         ),
-        action=httpRequest
+        action=rest_action,
     )
 
-    plan = await client.submit_plan(planRequest)
+    plan = await client.submit_plan(plan_request)
     print(plan)
 
 if __name__ == "__main__":

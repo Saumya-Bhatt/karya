@@ -24,7 +24,7 @@ async def main():
     user = await client.create_user(create_user_request)
     print(user)
 
-    chainedRequest = ChainedRequest(
+    chained_action = ChainedRequest(
         request=SubmitPlanRequest(
             user_id=user.id,
             description="Make a recurring API call from python client",
@@ -37,16 +37,16 @@ async def main():
         )
     )
 
-    planRequest = SubmitPlanRequest(
+    plan_request = SubmitPlanRequest(
         user_id=user.id,
         description="Make a recurring Chained call from python client",
         period_time="PT7S",
         max_failure_retry=3,
         plan_type=OneTime(),
-        action=chainedRequest,
+        action=chained_action,
     )
 
-    plan = await client.submit_plan(planRequest)
+    plan = await client.submit_plan(plan_request)
     print(plan)
 
 if __name__ == "__main__":
