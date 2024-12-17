@@ -2,6 +2,18 @@
 
 Firstly, thank you for considering contributing to Karya! Here are a few guidelines to help you get started.
 
+## How can I contribute?
+
+Karya is in no way a finished project. There's always room for improvements. Be it in terms of performance or documentation ro adding new features or fixing bugs! Following are some of the ways one can contribute to Karya:
+
+1. Documentation - There is never enough documentation to explain something simply by reading it. But we can try!
+2. Bug Fix - Noticed a bug? Just report it! Or if you're a seluth, go and raise a PR! This is in no way a bug-free software.
+3. Performance - Make karya better, faster, stronger!
+4. New Features:
+   - Make Karya support more data adapters to make it more easier and flexible to integrate with!
+   - Add more connectors to provide more functionality to karya
+5. Refactoring - There are always better ways to write a code. Go ahead and give it a shot at writing this client better, to make it more concise and easier to read.
+
 ## Getting Started
 
 1. Go through the [Architecture Overview](../docs/documentation/ARCHITECTURE) to understand the components of Karya.
