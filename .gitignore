@@ -41,7 +41,3 @@ bin/
 ### Mac OS ###
 .DS_Store
 /.idea/
-
-### Custom ###
-__pycache__/
-.ruff_cache/
