@@ -44,4 +44,4 @@ bin/
 
 ### Custom ###
 __pycache__/
-/ruff_cache
+.ruff_cache/
