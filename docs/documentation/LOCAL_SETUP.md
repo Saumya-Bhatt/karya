@@ -157,7 +157,7 @@ docker run -d \
   -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/server.yml:/home/app/configs/server.yml \
   -e KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml \
   -e KARYA_SERVER_CONFIG_PATH=/home/app/configs/server.yml \
-  karya-server
+  saumyabhatt10642/karya-server
 ````
 
 **Running Karya Executor**
@@ -170,7 +170,7 @@ docker run -d \
   -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/executor.yml:/home/app/configs/executor.yml \
   -e KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml \
   -e KARYA_EXECUTOR_CONFIG_PATH=/home/app/configs/executor.yml \
-  karya-executor
+  saumyabhatt10642/karya-executor
 ```
 
 **Running Karya Scheduler**
@@ -183,7 +183,7 @@ docker run -d \
   -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/scheduler.yml:/home/app/configs/scheduler.yml \
   -e KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml \
   -e KARYA_SCHEDULER_CONFIG_PATH=/home/app/configs/scheduler.yml \
-  karya-scheduler
+  saumyabhatt10642/karya-scheduler
 ```
 
 Run a [MakePeriodicApiCall.kt.kt](../samples/src/main/kotlin/karya/docs/samples/MakePeriodicApiCall.kt) to schedule a dummy plan and check if the setup is working fine. More samples can be found [here](../samples/src/main/kotlin/karya/docs/samples).
