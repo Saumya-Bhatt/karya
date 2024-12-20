@@ -61,10 +61,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
-
-      - name: Create GitHub Release for Client
-        if: steps.check_tag.outputs.skip_publish == 'false'
-        run: |
-          VERSION="${{ steps.get_version.outputs.version }}"
-          git tag "client-v$VERSION"
-          git push origin "client-v$VERSION"
+#
+#      - name: Create GitHub Release for Client
+#        if: steps.check_tag.outputs.skip_publish == 'false'
+#        run: |
+#          VERSION="${{ steps.get_version.outputs.version }}"
+#          git tag "client-v$VERSION"
+#          git push origin "client-v$VERSION"
