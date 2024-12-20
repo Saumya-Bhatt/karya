@@ -1,0 +1,44 @@
+name: Local-Karya-Servers-Setup
+
+services:
+
+  karya-server:
+    image: karya-server
+    container_name: karya-server
+    ports:
+      - "8080:8080"
+    environment:
+      - MEMORY_XMS=512m
+      - MEMORY_XMX=1536m
+      - KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml
+      - KARYA_SERVER_CONFIG_PATH=/home/app/configs/server.yml
+    volumes:
+      - /Users/saumya.bhatt/Desktop/Saumya/karya/configs/providers/psql-redis-rabbitmq.providers.yml:/home/app/configs/psql-redis-rabbitmq.providers.yml
+      - /Users/saumya.bhatt/Desktop/Saumya/karya/configs/server.yml:/home/app/configs/server.yml
+    restart: always
+
+  karya-executor:
+    image: karya-executor
+    container_name: karya-executor
+    environment:
+      - MEMORY_XMS=512m
+      - MEMORY_XMX=1536m
+      - KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml
+      - KARYA_EXECUTOR_CONFIG_PATH=/home/app/configs/executor.yml
+    volumes:
+      - /Users/saumya.bhatt/Desktop/Saumya/karya/configs/providers/psql-redis-rabbitmq.providers.yml:/home/app/configs/psql-redis-rabbitmq.providers.yml
+      - /Users/saumya.bhatt/Desktop/Saumya/karya/configs/executor.yml:/home/app/configs/executor.yml
+    restart: always
+
+  karya-scheduler:
+    image: karya-scheduler
+    container_name: karya-scheduler
+    environment:
+      - MEMORY_XMS=512m
+      - MEMORY_XMX=1536m
+      - KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml
+      - KARYA_SCHEDULER_CONFIG_PATH=/home/app/configs/scheduler.yml
+    volumes:
+      - /Users/saumya.bhatt/Desktop/Saumya/karya/configs/providers/psql-redis-rabbitmq.providers.yml:/home/app/configs/psql-redis-rabbitmq.providers.yml
+      - /Users/saumya.bhatt/Desktop/Saumya/karya/configs/scheduler.yml:/home/app/configs/scheduler.yml
+    restart: always

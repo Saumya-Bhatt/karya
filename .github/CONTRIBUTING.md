@@ -35,6 +35,7 @@ To build the docker images locally, run the following commands:
 ```shell
 docker build -f ./servers/server/deploy/Dockerfile -t karya-server .
 docker build -f ./servers/executor/deploy/Dockerfile -t karya-executor .
+docker build -f ./servers/scheduler/deploy/Dockerfile -t karya-scheduler .
 ```
 
 ## Linting and Formatting

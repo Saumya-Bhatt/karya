@@ -9,7 +9,7 @@ import java.util.concurrent.CountDownLatch
 /**
  * The logger instance for logging messages.
  */
-val logger: Logger = LogManager.getLogger()
+val logger: Logger = LogManager.getLogger("karaya.servers.scheduler.app.MainRunner")
 
 /**
  * The main entry point of the scheduler application.

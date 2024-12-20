@@ -1,5 +1,7 @@
 plugins {
+  application
   id(Plugins.Kotlin.KAPT)
+  id(Plugins.Shadow.LIBRARY) version Plugins.Shadow.VERSION
 }
 
 dependencies {
@@ -31,6 +33,17 @@ tasks.register("copyConfigs") {
     }
   }
 }
+
 tasks.named("processResources") {
   dependsOn("copyConfigs")
+}
+
+tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+  archiveBaseName.set("${project.group}-scheduler")
+  archiveVersion.set(project.version.toString())
+  archiveClassifier.set("all")
+}
+
+application {
+  mainClass.set("karya.servers.scheduler.app.MainRunnerKt")
 }
