@@ -46,7 +46,6 @@ tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJ
 publishing {
   publications {
     create<MavenPublication>("mavenJava") {
-      from(components["java"])
 
       artifact(tasks.named("shadowJar").get()) {
         classifier = "all"
