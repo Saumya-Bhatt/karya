@@ -60,7 +60,7 @@ publishing {
   repositories {
     maven {
       name = "GitHubPackages"
-      url = uri("https://maven.pkg.github.com/Saumya-Bhatt/karya") // replace with your GitHub repo
+      url = uri("https://maven.pkg.github.com/Saumya-Bhatt/karya")
       credentials {
         username = System.getenv("GITHUB_USERNAME")
         password = System.getenv("GITHUB_TOKEN")
