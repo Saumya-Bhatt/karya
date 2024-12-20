@@ -4,15 +4,16 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'servers/server/**'
-      - 'servers/executor/**'
-      - 'servers/scheduler/**'
-      - 'connectors/**'
-      - 'core/**'
-      - 'data/**'
-      - 'gradle/**'
-      - 'build.gradle.kts'
+      - publish_image_fix
+#    paths:
+#      - 'servers/server/**'
+#      - 'servers/executor/**'
+#      - 'servers/scheduler/**'
+#      - 'connectors/**'
+#      - 'core/**'
+#      - 'data/**'
+#      - 'gradle/**'
+#      - 'build.gradle.kts'
 
 jobs:
   setup:
@@ -87,9 +88,29 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/karya-${{ matrix.image }}:latest
           platforms: linux/amd64,linux/arm64
 
+      - name: Check if version already exists as a GitHub release
+        id: check_release
+        run: |
+          VERSION="${{ needs.setup.outputs.version }}"
+          
+          # Fetch existing tags from the GitHub API
+          EXISTING_TAGS=$(curl -s \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/tags" \
+            | jq -r '.[].name')
+
+          # Check if the version tag already exists
+          if echo "$EXISTING_TAGS" | grep -q "servers-v$VERSION"; then
+            echo "Tag servers-v$VERSION already exists. Skipping GitHub tagging."
+            echo "skip_publish=true" >> $GITHUB_ENV
+          else
+            echo "Tag servers-v$VERSION does not exist. Proceeding with tagging."
+            echo "skip_publish=false" >> $GITHUB_ENV
+          fi
+
       - name: Create GitHub Release for Docker Image
         if: env.skip_publish != 'true'
         run: |
-          VERSION="${{ steps.get_version.outputs.version }}"
+          VERSION="${{ needs.setup.outputs.version }}"
           git tag "servers-v$VERSION"
           git push origin "servers-v$VERSION"
