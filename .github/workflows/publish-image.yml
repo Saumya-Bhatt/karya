@@ -47,9 +47,10 @@ jobs:
       - name: Build Docker images for Karya Servers
         run: |
           VERSION=${{ env.VERSION }}
-          docker build -f ./servers/server/deploy/Dockerfile -t ghcr.io/${{ github.repository_owner }}/karya-server:$VERSION .
-          docker build -f ./servers/executor/deploy/Dockerfile -t ghcr.io/${{ github.repository_owner }}/karya-executor:$VERSION .
-          docker build -f ./servers/scheduler/deploy/Dockerfile -t ghcr.io/${{ github.repository_owner }}/karya-scheduler:$VERSION .
+          REPO_OWNER={{ github.repository_owner | toLowerCase }}
+          docker build -f ./servers/server/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-server:$VERSION .
+          docker build -f ./servers/executor/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-executor:$VERSION .
+          docker build -f ./servers/scheduler/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-scheduler:$VERSION .
 
   push_to_registries:
     needs: build_image
