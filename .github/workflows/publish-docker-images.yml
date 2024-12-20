@@ -1,4 +1,4 @@
-name: Build and Publish Docker Images to Multiple Registries
+name: Build and Publish Docker Images
 
 on:
   push:
@@ -37,7 +37,7 @@ jobs:
           REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
           echo "repo_owner_lowercase=$REPO_OWNER" >> $GITHUB_OUTPUT
 
-  build_docker_images:
+  build_and_push:
     needs: setup
     runs-on: ubuntu-latest
     strategy:
@@ -61,17 +61,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Build Docker image for ${{ matrix.image }}
-        run: |
-          docker build \
-            -f ./servers/${{ matrix.image }}/deploy/Dockerfile \
-            -t ghcr.io/${{ needs.setup.outputs.repo_owner_lowercase }}/karya-${{ matrix.image }}:${{ needs.setup.outputs.version }} \
-            .
-
-  push_to_registries:
-    needs: [setup, build_docker_images]
-    runs-on: ubuntu-latest
-    steps:
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
@@ -79,8 +68,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push Docker images
+      - name: Build and Push Servers Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./servers/${{ matrix.image }}/deploy/Dockerfile
+          push: true
+          tags: ghcr.io/${{ needs.setup.outputs.repo_owner_lowercase }}/karya-${{ matrix.image }}:${{ needs.setup.outputs.version }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      - name: Move cache
         run: |
-          docker push ghcr.io/${{ needs.setup.outputs.repo_owner_lowercase }}/karya-server:${{ needs.setup.outputs.version }}
-          docker push ghcr.io/${{ needs.setup.outputs.repo_owner_lowercase }}/karya-executor:${{ needs.setup.outputs.version }}
-          docker push ghcr.io/${{ needs.setup.outputs.repo_owner_lowercase }}/karya-scheduler:${{ needs.setup.outputs.version }}
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
