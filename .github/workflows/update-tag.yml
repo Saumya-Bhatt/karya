@@ -1,4 +1,4 @@
-name: Publish Version Tag
+name: Update Tag if required
 
 on:
   workflow_run:
