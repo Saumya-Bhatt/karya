@@ -4,16 +4,15 @@ on:
   push:
     branches:
       - main
-      - publish_image_fix
-#    paths:
-#      - 'servers/server/**'
-#      - 'servers/executor/**'
-#      - 'servers/scheduler/**'
-#      - 'connectors/**'
-#      - 'core/**'
-#      - 'data/**'
-#      - 'gradle/**'
-#      - 'build.gradle.kts'
+    paths:
+      - 'servers/server/**'
+      - 'servers/executor/**'
+      - 'servers/scheduler/**'
+      - 'connectors/**'
+      - 'core/**'
+      - 'data/**'
+      - 'gradle/**'
+      - 'build.gradle.kts'
 
 jobs:
   setup:
@@ -71,23 +70,6 @@ jobs:
             ghcr.io/${{ needs.setup.outputs.repo_owner_lowercase }}/karya-${{ matrix.image }}:latest
           platforms: linux/amd64,linux/arm64
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and Push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./servers/${{ matrix.image }}/deploy/Dockerfile
-          push: true
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/karya-${{ matrix.image }}:${{ needs.setup.outputs.version }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/karya-${{ matrix.image }}:latest
-          platforms: linux/amd64,linux/arm64
-
       - name: Check if version already exists as a GitHub release
         id: check_release
         run: |
@@ -114,3 +96,20 @@ jobs:
           VERSION="${{ needs.setup.outputs.version }}"
           git tag "servers-v$VERSION"
           git push origin "servers-v$VERSION"
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Docker image to DockerHub
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./servers/${{ matrix.image }}/deploy/Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/karya-${{ matrix.image }}:${{ needs.setup.outputs.version }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/karya-${{ matrix.image }}:latest
+          platforms: linux/amd64,linux/arm64
