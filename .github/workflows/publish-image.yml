@@ -5,15 +5,15 @@ on:
     branches:
       - main
       - dockerize_servers
-    paths:
-      - 'servers/server/**'
-      - 'servers/executor/**'
-      - 'servers/scheduler/**'
-      - 'connectors/**'
-      - 'core/**'
-      - 'data/**'
-      - 'gradle/**'
-      - 'build.gradle.kts'
+#    paths:
+#      - 'servers/server/**'
+#      - 'servers/executor/**'
+#      - 'servers/scheduler/**'
+#      - 'connectors/**'
+#      - 'core/**'
+#      - 'data/**'
+#      - 'gradle/**'
+#      - 'build.gradle.kts'
 
 jobs:
   build_image:
