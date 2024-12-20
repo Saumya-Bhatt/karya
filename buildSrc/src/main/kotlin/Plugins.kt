@@ -1,5 +1,7 @@
 object Plugins {
 
+  const val MAVEN_PUBLISH = "maven-publish"
+
   object Kotlin {
     private const val KOTLIN_PREFIX = "org.jetbrains.kotlin"
     const val JVM = "$KOTLIN_PREFIX.jvm"

@@ -1,5 +1,6 @@
 plugins {
   id(Plugins.Kotlin.KAPT)
+  id(Plugins.MAVEN_PUBLISH)
 }
 
 dependencies {
@@ -20,6 +21,28 @@ dependencies {
   kapt(Libs.Dagger.COMPILER)
 }
 
+publishing {
+  publications {
+    create<MavenPublication>("mavenJava") {
+      from(components["java"])
+      groupId = project.group.toString()
+      artifactId = "client"
+      version = project.version.toString()
+    }
+  }
+
+  repositories {
+    maven {
+      name = "GitHubPackages"
+      url = uri("https://maven.pkg.github.com/Saumya-Bhatt/karya") // replace with your GitHub repo
+      credentials {
+        username = System.getenv("GITHUB_USERNAME")
+        password = System.getenv("GITHUB_TOKEN")
+      }
+    }
+  }
+}
+
 tasks.register("copyConfigs") {
   doLast {
     val configPath = File("src/main/resources")
@@ -30,6 +53,7 @@ tasks.register("copyConfigs") {
     }
   }
 }
+
 tasks.named("processResources") {
   dependsOn("copyConfigs")
 }
