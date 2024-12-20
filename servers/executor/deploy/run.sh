@@ -7,7 +7,7 @@ function _log {
   echo "$(date +"%F %T") ${SELF_NAME} $1"
 }
 
-_log "starting the server"
+_log "starting the executor"
 
 java -Xms"$MEMORY_XMS" -Xmx"$MEMORY_XMX" \
   -jar app.jar

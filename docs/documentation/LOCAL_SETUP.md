@@ -128,6 +128,34 @@ Now that the providers have been set up, it is time to run the application.
 ./gradlew servers-scheduler:run
 ```
 
+### Run the servers (via Docker)
+
+**Running Karya Server**
+```shell
+docker run -d \
+  --name karya-server \
+  -e MEMORY_XMS=512m \
+  -e MEMORY_XMX=1536m \
+  -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/providers/psql-redis-rabbitmq.providers.yml:/home/app/configs/psql-redis-rabbitmq.providers.yml \
+  -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/server.yml:/home/app/configs/server.yml \
+  -e KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml \
+  -e KARYA_SERVER_CONFIG_PATH=/home/app/configs/server.yml \
+  karya-server
+````
+
+**Running Karya Executor**
+```shell
+docker run -d \
+  --name karya-executor \
+  -e MEMORY_XMS=512m \
+  -e MEMORY_XMX=1536m \
+  -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/providers/psql-redis-rabbitmq.providers.yml:/home/app/configs/psql-redis-rabbitmq.providers.yml \
+  -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/executor.yml:/home/app/configs/executor.yml \
+  -e KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml \
+  -e KARYA_EXECUTOR_CONFIG_PATH=/home/app/configs/executor.yml \
+  karya-executor
+```
+
 Run a [MakePeriodicApiCall.kt.kt](../samples/src/main/kotlin/karya/docs/samples/MakePeriodicApiCall.kt) to schedule a dummy plan and check if the setup is working fine. More samples can be found [here](../samples/src/main/kotlin/karya/docs/samples).
 
 ---
