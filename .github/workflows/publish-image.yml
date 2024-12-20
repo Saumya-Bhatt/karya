@@ -42,12 +42,13 @@ jobs:
         run: |
           VERSION=$(grep -oP 'version\s*=\s*"\K[0-9\.]+' build.gradle.kts)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "version=$VERSION"  # Log the version for debugging
+          echo "version=$VERSION"
 
       - name: Set repository owner to lowercase
         id: set-repo-owner
         run: |
           echo "repo_owner_lowercase=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "repo_owner_lowercase=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')"
 
   build_docker_images:
     needs: setup
