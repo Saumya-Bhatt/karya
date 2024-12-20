@@ -1,0 +1,70 @@
+name: Publish Client
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'core/**'
+      - 'client/src/**'
+      - 'gradle/**'
+      - 'build.gradle.kts'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # This is needed to fetch all tags
+
+      - name: Extract version from client/build.gradle.kts
+        id: get_version
+        run: |
+          clientVersion=$(grep -oP 'val clientVersion = "\K[0-9]+\.[0-9]+\.[0-9]+' client/build.gradle.kts)          
+          echo "Client version: $clientVersion"
+          echo "version=$clientVersion" >> $GITHUB_OUTPUT
+
+      - name: Check if tag exists
+        id: check_tag
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          if git tag -l "client-v$VERSION" | grep -q "client-v$VERSION"; then
+            echo "Tag client-v$VERSION already exists, skipping publish"
+            echo "skip_publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag client-v$VERSION does not exist, proceeding with publish"
+            echo "skip_publish=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up JDK 17
+        if: steps.check_tag.outputs.skip_publish == 'false'
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache Gradle dependencies
+        if: steps.check_tag.outputs.skip_publish == 'false'
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build and Publish
+        if: steps.check_tag.outputs.skip_publish == 'false'
+        run: ./gradlew publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+
+      - name: Create GitHub Release for Client
+        if: steps.check_tag.outputs.skip_publish == 'false'
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          git tag "client-v$VERSION"
+          git push origin "client-v$VERSION"

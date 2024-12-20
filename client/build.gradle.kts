@@ -1,6 +1,10 @@
 plugins {
   id(Plugins.Kotlin.KAPT)
+  id(Plugins.MAVEN_PUBLISH)
+  id(Plugins.Shadow.LIBRARY) version Plugins.Shadow.VERSION
 }
+
+val clientVersion = "0.1.0"
 
 dependencies {
   implementation(project(Modules.CORE))
@@ -30,6 +34,39 @@ tasks.register("copyConfigs") {
     }
   }
 }
+
 tasks.named("processResources") {
   dependsOn("copyConfigs")
+}
+
+tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+  archiveBaseName.set("${project.group}-client")
+  archiveVersion.set(clientVersion)
+  archiveClassifier.set("all")
+}
+
+publishing {
+  publications {
+    create<MavenPublication>("mavenJava") {
+
+      artifact(tasks.named("shadowJar").get()) {
+        classifier = "all"
+      }
+
+      groupId = project.group.toString()
+      artifactId = "client"
+      version = project.version.toString()
+    }
+  }
+
+  repositories {
+    maven {
+      name = "GitHubPackages"
+      url = uri("https://maven.pkg.github.com/Saumya-Bhatt/karya")
+      credentials {
+        username = System.getenv("GITHUB_USERNAME")
+        password = System.getenv("GITHUB_TOKEN")
+      }
+    }
+  }
 }

@@ -86,3 +86,10 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/karya-${{ matrix.image }}:${{ needs.setup.outputs.version }}
             ${{ secrets.DOCKERHUB_USERNAME }}/karya-${{ matrix.image }}:latest
           platforms: linux/amd64,linux/arm64
+
+      - name: Create GitHub Release for Docker Image
+        if: env.skip_publish != 'true'
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          git tag "servers-v$VERSION"
+          git push origin "servers-v$VERSION"
