@@ -4,6 +4,8 @@ plugins {
   id(Plugins.Shadow.LIBRARY) version Plugins.Shadow.VERSION
 }
 
+val clientVersion = "0.1.0"
+
 dependencies {
   implementation(project(Modules.CORE))
 
@@ -39,7 +41,7 @@ tasks.named("processResources") {
 
 tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
   archiveBaseName.set("${project.group}-client")
-  archiveVersion.set(project.version.toString())
+  archiveVersion.set(clientVersion)
   archiveClassifier.set("all")
 }
 

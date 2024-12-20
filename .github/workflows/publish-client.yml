@@ -33,36 +33,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Get current version from build.gradle.kts
-        id: get_version
-        run: |
-          VERSION=$(grep "version = " build.gradle.kts | sed 's/version = "//' | sed 's/"//')
-          echo "Current version in build.gradle.kts: $VERSION"
-          echo "::set-output name=version::$VERSION"
-
-      - name: Check if version already exists as a GitHub release
-        id: check_release
-        run: |
-          VERSION="${{ steps.get_version.outputs.version }}"  # Get version from previous step
-          VERSION=$(echo $VERSION | tr -d '\r' | tr -d '\n')  # Remove any carriage return or newline characters
-          
-          # Fetch the list of releases from the GitHub API
-          EXISTING_RELEASES=$(curl -s \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/repos/${{ github.repository }}/releases" \
-            | jq -r '.[].tag_name')
-
-          # Check if the version already exists in the releases
-          if echo "$EXISTING_RELEASES" | grep -q "v$VERSION"; then
-            echo "Version v$VERSION already exists as a release. Skipping build and publish."
-            echo "skip_publish=true" >> $GITHUB_ENV
-          else
-            echo "Version v$VERSION does not exist as a release. Proceeding with publish."
-            echo "skip_publish=false" >> $GITHUB_ENV
-
       - name: Build and Publish
         if: env.skip_publish != 'true'
         run: ./gradlew publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+
+      - name: Create GitHub Release for Client
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          git tag "client-v$VERSION"
+          git push origin "client-v$VERSION"
