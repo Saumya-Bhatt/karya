@@ -1,6 +1,7 @@
 plugins {
   id(Plugins.Kotlin.KAPT)
   id(Plugins.MAVEN_PUBLISH)
+  id(Plugins.Shadow.LIBRARY) version Plugins.Shadow.VERSION
 }
 
 dependencies {
@@ -21,10 +22,36 @@ dependencies {
   kapt(Libs.Dagger.COMPILER)
 }
 
+tasks.register("copyConfigs") {
+  doLast {
+    val configPath = File("src/main/resources")
+    delete(configPath)
+    copy {
+      from(project.rootDir.resolve("configs/commons"))
+      into(configPath.resolve(""))
+    }
+  }
+}
+
+tasks.named("processResources") {
+  dependsOn("copyConfigs")
+}
+
+tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+  archiveBaseName.set("${project.group}-client")
+  archiveVersion.set(project.version.toString())
+  archiveClassifier.set("all")
+}
+
 publishing {
   publications {
     create<MavenPublication>("mavenJava") {
       from(components["java"])
+
+      artifact(tasks.named("shadowJar").get()) {
+        classifier = "all"
+      }
+
       groupId = project.group.toString()
       artifactId = "client"
       version = project.version.toString()
@@ -41,19 +68,4 @@ publishing {
       }
     }
   }
-}
-
-tasks.register("copyConfigs") {
-  doLast {
-    val configPath = File("src/main/resources")
-    delete(configPath)
-    copy {
-      from(project.rootDir.resolve("configs/commons"))
-      into(configPath.resolve(""))
-    }
-  }
-}
-
-tasks.named("processResources") {
-  dependsOn("copyConfigs")
 }
