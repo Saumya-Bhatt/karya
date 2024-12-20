@@ -39,11 +39,12 @@ jobs:
       - name: Extract version from build.gradle.kts
         id: set-version
         run: |
-          VERSION=$(grep '^version =' build.gradle.kts | sed 's/version = "//' | sed 's/"//')
-          echo "version=$VERSION" >> $GITHUB_ENV
-          echo "::set-output name=version::$VERSION"
+          # Extract the version from build.gradle.kts
+          VERSION=$(grep -oP 'version\s*=\s*"\K[0-9\.]+' build.gradle.kts)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION"  # Log the version for debugging
 
-      - name: Build Docker images for server, executor, and scheduler
+      - name: Build Docker images for Karya Servers
         run: |
           docker build -f ./servers/server/deploy/Dockerfile -t ghcr.io/${{ github.repository_owner }}/karya-server:${{ steps.set-version.outputs.version }} .
           docker build -f ./servers/executor/deploy/Dockerfile -t ghcr.io/${{ github.repository_owner }}/karya-executor:${{ steps.set-version.outputs.version }} .
