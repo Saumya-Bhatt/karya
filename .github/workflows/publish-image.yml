@@ -16,8 +16,7 @@ on:
 #      - 'build.gradle.kts'
 
 jobs:
-
-  setup:
+  build_image:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.set-version.outputs.version }}
@@ -50,25 +49,23 @@ jobs:
           echo "repo_owner_lowercase=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
   build_docker_images:
-    needs: setup
+    needs: build_image
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        image:
+          - server
+          - executor
+          - scheduler
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build Docker images in parallel
+      - name: Build Docker image for ${{ matrix.image }}
         run: |
-          VERSION=${{ needs.setup.outputs.version }}
-          REPO_OWNER=${{ needs.setup.outputs.repo_owner_lowercase }}
-
-          # Run builds in parallel using background processes
-          docker build -f ./servers/server/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-server:$VERSION & 
-          docker build -f ./servers/executor/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-executor:$VERSION & 
-          docker build -f ./servers/scheduler/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-scheduler:$VERSION & 
-
-          # Wait for all background jobs to complete
-          wait
+          VERSION=${{ needs.build_image.outputs.version }}
+          REPO_OWNER=${{ needs.build_image.outputs.repo_owner_lowercase }}
+          docker build -f ./servers/${{ matrix.image }}/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-${{ matrix.image }}:$VERSION .
 
   push_to_registries:
     needs: build_docker_images
