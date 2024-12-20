@@ -43,7 +43,8 @@ jobs:
       - name: Check if version already exists as a GitHub release
         id: check_release
         run: |
-          VERSION=${{ steps.get_version.outputs.version }}
+          VERSION="${{ steps.get_version.outputs.version }}"  # Get version from previous step
+          VERSION=$(echo $VERSION | tr -d '\r' | tr -d '\n')  # Remove any carriage return or newline characters
           
           # Fetch the list of releases from the GitHub API
           EXISTING_RELEASES=$(curl -s \
@@ -58,7 +59,6 @@ jobs:
           else
             echo "Version v$VERSION does not exist as a release. Proceeding with publish."
             echo "skip_publish=false" >> $GITHUB_ENV
-          fi
 
       - name: Build and Publish
         if: env.skip_publish != 'true'
