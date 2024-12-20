@@ -16,7 +16,8 @@ on:
 #      - 'build.gradle.kts'
 
 jobs:
-  build_image:
+
+  setup:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.set-version.outputs.version }}
@@ -49,7 +50,7 @@ jobs:
           echo "repo_owner_lowercase=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
   build_docker_images:
-    needs: build_image
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -63,8 +64,8 @@ jobs:
 
       - name: Build Docker image for ${{ matrix.image }}
         run: |
-          VERSION=${{ needs.build_image.outputs.version }}
-          REPO_OWNER=${{ needs.build_image.outputs.repo_owner_lowercase }}
+          VERSION=${{ needs.setup.outputs.version }}
+          REPO_OWNER=${{ needs.setup.outputs.repo_owner_lowercase }}
           docker build -f ./servers/${{ matrix.image }}/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-${{ matrix.image }}:$VERSION .
 
   push_to_registries:
