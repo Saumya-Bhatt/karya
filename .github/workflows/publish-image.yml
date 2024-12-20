@@ -16,7 +16,7 @@ on:
       - 'build.gradle.kts'
 
 jobs:
-  build:
+  build_image:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.set-version.outputs.version }}
@@ -49,7 +49,7 @@ jobs:
           docker build -f ./servers/executor/deploy/Dockerfile -t ghcr.io/${{ github.repository_owner }}/karya-executor:${{ steps.set-version.outputs.version }} .
           docker build -f ./servers/scheduler/deploy/Dockerfile -t ghcr.io/${{ github.repository_owner }}/karya-scheduler:${{ steps.set-version.outputs.version }} .
 
-  push:
+  push_to_registries:
     needs: build
     runs-on: ubuntu-latest
 
