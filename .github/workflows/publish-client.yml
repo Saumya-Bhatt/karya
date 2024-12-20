@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'core/**'
-      - 'client/**'
+      - 'client/src/**'
       - 'gradle/**'
       - 'build.gradle.kts'
 
