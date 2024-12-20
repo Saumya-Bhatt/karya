@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.set-version.outputs.version }}
+      repo_owner_lowercase: ${{ steps.set-repo-owner.outputs.repo_owner_lowercase }}
 
     steps:
       - name: Checkout code
@@ -44,10 +45,15 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION"  # Log the version for debugging
 
+      - name: Set repository owner to lowercase
+        id: set-repo-owner
+        run: |
+          echo "repo_owner_lowercase=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Build Docker images for Karya Servers
         run: |
           VERSION=${{ env.VERSION }}
-          REPO_OWNER={{ github.repository_owner | toLowerCase }}
+          REPO_OWNER=${{ env.repo_owner_lowercase }}
           docker build -f ./servers/server/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-server:$VERSION .
           docker build -f ./servers/executor/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-executor:$VERSION .
           docker build -f ./servers/scheduler/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-scheduler:$VERSION .
@@ -68,24 +74,8 @@ jobs:
 
       - name: Push Docker images to GitHub Container Registry
         run: |
-          VERSION=${{ needs.build.outputs.version }}
-          docker push ghcr.io/${{ github.repository_owner }}/karya-server:${VERSION}
-          docker push ghcr.io/${{ github.repository_owner }}/karya-executor:${VERSION}
-          docker push ghcr.io/${{ github.repository_owner }}/karya-scheduler:${VERSION}
-
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@v2
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-
-#      - name: Push Docker images to Docker Hub
-#        run: |
-#          VERSION=${{ needs.build.outputs.version }}
-#          docker tag ghcr.io/${{ github.repository_owner }}/karya-server:${VERSION} ${DOCKER_USERNAME}/karya-server:${VERSION}
-#          docker tag ghcr.io/${{ github.repository_owner }}/karya-executor:${VERSION} ${DOCKER_USERNAME}/karya-executor:${VERSION}
-#          docker tag ghcr.io/${{ github.repository_owner }}/karya-scheduler:${VERSION} ${DOCKER_USERNAME}/karya-scheduler:${VERSION}
-#
-#          docker push ${DOCKER_USERNAME}/karya-server:${VERSION}
-#          docker push ${DOCKER_USERNAME}/karya-executor:${VERSION}
-#          docker push ${DOCKER_USERNAME}/karya-scheduler:${VERSION}
+          VERSION=${{ needs.build_image.outputs.version }}
+          REPO_OWNER=${{ needs.build_image.outputs.repo_owner_lowercase }}
+          docker push ghcr.io/$REPO_OWNER/karya-server:$VERSION
+          docker push ghcr.io/$REPO_OWNER/karya-executor:$VERSION
+          docker push ghcr.io/$REPO_OWNER/karya-scheduler:$VERSION
