@@ -16,12 +16,12 @@ on:
 #      - 'build.gradle.kts'
 
 jobs:
-  build_image:
+
+  setup:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.set-version.outputs.version }}
       repo_owner_lowercase: ${{ steps.set-repo-owner.outputs.repo_owner_lowercase }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -40,7 +40,6 @@ jobs:
       - name: Extract version from build.gradle.kts
         id: set-version
         run: |
-          # Extract the version from build.gradle.kts
           VERSION=$(grep -oP 'version\s*=\s*"\K[0-9\.]+' build.gradle.kts)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "version=$VERSION"  # Log the version for debugging
@@ -50,16 +49,29 @@ jobs:
         run: |
           echo "repo_owner_lowercase=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-      - name: Build Docker images for Karya Servers
+  build_docker_images:
+    needs: setup
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker images in parallel
         run: |
-          VERSION=${{ env.VERSION }}
-          REPO_OWNER=${{ env.repo_owner_lowercase }}
-          docker build -f ./servers/server/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-server:$VERSION .
-          docker build -f ./servers/executor/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-executor:$VERSION .
-          docker build -f ./servers/scheduler/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-scheduler:$VERSION .
+          VERSION=${{ needs.setup.outputs.version }}
+          REPO_OWNER=${{ needs.setup.outputs.repo_owner_lowercase }}
+
+          # Run builds in parallel using background processes
+          docker build -f ./servers/server/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-server:$VERSION & 
+          docker build -f ./servers/executor/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-executor:$VERSION & 
+          docker build -f ./servers/scheduler/deploy/Dockerfile -t ghcr.io/$REPO_OWNER/karya-scheduler:$VERSION & 
+
+          # Wait for all background jobs to complete
+          wait
 
   push_to_registries:
-    needs: build_image
+    needs: build_docker_images
     runs-on: ubuntu-latest
 
     steps:
@@ -74,8 +86,8 @@ jobs:
 
       - name: Push Docker images to GitHub Container Registry
         run: |
-          VERSION=${{ needs.build_image.outputs.version }}
-          REPO_OWNER=${{ needs.build_image.outputs.repo_owner_lowercase }}
+          VERSION=${{ needs.build_docker_images.outputs.version }}
+          REPO_OWNER=${{ needs.build_docker_images.outputs.repo_owner_lowercase }}
           docker push ghcr.io/$REPO_OWNER/karya-server:$VERSION
           docker push ghcr.io/$REPO_OWNER/karya-executor:$VERSION
           docker push ghcr.io/$REPO_OWNER/karya-scheduler:$VERSION
