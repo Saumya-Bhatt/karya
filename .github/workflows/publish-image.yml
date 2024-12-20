@@ -1,0 +1,88 @@
+name: Build and Publish Docker Images to Multiple Registries
+
+on:
+  push:
+    branches:
+      - main
+      - dockerize_servers
+    paths:
+      - 'servers/server/**'
+      - 'servers/executor/**'
+      - 'servers/scheduler/**'
+      - 'connectors/**'
+      - 'core/**'
+      - 'data/**'
+      - 'gradle/**'
+      - 'build.gradle.kts'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set-version.outputs.version }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Extract version from build.gradle.kts
+        id: set-version
+        run: |
+          VERSION=$(grep '^version =' build.gradle.kts | sed 's/version = "//' | sed 's/"//')
+          echo "version=$VERSION" >> $GITHUB_ENV
+          echo "::set-output name=version::$VERSION"
+
+      - name: Build Docker images for server, executor, and scheduler
+        run: |
+          docker build -f ./servers/server/deploy/Dockerfile -t ghcr.io/${{ github.repository_owner }}/karya-server:${{ steps.set-version.outputs.version }} .
+          docker build -f ./servers/executor/deploy/Dockerfile -t ghcr.io/${{ github.repository_owner }}/karya-executor:${{ steps.set-version.outputs.version }} .
+          docker build -f ./servers/scheduler/deploy/Dockerfile -t ghcr.io/${{ github.repository_owner }}/karya-scheduler:${{ steps.set-version.outputs.version }} .
+
+  push:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker images to GitHub Container Registry
+        run: |
+          VERSION=${{ needs.build.outputs.version }}
+          docker push ghcr.io/${{ github.repository_owner }}/karya-server:${VERSION}
+          docker push ghcr.io/${{ github.repository_owner }}/karya-executor:${VERSION}
+          docker push ghcr.io/${{ github.repository_owner }}/karya-scheduler:${VERSION}
+
+#      - name: Log in to Docker Hub
+#        uses: docker/login-action@v2
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+
+#      - name: Push Docker images to Docker Hub
+#        run: |
+#          VERSION=${{ needs.build.outputs.version }}
+#          docker tag ghcr.io/${{ github.repository_owner }}/karya-server:${VERSION} ${DOCKER_USERNAME}/karya-server:${VERSION}
+#          docker tag ghcr.io/${{ github.repository_owner }}/karya-executor:${VERSION} ${DOCKER_USERNAME}/karya-executor:${VERSION}
+#          docker tag ghcr.io/${{ github.repository_owner }}/karya-scheduler:${VERSION} ${DOCKER_USERNAME}/karya-scheduler:${VERSION}
+#
+#          docker push ${DOCKER_USERNAME}/karya-server:${VERSION}
+#          docker push ${DOCKER_USERNAME}/karya-executor:${VERSION}
+#          docker push ${DOCKER_USERNAME}/karya-scheduler:${VERSION}
