@@ -22,4 +22,9 @@ object Plugins {
     const val LIBRARY = "org.jetbrains.dokka"
     const val VERSION = "1.9.20"
   }
+
+  object Shadow {
+    const val LIBRARY = "com.gradleup.shadow"
+    const val VERSION = "8.3.5"
+  }
 }

@@ -21,7 +21,7 @@ allprojects {
 
 subprojects {
   group = "karya"
-  version = "0.0.1"
+  version = "0.1.0"
 
   apply(plugin = Plugins.Kotlin.JVM)
   apply(plugin = Plugins.Dokka.LIBRARY)

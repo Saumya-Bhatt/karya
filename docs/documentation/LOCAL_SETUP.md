@@ -115,6 +115,18 @@ Now that the providers have been set up, it is time to run the application.
   export KARYA_EXECUTOR_CONFIG_PATH=path/to/executor.yml
 ```
 
+### Run the servers (via Docker-Compose) [Recommended]
+
+The `docker-compose` file provided in the `docs/local-setup` directory can be used to run the servers. The `docker-compose` file will start the server, executor, and scheduler containers. Do note the following:
+
+- Each container will have a memory limit of `512m` for `Xms` and `1536m` for `Xmx`.
+- The compose file will spin up 1 node of each server.
+- The compose file will use these [providers.yml](../../configs/providers/psql-redis-rabbitmq.providers.yml), [server.yml](../../configs/server.yml), [scheduler.yml](../../configs/scheduler.yml), and [executor.yml](../../configs/executor.yml) files
+
+```shell
+docker-compose -f ./docs/local-setup/karya.docker-compose.yml up -d
+```
+
 ### Run the servers (via Gradle)
 
 ```shell
@@ -126,6 +138,52 @@ Now that the providers have been set up, it is time to run the application.
 
 # and finally start the scheduler
 ./gradlew servers-scheduler:run
+```
+
+### Run the servers (via Docker)
+
+Each server can be run as individual docker containers. One just needs to configure the memory requirement of each container and provide the path to the configuration files.
+
+> Default memory settings are `512m` for `Xms` and `1536m` for `Xmx`.
+
+**Running Karya Server**
+
+```shell
+docker run -d \
+  --name karya-server \
+  -e MEMORY_XMS=512m \
+  -e MEMORY_XMX=1536m \
+  -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/providers/psql-redis-rabbitmq.providers.yml:/home/app/configs/psql-redis-rabbitmq.providers.yml \
+  -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/server.yml:/home/app/configs/server.yml \
+  -e KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml \
+  -e KARYA_SERVER_CONFIG_PATH=/home/app/configs/server.yml \
+  saumyabhatt10642/karya-server
+````
+
+**Running Karya Executor**
+```shell
+docker run -d \
+  --name karya-executor \
+  -e MEMORY_XMS=512m \
+  -e MEMORY_XMX=1536m \
+  -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/providers/psql-redis-rabbitmq.providers.yml:/home/app/configs/psql-redis-rabbitmq.providers.yml \
+  -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/executor.yml:/home/app/configs/executor.yml \
+  -e KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml \
+  -e KARYA_EXECUTOR_CONFIG_PATH=/home/app/configs/executor.yml \
+  saumyabhatt10642/karya-executor
+```
+
+**Running Karya Scheduler**
+```shell
+docker run -d \
+  --name karya-scheduler \
+  -e MEMORY_XMS=512m \
+  -e MEMORY_XMX=1536m \
+  -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/providers/psql-redis-rabbitmq.providers.yml:/home/app/configs/psql-redis-rabbitmq.providers.yml \
+  -v /Users/saumya.bhatt/Desktop/Saumya/karya/configs/scheduler.yml:/home/app/configs/scheduler.yml \
+  -e KARYA_PROVIDERS_CONFIG_PATH=/home/app/configs/psql-redis-rabbitmq.providers.yml \
+  -e KARYA_SCHEDULER_CONFIG_PATH=/home/app/configs/scheduler.yml \
+  saumyabhatt10642/karya-scheduler
 ```
 
 Run a [MakePeriodicApiCall.kt.kt](../samples/src/main/kotlin/karya/docs/samples/MakePeriodicApiCall.kt) to schedule a dummy plan and check if the setup is working fine. More samples can be found [here](../samples/src/main/kotlin/karya/docs/samples).

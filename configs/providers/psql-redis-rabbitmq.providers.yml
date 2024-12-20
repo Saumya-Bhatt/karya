@@ -8,7 +8,7 @@ repo:
       dataSource.password: "karya"
       dataSource.databaseName: "karya"
       dataSource.portNumber: 5432
-      dataSource.serverName: "localhost"
+      dataSource.serverName: "host.docker.internal"
       maximumPoolSize: 10
       connectionTimeout: 5000
 
@@ -23,7 +23,7 @@ lock:
     connection.poolSize: 5
     connection.minimumIdleSize: 2
     clusterNodes:
-      - "redis://localhost:6379"
+      - "redis://host.docker.internal:6379"
 
 queue:
   provider: "rabbitmq"
@@ -32,4 +32,4 @@ queue:
     password: "karya"
     virtualHost: "/"
     clusterNodes:
-      - "localhost:5672"
+      - "host.docker.internal:5672"

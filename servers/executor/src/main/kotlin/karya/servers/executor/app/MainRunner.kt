@@ -10,7 +10,7 @@ import java.util.concurrent.CountDownLatch
 /**
  * The logger instance for logging messages.
  */
-val logger: Logger = LogManager.getLogger()
+val logger: Logger = LogManager.getLogger("karaya.servers.executor.app.MainRunner")
 
 /**
  * The main function to start the executor service.

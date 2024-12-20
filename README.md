@@ -39,14 +39,63 @@ There are several task schedulers out there. Why to choose Karya? Here are the r
 
 ---
 
+## Quick Start
+
+This section will help set up Karya locally so that you can start scheduling jobs in no time!
+
+Few things to note; if you haven't already gone through the [architecture overview](./docs/documentation/ARCHITECTURE.md), Karya requires a SQL database, a queue and a key-value store to work with. For our local setup, we will be using `Postgres`, `Redis` and `RabbitMQ` respectively.
+
+> For more detailed local set up, refer to the [local setup documentation](./docs/documentation/LOCAL_SETUP.md).
+
+### Pre-requisites
+
+Docker and Docker Compose should be installed on your machine. If not, you can install it from [here](https://docs.docker.com/get-docker/). Make sure the docker engine is running.
+
+### Step 1 : Setup providers
+
+Run the below command to set up and run Postgres, Redis and RabbitMQ containers.
+
+```bash
+docker-compose -f ./docs/local-setup/providers.docker-compose.yml up -d
+``` 
+
+### Step 2 : Create your configuration yml files
+
+Create the following .yml files on your machine:
+
+| File Name       | Documentation                                                                                                  | Description                                                                                       | Example                                                               |
+|-----------------|----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| _providers.yml_ | [Data Adapters](./docs/documentation/DATA_ADAPTERS.md)                                                         | Contains the connection details for Postgres, Redis and RabbitMQ                                  | [Example File](./configs/providers/psql-redis-rabbitmq.providers.yml) |
+| _server.yml_    | [Karya Server](./docs/documentation/COMPONENTS.md#Server)                                                      | Contains the server configuration details. This will serve as the client interfacing side         | [Example File](./configs/server.yml)                                  |
+| _executor.yml_  | [Karya Executor](./docs/documentation/COMPONENTS.md#Executor) [Connectors](./docs/documentation/CONNECTORS.md) | Contains the executor configuration details. This is what will provide the functionality to Karya | [Example File](./configs/executor.yml)                                |
+| _scheduler.yml_ | [Karya Scheduler](./docs/documentation/COMPONENTS.md#Scheduler)                                                | Contains the scheduler configuration details. This is the heart of Karya                           | [Example File](./configs/scheduler.yml)                               |
+
+### Step 3 : Run Karya Servers
+
+Run the below command to start the Karya servers via docker-compose
+
+> __NOTE__ : Make sure to change the paths while mounting the volumes in the below command to the paths where you have stored the .yml files.
+
+```bash
+docker-compose -f ./docs/local-setup/karya.docker-compose.yml up -d
+```
+
+### Step 4 : Start using Karya!
+
+Now that you have the Karya setup running, you can start scheduling tasks using the client of your choice. Refer to the below section for more information on how to use the client.
+
+#### [Example usages](./docs/documentation/EXAMPLES.md)
+
+---
+
 ## Features
 
 - Schedule periodic/delayed tasks with lower bound being *1s*.
 - Can be made to work with almost all universally available software via [data-adapters](./docs/documentation/DATA_ADAPTERS.md)
-- Ability to [chain plans](./docs/documentation/CONNECTORS.md/#chained-plans) (be it periodic or delayed). 
+- Ability to [chain plans](./docs/documentation/CONNECTORS.md/#chained-plans) (be it periodic or delayed).
 - Attach [hooks](./docs/documentation/HOOKS.md) to task states (`ON_FAILURE`,`ON_COMPLETION`)
-  - Setup notifications/alerts/chain another task using the same interface! (**Eat What You Kill**)
-  - Multiple hooks can be attached to the task for same states.
+    - Setup notifications/alerts/chain another task using the same interface! (**Eat What You Kill**)
+    - Multiple hooks can be attached to the task for same states.
 - Get comprehensive summary of the task running/previous tasks including error logs if any!
 
 ---

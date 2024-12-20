@@ -19,8 +19,24 @@ Karya is in no way a finished project. There's always room for improvements. Be 
 1. Go through the [Architecture Overview](../docs/documentation/ARCHITECTURE) to understand the components of Karya.
 2. Set up the application locally by following the [Local Setup](../docs/documentation/LOCAL_SETUP.md) guide.
 3. Go through the [Postman Collection](../docs/media/Karya.postman_collection.json) to understand the REST endpoints exposed by the server.
-3. Follow the contribution guidelines mentioned below.
-4. Fork the repository and start contributing!
+4. Follow the contribution guidelines mentioned below.
+5. Fork the repository and start contributing!
+
+## Building Karya
+
+- Karya uses Gradle as the build tool. To build the project, run the following command:
+
+```shell
+./gradlew clean build
+```
+
+To build the docker images locally, run the following commands:
+
+```shell
+docker build -f ./servers/server/deploy/Dockerfile -t karya-server .
+docker build -f ./servers/executor/deploy/Dockerfile -t karya-executor .
+docker build -f ./servers/scheduler/deploy/Dockerfile -t karya-scheduler .
+```
 
 ## Linting and Formatting
 
