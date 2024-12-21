@@ -1,6 +1,6 @@
-# Examples
+# Java Client
 
-This section helps describe what all various plans one can scheduler using Karya.
+This section helps describe what all various plans one can scheduler using Karya Java Client.
 
 > ### Python Client
 > 
@@ -11,8 +11,6 @@ This section helps describe what all various plans one can scheduler using Karya
 ---
 
 ## Initial Setup
-
-This section assumes you will be using the Kotlin Client of Karya to interact with the backend.
 
 ### Installing Karya Client
 
