@@ -17,26 +17,46 @@ Distributed, scalable Task Scheduler built for high throughput.
 
 ---
 
-## Why Karya?
+## Features
 
-There are several task schedulers out there. Why to choose Karya? Here are the reasons:
+- Schedule periodic/delayed tasks with lower bound being *1s*.
+- Can be made to work with almost all universally available software via [data-adapters](./docs/documentation/DATA_ADAPTERS.md)
+- Ability to [chain plans](./docs/documentation/CONNECTORS.md/#chained-plans) (be it periodic or delayed).
+- Attach [hooks](./docs/documentation/HOOKS.md) to task states (`ON_FAILURE`,`ON_COMPLETION`)
+    - Setup notifications/alerts/chain another task using the same interface! (**Eat What You Kill**)
+    - Multiple hooks can be attached to the task for same states.
+- Get comprehensive summary of the task running/previous tasks including error logs if any!
 
-1. >**Built for high throughput**.
-   
-    It follows the philosophy: *solve scaling by throwing money at it*, which means one just needs to add one more node and scale horizontally infinitely!
+---
 
-2. >**Fault-tolerant by nature**
+## Supported Platforms
 
-   Software like Postgres and Redis have already solved the problem of achieving fault tolerance. Karya nodes are stateless in nature and utilizes the properties of such [data-adapters](./docs/documentation/DATA_ADAPTERS.md) to achieve this goal.
+### Karya Nodes
 
-3. >**Highly Pluggable and customizable**
+Karya Nodes can be run completely as docker containers.
 
-    Be it in terms of [data-adapters](./docs/documentation/DATA_ADAPTERS.md) or [connectors](#connectors). Just specify the properties in a .yml file, and you're good to go! Karya [components](./docs/documentation/COMPONENTS.md) can be customized to suite your use case endlessly!
+- [Running Karya Server](./docs/documentation/LOCAL_SETUP.md#running-karya-server)
+- [Running Karya Executor](./docs/documentation/LOCAL_SETUP.md#running-karya-executor)
+- [Running Karya Scheduler](./docs/documentation/LOCAL_SETUP.md#running-karya-scheduler)
 
-4. >**Fast, Performant and Safe**
-   
-    Being written in Kotlin thereby making it typesafe, it uses coroutines to achieve *structured concurrency* while being thread safe.
+### Providers
 
+Karya currently requires the following external components to work: a SQL based database, a key-value based one and a queue.
+
+Karya provides support for the below given components with more on the way. For more details, refer - [Data Adapters](./docs/documentation/DATA_ADAPTERS.md)
+
+| Repo Adapter                                     | Locks Adapter                                            | Queue Adapter                         |
+|--------------------------------------------------|----------------------------------------------------------|---------------------------------------|
+| [Postgres](https://www.postgresql.org/)          | [Redis](https://redis.io/)                               | [RabbitMQ](https://www.rabbitmq.com/) |
+| [AWS Aurora](https://aws.amazon.com/rds/aurora/) | [ElastiCache](https://aws.amazon.com/elasticache/redis/) | [SQS](https://aws.amazon.com/sqs/)    |
+
+### Clients
+
+Users can use the following clients to interact with Karya from their preferred environment.
+
+- [Java/Kotlin Client](./docs/documentation/EXAMPLES.md/#installing-karya-client)
+- [Python Client](https://github.com/Saumya-Bhatt/karya-python-client) 
+- REST API - [postman collection](./docs/media/Karya.postman_collection.json)
 ---
 
 ## Quick Start
@@ -88,14 +108,24 @@ Now that you have the Karya setup running, you can start scheduling tasks using 
 
 ---
 
-## Features
+## Why Karya?
 
-- Schedule periodic/delayed tasks with lower bound being *1s*.
-- Can be made to work with almost all universally available software via [data-adapters](./docs/documentation/DATA_ADAPTERS.md)
-- Ability to [chain plans](./docs/documentation/CONNECTORS.md/#chained-plans) (be it periodic or delayed).
-- Attach [hooks](./docs/documentation/HOOKS.md) to task states (`ON_FAILURE`,`ON_COMPLETION`)
-    - Setup notifications/alerts/chain another task using the same interface! (**Eat What You Kill**)
-    - Multiple hooks can be attached to the task for same states.
-- Get comprehensive summary of the task running/previous tasks including error logs if any!
+There are several task schedulers out there. Why to choose Karya? Here are the reasons:
+
+1. >**Built for high throughput**.
+
+   It follows the philosophy: *solve scaling by throwing money at it*, which means one just needs to add one more node and scale horizontally infinitely!
+
+2. >**Fault-tolerant by nature**
+
+   Software like Postgres and Redis have already solved the problem of achieving fault tolerance. Karya nodes are stateless in nature and utilizes the properties of such [data-adapters](./docs/documentation/DATA_ADAPTERS.md) to achieve this goal.
+
+3. >**Highly Pluggable and customizable**
+
+   Be it in terms of [data-adapters](./docs/documentation/DATA_ADAPTERS.md) or [connectors](#connectors). Just specify the properties in a .yml file, and you're good to go! Karya [components](./docs/documentation/COMPONENTS.md) can be customized to suite your use case endlessly!
+
+4. >**Fast, Performant and Safe**
+
+   Being written in Kotlin thereby making it typesafe, it uses coroutines to achieve *structured concurrency* while being thread safe.
 
 ---

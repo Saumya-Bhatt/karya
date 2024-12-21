@@ -146,9 +146,9 @@ Each server can be run as individual docker containers. One just needs to config
 
 > Default memory settings are `512m` for `Xms` and `1536m` for `Xmx`.
 
-**Running Karya Server**
+#### Running Karya Server
 
-[DockerHub Image](https://hub.docker.com/r/saumyabhatt10642/karya-server)
+[DockerHub Image](https://hub.docker.com/r/saumyabhatt10642/karya-server) / [GitHub Container Registry](https://github.com/Saumya-Bhatt/karya/pkgs/container/karya-server)
 
 ```shell
 docker run -d \
@@ -162,9 +162,9 @@ docker run -d \
   saumyabhatt10642/karya-server
 ````
 
-**Running Karya Executor**
+#### Running Karya Executor
 
-[DockerHub Image](https://hub.docker.com/r/saumyabhatt10642/karya-executor)
+[DockerHub Image](https://hub.docker.com/r/saumyabhatt10642/karya-executor) / [GitHub Container Registry](https://github.com/Saumya-Bhatt/karya/pkgs/container/karya-executor)
 
 ```shell
 docker run -d \
@@ -178,9 +178,9 @@ docker run -d \
   saumyabhatt10642/karya-executor
 ```
 
-**Running Karya Scheduler**
+### Running Karya Scheduler
 
-[DockerHub Image](https://hub.docker.com/r/saumyabhatt10642/karya-scheduler)
+[DockerHub Image](https://hub.docker.com/r/saumyabhatt10642/karya-scheduler) / [GitHub Container Registry](https://github.com/Saumya-Bhatt/karya/pkgs/container/karya-scheduler)
 
 ```shell
 docker run -d \

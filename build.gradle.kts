@@ -20,11 +20,11 @@ allprojects {
 }
 
 subprojects {
-  group = "karya"
+  group = "io.github.saumya-bhatt"
 
   // update this only when updating the servers docker image.
   // For client, refer to the clientVersion variable in client/build.gradle.kts
-  version = "0.1.0"
+  version = "1.0.0"
 
   apply(plugin = Plugins.Kotlin.JVM)
   apply(plugin = Plugins.Dokka.LIBRARY)
