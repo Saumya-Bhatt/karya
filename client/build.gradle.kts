@@ -52,16 +52,16 @@ tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJ
 }
 
 publishing {
-  publications {
-    create<MavenPublication>("shadow") {
-      artifact(tasks.named("shadowJar").get()) {
-        classifier = "all"
-      }
-      groupId =  project.group.toString()
-      artifactId = artifactId
-      version = clientVersion
-    }
-  }
+//  publications {
+//    create<MavenPublication>("shadow") {
+//      artifact(tasks.named("shadowJar").get()) {
+//        classifier = "all"
+//      }
+//      groupId =  project.group.toString()
+//      artifactId = artifactId
+//      version = clientVersion
+//    }
+//  }
 
   repositories {
 
