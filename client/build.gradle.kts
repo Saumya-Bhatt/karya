@@ -9,7 +9,7 @@ plugins {
   id(Plugins.PublishCentral.LIBRARY) version Plugins.PublishCentral.VERSION
 }
 
-val clientVersion = "0.1.2"
+val clientVersion = "0.1.3"
 val artifactId = "karya-client"
 
 dependencies {
