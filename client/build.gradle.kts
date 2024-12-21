@@ -9,7 +9,7 @@ plugins {
   id(Plugins.PublishCentral.LIBRARY) version Plugins.PublishCentral.VERSION
 }
 
-val clientVersion = "0.1.3"
+val clientVersion = "0.1.4"
 val artifactId = "karya-client"
 
 dependencies {
@@ -48,23 +48,21 @@ tasks.named("processResources") {
 tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
   archiveBaseName.set("${project.group}-$artifactId")
   archiveVersion.set(clientVersion)
-  archiveClassifier.set("all")
+  mergeServiceFiles()
+}
+
+// disabling this to promote publishing of fatJar
+tasks.named<Jar>("jar") {
+  enabled = false
 }
 
 publishing {
-//  publications {
-//    create<MavenPublication>("shadow") {
-//      artifact(tasks.named("shadowJar").get()) {
-//        classifier = "all"
-//      }
-//      groupId =  project.group.toString()
-//      artifactId = artifactId
-//      version = clientVersion
-//    }
-//  }
-
+  publications {
+    register<MavenPublication>("shadow") {
+      project.shadow.component(this)
+    }
+  }
   repositories {
-
     maven {
       name = "GitHubPackages"
       url = uri("https://maven.pkg.github.com/Saumya-Bhatt/karya")
