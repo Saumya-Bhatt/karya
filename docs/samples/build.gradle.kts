@@ -1,4 +1,5 @@
 dependencies {
-  implementation(project(Modules.CORE))
-  implementation(project(Modules.CLIENT))
+  implementation("io.github.saumya-bhatt:karya-client:0.1.5:all") {
+    isTransitive = false
+  }
 }

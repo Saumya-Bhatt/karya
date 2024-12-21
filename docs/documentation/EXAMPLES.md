@@ -14,7 +14,20 @@ This section helps describe what all various plans one can scheduler using Karya
 
 This section assumes you will be using the Kotlin Client of Karya to interact with the backend.
 
-### 1. Creating the client
+### Installing Karya Client
+
+Karya client can be found at the [Maven Central](https://central.sonatype.com/artifact/io.github.saumya-bhatt/karya-client) or from [GitHub Packages](https://github.com/Saumya-Bhatt/karya/packages/2353009)
+
+```kotlin
+// add this to your build.gradle.kts
+dependencies {
+  implementation("io.github.saumya-bhatt:karya-client:<latest-version>:all") {
+    isTransitive = false
+  }
+}
+```
+
+#### 1. Creating the client
 
 First create the config object:
 
@@ -32,7 +45,7 @@ import karya.client.di.KaryaClientFactory
 val client = KaryaClientFactory.create(config)
 ```
 
-### 2. Creating a user
+#### 2. Creating a user
 
 Only a user registered with Karya can schedule tasks. To create a user, use the following code:
 
@@ -42,7 +55,7 @@ import karya.core.entities.requests.CreateUserRequest
 val user = client.createUser(CreateUserRequest("Bob"))
 ```
 
-### 3. Creating an action
+#### 3. Creating an action
 
 Specify the action that you would want to trigger once the task is scheduled.
 
@@ -82,7 +95,7 @@ val apiRequest = Action.RestApiRequest(
 )
 ```
 
-### 4. Submit the plan to Karya.
+#### 4. Submit the plan to Karya.
 
 > **NOTE:** period_time has to be in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) format.
 
@@ -103,7 +116,7 @@ val planRequest = SubmitPlanRequest(
 val plan = client.submitPlan(planRequest)
 ```
 
-### 5. And you're done!
+#### 5. And you're done!
 
 The plan will be executed as per the schedule:
 

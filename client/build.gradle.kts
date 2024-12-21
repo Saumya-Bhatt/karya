@@ -1,5 +1,3 @@
-import com.vanniktech.maven.publish.JavadocJar
-import com.vanniktech.maven.publish.KotlinJvm
 import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
@@ -9,7 +7,7 @@ plugins {
   id(Plugins.PublishCentral.LIBRARY) version Plugins.PublishCentral.VERSION
 }
 
-val clientVersion = "0.1.5"
+val clientVersion = "1.0.0"
 val artifactId = "karya-client"
 
 dependencies {
@@ -68,14 +66,9 @@ mavenPublishing {
 
   coordinates(
     groupId = project.group.toString(),
-    artifactId = "karya-client",
+    artifactId = artifactId,
     version = clientVersion
   )
-
-//  configure(KotlinJvm(
-//    javadocJar = JavadocJar.Dokka("dokkaHtml"),
-//    sourcesJar = true
-//  ))
 
   pom {
     name.set("karya-client")
