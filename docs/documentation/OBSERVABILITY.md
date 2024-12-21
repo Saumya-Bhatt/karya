@@ -29,7 +29,7 @@ All the metrics are exposed via the following ports and are prometheus compatibl
 
 Karya provides a Grafana dashboard that can be used to visualize the metrics. The dashboard can be found [here](../local-setup/observability/Karya_Monitoring_Dashboard_v1.json)
 
-![Grafana Dashboard Screenshot](../media/monitoring_dashboard_v1_screenshot.png)
+![Grafana Dashboard Screenshot](../media/screenshots/monitoring_dashboard_v1_screenshot.png)
 
 ## Alerting
 

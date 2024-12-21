@@ -3,29 +3,47 @@
 Distributed, scalable Task Scheduler built for high throughput.
 
 - [How to contribute](.github/CONTRIBUTING.md)
-- [Architecture Overview](./docs/documentation/ARCHITECTURE.md)
+- [Documentation](./docs/documentation/)
 - [Local Setup](./docs/documentation/LOCAL_SETUP.md)
 - [API Docs](https://saumya-bhatt.github.io/karya/)
 
 ---
 
-## Use cases
-
-1. Schedule tasks to run at periodic frequency.
-2. Schedule async, non-recurring tasks at scale.
-3. Chain recurring and non-recurring tasks together to achieve custom flow.
-
----
-
 ## Features
 
-- Schedule periodic/delayed tasks with lower bound being *1s*.
-- Can be made to work with almost all universally available software via [data-adapters](./docs/documentation/DATA_ADAPTERS.md)
-- Ability to [chain plans](./docs/documentation/CONNECTORS.md/#chained-plans) (be it periodic or delayed).
-- Attach [hooks](./docs/documentation/HOOKS.md) to task states (`ON_FAILURE`,`ON_COMPLETION`)
-    - Setup notifications/alerts/chain another task using the same interface! (**Eat What You Kill**)
-    - Multiple hooks can be attached to the task for same states.
-- Get comprehensive summary of the task running/previous tasks including error logs if any!
+**1. Schedule delayed job** - Will execute after the time duration is passed.
+
+![delayed_plan.png](./docs/media/illustrations/delayed_plan.png)
+
+**2. Schedule bounded recurring tasks** - tasks will execute till specified when to stop.
+
+![bounded_recurring_plan.png](./docs/media/illustrations/bounded_recurring_plan.png)
+
+**3. Schedule unbounded recurring tasks** - will run indefinitely.
+
+![unbounded_recurring_plan.png](./docs/media/illustrations/unbounded_recurring_plan.png)
+
+**4. Chain Plans** - What if a 'task execution' triggers, triggering a new plan! Read more about [Chained Plans](./docs/documentation/CONNECTORS.md/#chained-plans)
+
+> Note: This can result in exponentially scheduling tasks. But Karya can be configured to adjust the _tree-depth_ of chained plans. 
+
+![chained_plan_on_action.png](./docs/media/illustrations/chained_plans_on_action.png)
+
+**5. Attach hooks** - [Hooks](./docs/documentation/HOOKS.md) can be attached to each job, to perform any reactive action.
+
+![plan_with_task_hooks.png](./docs/media/illustrations/plan_with_task_hooks.png)
+
+**6. Trigger multiple Actions in hook** - One can attach multiple actions to a plan's hook.
+
+![multiple_actions_on_hook.png](./docs/media/illustrations/multiple_actions_on_hook.png)
+
+**7. Extending Hooks** - What if one could trigger a whole new plan instead of taking just reactive actions!
+
+![chained_plan_on_hook.png](./docs/media/illustrations/chained_plan_on_hook.png)
+
+**8. Multiple Actions to configure** - Configure from a range of actions on _what to do_ once a task is to be executed.
+
+![supported_actions.png](./docs/media/illustrations/supported_actions.png)
 
 ---
 
@@ -43,7 +61,7 @@ Karya Nodes can be run completely as docker containers.
 
 Karya currently requires the following external components to work: a SQL based database, a key-value based one and a queue.
 
-Karya provides support for the below given components with more on the way. For more details, refer - [Data Adapters](./docs/documentation/DATA_ADAPTERS.md)
+Karya provides out of the box integration with the below given components with more on the way. For more details, refer - [Data Adapters](./docs/documentation/DATA_ADAPTERS.md)
 
 | Repo Adapter                                     | Locks Adapter                                            | Queue Adapter                         |
 |--------------------------------------------------|----------------------------------------------------------|---------------------------------------|
@@ -54,7 +72,7 @@ Karya provides support for the below given components with more on the way. For 
 
 Users can use the following clients to interact with Karya from their preferred environment.
 
-- [Java/Kotlin Client](./docs/documentation/EXAMPLES.md/#installing-karya-client)
+- [Java Client](./docs/documentation/CLIENT.md)
 - [Python Client](https://github.com/Saumya-Bhatt/karya-python-client) 
 - REST API - [postman collection](./docs/media/Karya.postman_collection.json)
 ---
@@ -104,7 +122,8 @@ docker-compose -f ./docs/local-setup/karya.docker-compose.yml up -d
 
 Now that you have the Karya setup running, you can start scheduling tasks using the client of your choice. Refer to the below section for more information on how to use the client.
 
-#### [Example usages](./docs/documentation/EXAMPLES.md)
+#### [Scheduling tasks using Python Client](https://github.com/Saumya-Bhatt/karya-python-client)
+#### [Scheduling tasks using Java Client](./docs/documentation/EXAMPLES.md)
 
 ---
 
