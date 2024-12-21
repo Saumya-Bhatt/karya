@@ -51,14 +51,6 @@ tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJ
   archiveClassifier.set("all")
 }
 
-tasks.named<Jar>("jar") {
-  dependsOn("shadowJar")
-  archiveBaseName.set("${project.group}-$artifactId")
-  archiveVersion.set(clientVersion)
-  archiveClassifier.set("all")
-  from(tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar").get().outputs.files)
-}
-
 publishing {
   repositories {
     maven {
@@ -80,10 +72,10 @@ mavenPublishing {
     version = clientVersion
   )
 
-  configure(KotlinJvm(
-    javadocJar = JavadocJar.Dokka("dokkaHtml"),
-    sourcesJar = true
-  ))
+//  configure(KotlinJvm(
+//    javadocJar = JavadocJar.Dokka("dokkaHtml"),
+//    sourcesJar = true
+//  ))
 
   pom {
     name.set("karya-client")
