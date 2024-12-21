@@ -55,11 +55,15 @@ tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJ
 tasks.named<Jar>("jar") {
   enabled = false
 }
+tasks.build {
+  dependsOn(tasks.shadowJar)
+}
 
 publishing {
   publications {
-    register<MavenPublication>("shadow") {
-      project.shadow.component(this)
+    create<MavenPublication>("mavenJava") {
+      from(components["java"])
+      artifact(tasks["shadowJar"])
     }
   }
   repositories {
