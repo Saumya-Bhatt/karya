@@ -58,7 +58,7 @@ jobs:
 
       - name: Build and Publish to GitHub Packages
         if: steps.check_tag.outputs.skip_publish == 'false'
-        run: ./gradlew publishAllPublicationsTo<GitHubPackages>Repository
+        run: ./gradlew publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
