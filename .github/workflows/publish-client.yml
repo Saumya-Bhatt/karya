@@ -4,11 +4,12 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'core/**'
-      - 'client/src/**'
-      - 'gradle/**'
-      - 'build.gradle.kts'
+      - maven_publish
+#    paths:
+#      - 'core/**'
+#      - 'client/src/**'
+#      - 'gradle/**'
+#      - 'build.gradle.kts'
 
 jobs:
   publish:

@@ -29,4 +29,9 @@ object Plugins {
     const val LIBRARY = "com.gradleup.shadow"
     const val VERSION = "8.3.5"
   }
+
+  object PublishCentral {
+    const val LIBRARY = "com.vanniktech.maven.publish"
+    const val VERSION = "0.30.0"
+  }
 }

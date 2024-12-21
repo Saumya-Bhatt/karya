@@ -20,7 +20,7 @@ allprojects {
 }
 
 subprojects {
-  group = "karya"
+  group = "io.github.saumya-bhatt"
 
   // update this only when updating the servers docker image.
   // For client, refer to the clientVersion variable in client/build.gradle.kts
