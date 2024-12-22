@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - rename_module
     paths:
       - 'core/**'
       - 'client/src/**'
