@@ -1,4 +1,4 @@
-# Java Client
+# Java(17) Client
 
 This section helps describe what all various plans one can scheduler using Karya Java Client.
 
@@ -23,6 +23,8 @@ dependencies {
   implementation("io.github.saumya-bhatt:karya-core:1.0.1")
 }
 ```
+
+> **NOTE:** Karya Java client is compiled on Java 17. Currently no release has been made to be compatible with lower Java versions directly. 
 
 #### 1. Creating the client
 

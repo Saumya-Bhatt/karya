@@ -50,7 +50,7 @@ mavenPublishing {
 
   pom {
     name.set("karya-core")
-    description.set("Karya Core module containing the common data classes and utility functions.")
+    description.set("Karya Core module containing the common data classes and utility functions. Compiled on Java 17.")
     inceptionYear.set("2024")
     url.set("https://github.com/Saumya-Bhatt/karya")
     licenses {

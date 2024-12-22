@@ -72,7 +72,7 @@ mavenPublishing {
 
   pom {
     name.set("karya-client")
-    description.set("Client module to interact with Karya Backend")
+    description.set("Client module to interact with Karya Backend. Compiled on Java 17.")
     inceptionYear.set("2024")
     url.set("https://github.com/Saumya-Bhatt/karya")
     licenses {
