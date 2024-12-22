@@ -24,7 +24,7 @@ jobs:
       - name: Extract version from client/build.gradle.kts
         id: get_version
         run: |
-          clientVersion=$(grep -oP '  extra["clientVersion"] = "\K[0-9]+\.[0-9]+\.[0-9]+' ./build.gradle.kts)          
+          clientVersion=$(grep -oP 'extra\["clientVersion"\]\s*=\s*"\K[0-9]+\.[0-9]+\.[0-9]+' ./build.gradle.kts)          
           echo "Client version: $clientVersion"
           echo "version=$clientVersion" >> $GITHUB_OUTPUT
 
