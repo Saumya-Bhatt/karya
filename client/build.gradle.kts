@@ -1,14 +1,15 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinJvm
 import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
   id(Plugins.Kotlin.KAPT)
   id(Plugins.MAVEN_PUBLISH)
-  id(Plugins.Shadow.LIBRARY) version Plugins.Shadow.VERSION
   id(Plugins.PublishCentral.LIBRARY) version Plugins.PublishCentral.VERSION
 }
 
-val clientVersion = "1.0.0"
 val artifactId = "karya-client"
+val clientVersion = project.extra.get("clientVersion").toString()
 
 dependencies {
   implementation(project(Modules.CORE))
@@ -43,12 +44,6 @@ tasks.named("processResources") {
   dependsOn("copyConfigs")
 }
 
-tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
-  archiveBaseName.set("${project.group}-$artifactId")
-  archiveVersion.set(clientVersion)
-  archiveClassifier.set("all")
-}
-
 publishing {
   repositories {
     maven {
@@ -69,6 +64,11 @@ mavenPublishing {
     artifactId = artifactId,
     version = clientVersion
   )
+
+  configure(KotlinJvm(
+    javadocJar = JavadocJar.Dokka("dokkaHtml"),
+    sourcesJar = true
+  ))
 
   pom {
     name.set("karya-client")

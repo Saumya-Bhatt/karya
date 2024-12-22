@@ -23,7 +23,6 @@ subprojects {
   group = "io.github.saumya-bhatt"
 
   // update this only when updating the servers docker image.
-  // For client, refer to the clientVersion variable in client/build.gradle.kts
   version = "1.0.0"
 
   apply(plugin = Plugins.Kotlin.JVM)
@@ -32,5 +31,9 @@ subprojects {
   dependencies {
     detektPlugins(Plugins.Detekt.FORMATTING)
   }
-
 }
+
+gradle.beforeProject {
+  extra["clientVersion"] = "1.0.1"
+}
+
