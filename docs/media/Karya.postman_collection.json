@@ -85,6 +85,74 @@
 							"body": "{\n    \"id\": \"e23e7ddf-0393-446e-a858-a2009195603e\",\n    \"name\": \"alice\",\n    \"created_at\": 1734335664076\n}"
 						}
 					]
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/user?username=alice",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"user"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "alice"
+								}
+							]
+						},
+						"description": "This endpoint can be used to get the details of a user by passing their username"
+					},
+					"response": [
+						{
+							"name": "200 Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/v1/user?username=alice",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"user"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "alice"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "87"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"62373859-73e5-476c-9ca4-04693d71ab69\",\n    \"name\": \"alice\",\n    \"created_at\": 1734879650814\n}"
+						}
+					]
 				}
 			],
 			"description": "Only a user which has been registered with Karya can submit plans. This section here details how to interract with the user data component."
@@ -1075,12 +1143,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/v1/plan",
-									"protocol": "http",
+									"raw": "{{base_url}}/v1/plan",
 									"host": [
-										"localhost"
+										"{{base_url}}"
 									],
-									"port": "8080",
 									"path": [
 										"v1",
 										"plan"
@@ -1179,12 +1245,10 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db",
-									"protocol": "http",
+									"raw": "{{base_url}}/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db",
 									"host": [
-										"localhost"
+										"{{base_url}}"
 									],
-									"port": "8080",
 									"path": [
 										"v1",
 										"plan",
@@ -1250,6 +1314,73 @@
 							"body": "Plan not found --- 130d905e-b6a6-4956-a9ce-081f28ddd2db"
 						}
 					]
+				},
+				{
+					"name": "Get Plans By UserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/plan?user_id=ec0e0909-5e3d-4395-ab13-b6e073b256d3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"plan"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "ec0e0909-5e3d-4395-ab13-b6e073b256d3"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/v1/plan?user_id=ec0e0909-5e3d-4395-ab13-b6e073b256d3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"v1",
+										"plan"
+									],
+									"query": [
+										{
+											"key": "user_id",
+											"value": "ec0e0909-5e3d-4395-ab13-b6e073b256d3"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "985"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"0aa54cfb-0343-4507-8662-010d8354e4b5\",\n        \"user_id\": \"ec0e0909-5e3d-4395-ab13-b6e073b256d3\",\n        \"description\": \"Sample delay email run\",\n        \"period_time\": \"PT5S\",\n        \"type\": {\n            \"type\": \"karya.core.entities.PlanType.OneTime\"\n        },\n        \"status\": \"CREATED\",\n        \"max_failure_retry\": 3,\n        \"action\": {\n            \"type\": \"karya.core.entities.Action.EmailRequest\",\n            \"recipient\": \"recipient@gmail.com\",\n            \"subject\": \"Karya notification\",\n            \"message\": \"Hello from Karya!\"\n        },\n        \"hook\": [],\n        \"parent_plan_id\": null,\n        \"created_at\": 1734903631129,\n        \"updated_at\": 1734903631129\n    },\n    {\n        \"id\": \"8c199d9e-10e8-4bba-8417-d492ed6d726b\",\n        \"user_id\": \"ec0e0909-5e3d-4395-ab13-b6e073b256d3\",\n        \"description\": \"Sample delay email run\",\n        \"period_time\": \"PT5S\",\n        \"type\": {\n            \"type\": \"karya.core.entities.PlanType.OneTime\"\n        },\n        \"status\": \"CREATED\",\n        \"max_failure_retry\": 3,\n        \"action\": {\n            \"type\": \"karya.core.entities.Action.EmailRequest\",\n            \"recipient\": \"recipient@gmail.com\",\n            \"subject\": \"Karya notification\",\n            \"message\": \"Hello from Karya!\"\n        },\n        \"hook\": [],\n        \"parent_plan_id\": null,\n        \"created_at\": 1734903722987,\n        \"updated_at\": 1734903722987\n    }\n]"
+						}
+					]
 				}
 			],
 			"description": "A user needs to provide a _plan._ A plan is the blueprint for:\n\n1. What action to perform.\n    \n2. At what frequency should the action be performed.\n    \n3. If/Any action to take if the said plan fails/finishes execution.\n    \n\nThis folder specifies all the endpoints that one needs to interract with plans."
@@ -1295,12 +1426,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/metrics",
-							"protocol": "http",
+							"raw": "{{base_url}}/metrics",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
 								"metrics"
 							]
