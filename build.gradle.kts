@@ -1,5 +1,6 @@
 plugins {
   id(Plugins.Kotlin.JVM) version Plugins.Kotlin.VERSION apply false
+  id(Plugins.PublishCentral.LIBRARY) version Plugins.PublishCentral.VERSION apply false
   id(Plugins.Detekt.LIBRARY) version Plugins.Detekt.VERSION
   id(Plugins.Dokka.LIBRARY) version Plugins.Dokka.VERSION
 }
