@@ -22,4 +22,6 @@ interface UsersRepo {
    * @return The user associated with the specified identifier, or `null` if not found.
    */
   suspend fun get(id: UUID): User?
+
+  suspend fun getByName(username: String): User?
 }

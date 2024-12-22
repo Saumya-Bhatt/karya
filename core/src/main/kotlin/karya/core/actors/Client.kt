@@ -23,6 +23,14 @@ interface Client {
   suspend fun createUser(request: CreateUserRequest): User
 
   /**
+   * Get user by username
+   *
+   * @param username
+   * @return The corresponding user
+   */
+  suspend fun getUser(username: String): User
+
+  /**
    * Submits a new plan based on the provided request.
    *
    * @param request The request containing the details for submitting a new plan.
@@ -61,6 +69,14 @@ interface Client {
    * @return The response containing the summary of the plan.
    */
   suspend fun getSummary(planId: UUID): GetSummaryResponse
+
+  /**
+   * List plans submitted by a user
+   *
+   * @param userId
+   * @return The list of plans the user submitted
+   */
+  suspend fun listPlans(userId: UUID): List<Plan>
 
   /**
    * Closes the client and releases any resources held by it.

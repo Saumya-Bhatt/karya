@@ -19,9 +19,8 @@ Karya client can be found at the [Maven Central](https://central.sonatype.com/ar
 ```kotlin
 // add this to your build.gradle.kts
 dependencies {
-  implementation("io.github.saumya-bhatt:karya-client:<latest-version>:all") {
-    isTransitive = false
-  }
+  implementation("io.github.saumya-bhatt:karya-client:1.0.1")
+  implementation("io.github.saumya-bhatt:karya-core:1.0.1")
 }
 ```
 

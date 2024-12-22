@@ -25,7 +25,7 @@ Distributed, scalable Task Scheduler built for high throughput.
 
 **4. Chain Plans** - What if a 'task execution' triggers, triggering a new plan! Read more about [Chained Plans](./docs/documentation/CONNECTORS.md/#chained-plans)
 
-> Note: This can result in exponentially scheduling tasks. But Karya can be configured to adjust the _tree-depth_ of chained plans. 
+> Note: This may result in exponentially scheduling tasks. But Karya can be configured to adjust the _tree-depth_ of chained plans. 
 
 ![chained_plan_on_action.png](./docs/media/illustrations/chained_plans_on_action.png)
 

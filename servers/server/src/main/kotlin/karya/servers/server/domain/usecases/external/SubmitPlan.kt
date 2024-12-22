@@ -50,7 +50,7 @@ constructor(
     .get(request.userId)
     ?.let { createPlan(request, it, parentPlanId) }
     ?.also { createTask(it) }
-    ?: throw UserException.UserNotFoundException(request.userId)
+    ?: throw UserException.UserNotFoundException(request.userId.toString())
 
   /**
    * Creates a plan based on the given request, user, and parent plan ID.

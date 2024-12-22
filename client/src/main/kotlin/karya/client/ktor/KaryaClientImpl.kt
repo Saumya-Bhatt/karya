@@ -45,6 +45,20 @@ class KaryaClientImpl(
     }.deserialize<User>(json)
 
   /**
+   * Get user
+   *
+   * @param username
+   * @return The user corresponding to the username
+   */
+  override suspend fun getUser(username: String): User = httpClient
+    .get {
+      url {
+        path(VERSION, USER)
+        parameters.append("username", username)
+      }
+    }.deserialize<User>(json)
+
+  /**
    * Submits a new plan.
    *
    * @param request The request object containing plan details.
@@ -100,6 +114,14 @@ class KaryaClientImpl(
     .get {
       url { path(VERSION, PLAN, planId.toString(), "summary") }
     }.deserialize<GetSummaryResponse>(json)
+
+  override suspend fun listPlans(userId: UUID): List<Plan> = httpClient
+    .get {
+      url {
+        path(VERSION, PLAN)
+        parameters.append("user_id", userId.toString())
+      }
+    }.deserialize<List<Plan>>(json)
 
   /**
    * Closes the HTTP client.

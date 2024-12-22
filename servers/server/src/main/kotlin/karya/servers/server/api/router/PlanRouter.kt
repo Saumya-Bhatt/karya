@@ -21,7 +21,8 @@ constructor(
   private val getPlanService: Provider<GetPlanService>,
   private val updatePlanService: Provider<UpdatePlanService>,
   private val cancelPlanService: Provider<CancelPlanService>,
-  private val getSummaryService: Provider<GetSummaryService>
+  private val getSummaryService: Provider<GetSummaryService>,
+  private val listPlansService: Provider<ListPlansService>
 ) {
   /**
    * Wires the routes for plan-related operations.
@@ -30,6 +31,7 @@ constructor(
    * and nested routes for getting a plan, getting a plan summary, and canceling a plan.
    */
   fun Route.wireRoutes() {
+    get { listPlansService.get().invoke(call) }
     patch { updatePlanService.get().invoke(call) }
     post { submitPlanService.get().invoke(call) }
     route("{plan_id}") {
