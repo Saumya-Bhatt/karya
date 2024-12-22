@@ -35,6 +35,6 @@ subprojects {
 }
 
 gradle.beforeProject {
-  extra["clientVersion"] = "1.1.0"
+  extra["clientVersion"] = "1.1.1"
 }
 
