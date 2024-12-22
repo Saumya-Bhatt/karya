@@ -23,7 +23,7 @@ Distributed, scalable Task Scheduler built for high throughput.
 
 ![unbounded_recurring_plan.png](./docs/media/illustrations/unbounded_recurring_plan.png)
 
-**4. Chain Plans** - What if a 'task execution' triggers, triggering a new plan! Read more about [Chained Plans](./docs/documentation/CONNECTORS.md/#chained-plans)
+**4. Chain Plans** - What if a 'task execution' triggers, triggering a new plan? Read more about [Chained Plans](./docs/documentation/CONNECTORS.md/#chained-plans)
 
 > Note: This may result in exponentially scheduling tasks. But Karya can be configured to adjust the _tree-depth_ of chained plans. 
 
@@ -37,11 +37,11 @@ Distributed, scalable Task Scheduler built for high throughput.
 
 ![multiple_actions_on_hook.png](./docs/media/illustrations/multiple_actions_on_hook.png)
 
-**7. Extending Hooks** - What if one could trigger a whole new plan instead of taking just reactive actions!
+**7. Extending Hooks** - What if one could trigger a whole new plan instead of taking just reactive actions?
 
 ![chained_plan_on_hook.png](./docs/media/illustrations/chained_plan_on_hook.png)
 
-**8. Multiple Actions to configure** - Configure from a range of actions on _what to do_ once a task is to be executed.
+**8. Multiple Actions to Configure** - Configure from a range of actions on _what to do_ once a task is to be executed.
 
 ![supported_actions.png](./docs/media/illustrations/supported_actions.png)
 
@@ -59,9 +59,9 @@ Karya Nodes can be run completely as docker containers.
 
 ### Providers
 
-Karya currently requires the following external components to work: a SQL based database, a key-value based one and a queue.
+Karya currently requires the following external components to work: a SQL-based database, a key-value-based one, and a queue.
 
-Karya provides out of the box integration with the below given components with more on the way. For more details, refer - [Data Adapters](./docs/documentation/DATA_ADAPTERS.md)
+Karya provides out-of-the-box integration with the below given components with more on the way. For more details, refer - [Data Adapters](./docs/documentation/DATA_ADAPTERS.md)
 
 | Repo Adapter                                     | Locks Adapter                                            | Queue Adapter                         |
 |--------------------------------------------------|----------------------------------------------------------|---------------------------------------|
@@ -81,34 +81,34 @@ Users can use the following clients to interact with Karya from their preferred 
 
 This section will help set up Karya locally so that you can start scheduling jobs in no time!
 
-Few things to note; if you haven't already gone through the [architecture overview](./docs/documentation/ARCHITECTURE.md), Karya requires a SQL database, a queue and a key-value store to work with. For our local setup, we will be using `Postgres`, `Redis` and `RabbitMQ` respectively.
+A few things to note; if you haven't already gone through the [architecture overview](./docs/documentation/ARCHITECTURE.md), Karya requires a SQL database, a queue, and a key-value store to work with. For our local setup, we will be using `Postgres`, `Redis`, and `RabbitMQ` respectively.
 
-> For more detailed local set up, refer to the [local setup documentation](./docs/documentation/LOCAL_SETUP.md).
+> For more detailed local setup, refer to the [local setup documentation](./docs/documentation/LOCAL_SETUP.md).
 
 ### Pre-requisites
 
-Docker and Docker Compose should be installed on your machine. If not, you can install it from [here](https://docs.docker.com/get-docker/). Make sure the docker engine is running.
+Docker and Docker Compose should be installed on your machine and the docker engine is running.
 
-### Step 1 : Setup providers
+### Step 1: Setup providers
 
-Run the below command to set up and run Postgres, Redis and RabbitMQ containers.
+Run the below command to set up and run Postgres, Redis, and RabbitMQ containers.
 
 ```bash
 docker-compose -f ./docs/local-setup/providers.docker-compose.yml up -d
 ``` 
 
-### Step 2 : Create your configuration yml files
+### Step 2: Create your configuration yml files
 
 Create the following .yml files on your machine:
 
 | File Name       | Documentation                                                                                                  | Description                                                                                       | Example                                                               |
 |-----------------|----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| _providers.yml_ | [Data Adapters](./docs/documentation/DATA_ADAPTERS.md)                                                         | Contains the connection details for Postgres, Redis and RabbitMQ                                  | [Example File](./configs/providers/psql-redis-rabbitmq.providers.yml) |
-| _server.yml_    | [Karya Server](./docs/documentation/COMPONENTS.md#Server)                                                      | Contains the server configuration details. This will serve as the client interfacing side         | [Example File](./configs/server.yml)                                  |
-| _executor.yml_  | [Karya Executor](./docs/documentation/COMPONENTS.md#Executor) [Connectors](./docs/documentation/CONNECTORS.md) | Contains the executor configuration details. This is what will provide the functionality to Karya | [Example File](./configs/executor.yml)                                |
-| _scheduler.yml_ | [Karya Scheduler](./docs/documentation/COMPONENTS.md#Scheduler)                                                | Contains the scheduler configuration details. This is the heart of Karya                           | [Example File](./configs/scheduler.yml)                               |
+| _providers.yml_ | [Data Adapters](./docs/documentation/DATA_ADAPTERS.md)                                                         | Contains the connection details for Postgres, Redis and RabbitMQ                                  | [psql-redis-rabbitmq.providers.yml](./configs/providers/psql-redis-rabbitmq.providers.yml) |
+| _server.yml_    | [Karya Server](./docs/documentation/COMPONENTS.md#Server)                                                      | Contains the server configuration details. This will serve as the client interfacing side         | [server.yml](./configs/server.yml)                                  |
+| _executor.yml_  | [Karya Executor](./docs/documentation/COMPONENTS.md#Executor) [Connectors](./docs/documentation/CONNECTORS.md) | Contains the executor configuration details. This is what will provide the functionality to Karya | [executor.yml](./configs/executor.yml)                                |
+| _scheduler.yml_ | [Karya Scheduler](./docs/documentation/COMPONENTS.md#Scheduler)                                                | Contains the scheduler configuration details. This is the heart of Karya                           | [scheduler.yml](./configs/scheduler.yml)                               |
 
-### Step 3 : Run Karya Servers
+### Step 3: Run Karya Servers
 
 Run the below command to start the Karya servers via docker-compose
 
@@ -118,12 +118,12 @@ Run the below command to start the Karya servers via docker-compose
 docker-compose -f ./docs/local-setup/karya.docker-compose.yml up -d
 ```
 
-### Step 4 : Start using Karya!
+### Step 4: Start using Karya!
 
-Now that you have the Karya setup running, you can start scheduling tasks using the client of your choice. Refer to the below section for more information on how to use the client.
+Use the client of your choice and start scheduling tasks:
 
-#### [Scheduling tasks using Python Client](https://github.com/Saumya-Bhatt/karya-python-client)
-#### [Scheduling tasks using Java Client](./docs/documentation/EXAMPLES.md)
+#### [Python Client](https://github.com/Saumya-Bhatt/karya-python-client)
+#### [Java Client](./docs/documentation/CLIENT.md)
 
 ---
 
@@ -131,20 +131,7 @@ Now that you have the Karya setup running, you can start scheduling tasks using 
 
 There are several task schedulers out there. Why to choose Karya? Here are the reasons:
 
-1. >**Built for high throughput**.
-
-   It follows the philosophy: *solve scaling by throwing money at it*, which means one just needs to add one more node and scale horizontally infinitely!
-
-2. >**Fault-tolerant by nature**
-
-   Software like Postgres and Redis have already solved the problem of achieving fault tolerance. Karya nodes are stateless in nature and utilizes the properties of such [data-adapters](./docs/documentation/DATA_ADAPTERS.md) to achieve this goal.
-
-3. >**Highly Pluggable and customizable**
-
-   Be it in terms of [data-adapters](./docs/documentation/DATA_ADAPTERS.md) or [connectors](#connectors). Just specify the properties in a .yml file, and you're good to go! Karya [components](./docs/documentation/COMPONENTS.md) can be customized to suite your use case endlessly!
-
-4. >**Fast, Performant and Safe**
-
-   Being written in Kotlin thereby making it typesafe, it uses coroutines to achieve *structured concurrency* while being thread safe.
-
----
+1. High Throughput – Designed for infinite horizontal scaling.
+2. Fault-Tolerant – Uses stateless nodes with external [data-adapters](./docs/documentation/DATA_ADAPTERS.md).
+3. Highly Customizable – Configurable with YAML files for [data-adapters](./docs/documentation/DATA_ADAPTERS.md) and [connectors](./docs/documentation/CONNECTORS.md).
+4. Fast & Safe – Written in Kotlin with structured concurrency using coroutines.
