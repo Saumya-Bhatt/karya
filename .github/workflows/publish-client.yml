@@ -23,7 +23,7 @@ jobs:
       - name: Extract version from client/build.gradle.kts
         id: get_version
         run: |
-          clientVersion=$(grep -oP 'val clientVersion = "\K[0-9]+\.[0-9]+\.[0-9]+' client/build.gradle.kts)          
+          clientVersion=$(grep -oP 'extra\["clientVersion"\]\s*=\s*"\K[0-9]+\.[0-9]+\.[0-9]+' ./build.gradle.kts)          
           echo "Client version: $clientVersion"
           echo "version=$clientVersion" >> $GITHUB_OUTPUT
 
@@ -67,10 +67,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
 
-#
-#      - name: Create GitHub Release for Client
-#        if: steps.check_tag.outputs.skip_publish == 'false'
-#        run: |
-#          VERSION="${{ steps.get_version.outputs.version }}"
-#          git tag "client-v$VERSION"
-#          git push origin "client-v$VERSION"
+
+      - name: Create GitHub Release for Client
+        if: steps.check_tag.outputs.skip_publish == 'false'
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          git tag "client-v$VERSION"
+          git push origin "client-v$VERSION"

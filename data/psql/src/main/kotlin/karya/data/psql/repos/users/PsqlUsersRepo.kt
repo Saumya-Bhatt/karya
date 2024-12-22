@@ -34,6 +34,13 @@ constructor(
       .firstOrNull()
   }?.let(::fromRecord)
 
+  override suspend fun getByName(username: String): User? = transaction(db) {
+    UsersTable
+      .selectAll()
+      .where { UsersTable.name eq username }
+      .firstOrNull()
+  }?.let(::fromRecord)
+
   private fun fromRecord(resultRow: ResultRow) = User(
     id = resultRow[UsersTable.id],
     name = resultRow[UsersTable.name],

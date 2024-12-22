@@ -46,4 +46,6 @@ interface PlansRepo {
    * @return A list of unique identifiers of the child plans.
    */
   suspend fun getChildPlanIds(id: UUID): List<UUID>
+
+  suspend fun getAll(userId: UUID): List<Plan>
 }

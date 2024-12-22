@@ -84,6 +84,13 @@ constructor(
     } ?: emptyList()
   }
 
+  override suspend fun getAll(userId: UUID): List<Plan> = transaction(db) {
+    PlansTable
+      .selectAll()
+      .where { PlansTable.userId eq userId }
+      .map(::fromRecord)
+  }
+
   private fun fromRecord(resultRow: ResultRow) = Plan(
     id = resultRow[PlansTable.id],
     userId = resultRow[PlansTable.userId],

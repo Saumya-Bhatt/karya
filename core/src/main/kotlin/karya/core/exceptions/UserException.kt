@@ -14,7 +14,7 @@ sealed class UserException : KaryaException() {
    * @property message The error message.
    */
   data class UserNotFoundException(
-    private val userId: UUID,
+    private val userId: String,
     override val message: String = "User ($userId) not found",
   ) : UserException()
 }

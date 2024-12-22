@@ -25,7 +25,7 @@ Distributed, scalable Task Scheduler built for high throughput.
 
 **4. Chain Plans** - What if a 'task execution' triggers, triggering a new plan? Read more about [Chained Plans](./docs/documentation/CONNECTORS.md/#chained-plans)
 
-> Note: This can result in exponentially scheduling tasks. But Karya can be configured to adjust the _tree-depth_ of chained plans. 
+> Note: This may result in exponentially scheduling tasks. But Karya can be configured to adjust the _tree-depth_ of chained plans. 
 
 ![chained_plan_on_action.png](./docs/media/illustrations/chained_plans_on_action.png)
 
@@ -72,7 +72,7 @@ Karya provides out-of-the-box integration with the below given components with m
 
 Users can use the following clients to interact with Karya from their preferred environment.
 
-- [Java Client](./docs/documentation/CLIENT.md)
+- [Java 17 Client](./docs/documentation/CLIENT.md)
 - [Python Client](https://github.com/Saumya-Bhatt/karya-python-client) 
 - REST API - [postman collection](./docs/media/Karya.postman_collection.json)
 ---
@@ -135,5 +135,3 @@ There are several task schedulers out there. Why to choose Karya? Here are the r
 2. Fault-Tolerant – Uses stateless nodes with external [data-adapters](./docs/documentation/DATA_ADAPTERS.md).
 3. Highly Customizable – Configurable with YAML files for [data-adapters](./docs/documentation/DATA_ADAPTERS.md) and [connectors](./docs/documentation/CONNECTORS.md).
 4. Fast & Safe – Written in Kotlin with structured concurrency using coroutines.
-
----
