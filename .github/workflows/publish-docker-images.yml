@@ -4,15 +4,16 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'servers/server/**'
-      - 'servers/executor/**'
-      - 'servers/scheduler/**'
-      - 'connectors/**'
-      - 'core/**'
-      - 'data/**'
-      - 'gradle/**'
-      - 'build.gradle.kts'
+      - fix
+#    paths:
+#      - 'servers/server/**'
+#      - 'servers/executor/**'
+#      - 'servers/scheduler/**'
+#      - 'connectors/**'
+#      - 'core/**'
+#      - 'data/**'
+#      - 'gradle/**'
+#      - 'build.gradle.kts'
 
 jobs:
   setup:
@@ -20,7 +21,7 @@ jobs:
     outputs:
       version: ${{ steps.set-version.outputs.version }}
       repo_owner_lowercase: ${{ steps.set-repo-owner.outputs.repo_owner_lowercase }}
-      skip_publish: ${{ steps.check_tag.outputs.skip_publish }}
+#      skip_publish: ${{ steps.check_tag.outputs.skip_publish }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -31,17 +32,17 @@ jobs:
           VERSION=$(grep -oP 'version\s*=\s*"\K[0-9\.]+' build.gradle.kts)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Check if tag exists
-        id: check_tag
-        run: |
-          VERSION="${{ steps.set-version.outputs.version }}"
-          if git tag -l "servers-v$VERSION" | grep -q "servers-v$VERSION"; then
-            echo "Tag servers-v$VERSION already exists, skipping publish"
-            echo "skip_publish=true" >> $GITHUB_OUTPUT
-          else
-            echo "Tag servers-v$VERSION does not exist, proceeding with publish"
-            echo "skip_publish=false" >> $GITHUB_OUTPUT
-          fi
+#      - name: Check if tag exists
+#        id: check_tag
+#        run: |
+#          VERSION="${{ steps.set-version.outputs.version }}"
+#          if git tag -l "servers-v$VERSION" | grep -q "servers-v$VERSION"; then
+#            echo "Tag servers-v$VERSION already exists, skipping publish"
+#            echo "skip_publish=true" >> $GITHUB_OUTPUT
+#          else
+#            echo "Tag servers-v$VERSION does not exist, proceeding with publish"
+#            echo "skip_publish=false" >> $GITHUB_OUTPUT
+#          fi
 
       - name: Set repository owner to lowercase
         id: set-repo-owner
@@ -51,7 +52,7 @@ jobs:
 
   build_and_push:
     needs: setup
-    if: needs.setup.outputs.skip_publish != 'true'
+#    if: needs.setup.outputs.skip_publish != 'true'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -84,12 +85,12 @@ jobs:
             ghcr.io/${{ needs.setup.outputs.repo_owner_lowercase }}/karya-${{ matrix.image }}:latest
           platforms: linux/amd64,linux/arm64
 
-      - name: Create GitHub Release for Docker Image
-        if: env.skip_publish != 'true'
-        run: |
-          VERSION="${{ needs.setup.outputs.version }}"
-          git tag "servers-v$VERSION"
-          git push origin "servers-v$VERSION"
+#      - name: Create GitHub Release for Docker Image
+#        if: env.skip_publish != 'true'
+#        run: |
+#          VERSION="${{ needs.setup.outputs.version }}"
+#          git tag "servers-v$VERSION"
+#          git push origin "servers-v$VERSION"
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
