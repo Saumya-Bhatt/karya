@@ -4,16 +4,15 @@ on:
   push:
     branches:
       - main
-      - fix
-#    paths:
-#      - 'servers/server/**'
-#      - 'servers/executor/**'
-#      - 'servers/scheduler/**'
-#      - 'connectors/**'
-#      - 'core/**'
-#      - 'data/**'
-#      - 'gradle/**'
-#      - 'build.gradle.kts'
+    paths:
+      - 'servers/server/**'
+      - 'servers/executor/**'
+      - 'servers/scheduler/**'
+      - 'connectors/**'
+      - 'core/**'
+      - 'data/**'
+      - 'gradle/**'
+      - 'build.gradle.kts'
 
 jobs:
   setup:
