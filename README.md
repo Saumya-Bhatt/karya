@@ -73,7 +73,8 @@ Karya provides out-of-the-box integration with the below given components with m
 Users can use the following clients to interact with Karya from their preferred environment.
 
 - [Java 17 Client](./docs/documentation/CLIENT.md)
-- [Python Client](https://github.com/Saumya-Bhatt/karya-python-client) 
+- [Python Client](https://github.com/Saumya-Bhatt/karya-python-client)
+- [Javascript Client](https://github.com/Saumya-Bhatt/karya-javascript-client)
 - REST API - [postman collection](./docs/media/Karya.postman_collection.json)
 ---
 
@@ -81,13 +82,13 @@ Users can use the following clients to interact with Karya from their preferred 
 
 This section will help set up Karya locally so that you can start scheduling jobs in no time!
 
-A few things to note; if you haven't already gone through the [architecture overview](./docs/documentation/ARCHITECTURE.md), Karya requires a SQL database, a queue, and a key-value store to work with. For our local setup, we will be using `Postgres`, `Redis`, and `RabbitMQ` respectively.
+A few things to note: If you haven't already gone through the [architecture overview](./docs/documentation/ARCHITECTURE.md), Karya requires an SQL database, a queue, and a key-value store to work with. For our local setup, we will be using Postgres, Redis, and RabbitMQ, respectively.
 
-> For more detailed local setup, refer to the [local setup documentation](./docs/documentation/LOCAL_SETUP.md).
+> For more detailed local setup, please take a look at the [local setup documentation](./docs/documentation/LOCAL_SETUP.md).
 
 ### Pre-requisites
 
-Docker and Docker Compose should be installed on your machine and the docker engine is running.
+Docker and Docker Compose should be installed on your machine, and the engine is running.
 
 ### Step 1: Setup providers
 
@@ -123,6 +124,7 @@ docker-compose -f ./docs/local-setup/karya.docker-compose.yml up -d
 Use the client of your choice and start scheduling tasks:
 
 #### [Python Client](https://github.com/Saumya-Bhatt/karya-python-client)
+#### [Javascript Client](https://github.com/Saumya-Bhatt/karya-javascript-client)
 #### [Java Client](./docs/documentation/CLIENT.md)
 
 ---

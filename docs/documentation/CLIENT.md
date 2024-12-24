@@ -1,10 +1,18 @@
 # Java Client
 
-This section helps describe what all various plans one can scheduler using Karya Java Client.
+This section helps describe what all various plans one can scheduler using the Karya Java Client.
 
 > ### Python Client
 > 
-> One can refer to the [usage section](https://github.com/Saumya-Bhatt/karya-python-client?tab=readme-ov-file#useage-examples) here if using the python client to interact with Karya.
+> Refer to the [python client docs](https://github.com/Saumya-Bhatt/karya-python-client) if you want to integrate Karya with python based environment.
+
+> ### Javascript Client
+> 
+> Refer to the [javascript client docs](https://github.com/Saumya-Bhatt/karya-javascript-client) if you want to integate Karya with Javascript/Typescript based environment.
+
+> ### REST API
+> 
+> Karya server exposes a REST API if one wants a custom client. Refer to the [postman collection](../media/Karya.postman_collection.json) for more details.
 
 [Sample Kotlin Examples](../samples/src/main/kotlin/karya/docs/samples/)
 
