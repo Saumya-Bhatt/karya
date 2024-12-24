@@ -72,7 +72,7 @@ Karya provides out-of-the-box integration with the below given components with m
 
 Users can use the following clients to interact with Karya from their preferred environment.
 
-- [Java 17 Client](./docs/documentation/CLIENT.md)
+- [Java Client](./docs/documentation/CLIENT.md)
 - [Python Client](https://github.com/Saumya-Bhatt/karya-python-client)
 - [Javascript Client](https://github.com/Saumya-Bhatt/karya-javascript-client)
 - REST API - [postman collection](./docs/media/Karya.postman_collection.json)
