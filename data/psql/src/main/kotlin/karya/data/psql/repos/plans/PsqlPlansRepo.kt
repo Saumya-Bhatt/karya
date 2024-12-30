@@ -85,13 +85,20 @@ constructor(
     } ?: emptyList()
   }
 
-  override suspend fun getAll(userId: UUID, offset: Long, size: Int): List<Plan> = transaction(db) {
+  override suspend fun getAllPaginate(userId: UUID, offset: Long, size: Int): List<Plan> = transaction(db) {
     PlansTable
       .selectAll()
       .limit(size).offset(offset)
       .where { PlansTable.userId eq userId }
       .orderBy(PlansTable.createdAt to SortOrder.DESC)
       .map(::fromRecord)
+  }
+
+  override suspend fun getAllCount(userId: UUID): Long = transaction(db) {
+    PlansTable
+      .selectAll()
+      .where { PlansTable.userId eq userId }
+      .count()
   }
 
   private fun fromRecord(resultRow: ResultRow) = Plan(

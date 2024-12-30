@@ -10,6 +10,7 @@ object Libs {
   const val KAFKA_CLIENT = "org.apache.kafka:kafka-clients:3.0.0"
   const val SQS = "software.amazon.awssdk:sqs:2.25.11"
   const val MICROMETER_PROMETHEUS = "io.micrometer:micrometer-registry-prometheus:1.14.2"
+  const val CAFFEINE = "com.github.ben-manes.caffeine:caffeine:3.1.8"
 
   object Log4j {
     private const val GROUP = "org.apache.logging.log4j"

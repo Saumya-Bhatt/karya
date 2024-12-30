@@ -9,6 +9,7 @@ dependencies {
   implementation(project(Modules.Data.FUSED))
 
   implementation(Libs.SLF4J)
+  implementation(Libs.CAFFEINE)
   implementation(Libs.MICROMETER_PROMETHEUS)
 
   implementation(Libs.Log4j.API)

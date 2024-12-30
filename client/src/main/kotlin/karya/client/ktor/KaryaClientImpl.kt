@@ -12,6 +12,7 @@ import karya.core.entities.requests.SubmitPlanRequest
 import karya.core.entities.requests.UpdatePlanRequest
 import karya.core.entities.responses.GetPlanResponse
 import karya.core.entities.responses.GetSummaryResponse
+import karya.core.entities.responses.ListPlanResponse
 import kotlinx.serialization.json.Json
 import java.util.*
 
@@ -45,10 +46,10 @@ class KaryaClientImpl(
     }.deserialize<User>(json)
 
   /**
-   * Get user
+   * Retrieves a user by username.
    *
-   * @param username
-   * @return The user corresponding to the username
+   * @param username The username of the user to retrieve.
+   * @return The User object corresponding to the username.
    */
   override suspend fun getUser(username: String): User = httpClient
     .get {
@@ -115,14 +116,21 @@ class KaryaClientImpl(
       url { path(VERSION, PLAN, planId.toString(), "summary") }
     }.deserialize<GetSummaryResponse>(json)
 
-  override suspend fun listPlans(userId: UUID, page: Long): List<Plan> = httpClient
+  /**
+   * Retrieves a list of plans for a user with pagination.
+   *
+   * @param userId The UUID of the user whose plans are to be retrieved.
+   * @param page The page number for pagination.
+   * @return The response object containing a list of plans.
+   */
+  override suspend fun listPlans(userId: UUID, page: Long): ListPlanResponse = httpClient
     .get {
       url {
         path(VERSION, PLAN)
         parameters.append("user_id", userId.toString())
         parameters.append("page", page.toString())
       }
-    }.deserialize<List<Plan>>(json)
+    }.deserialize<ListPlanResponse>(json)
 
   /**
    * Closes the HTTP client.
