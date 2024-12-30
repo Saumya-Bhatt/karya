@@ -10,6 +10,10 @@ This section helps describe what all various plans one can scheduler using the K
 > 
 > Refer to the [javascript client docs](https://github.com/Saumya-Bhatt/karya-javascript-client) if you want to integate Karya with Javascript/Typescript based environment.
 
+> ### Web Client
+> 
+> Refer to the [web client docs](https://github.com/Saumya-Bhatt/karya-ui) if you want to use the web interface to schedule tasks. Note that, this currently does not support scheduling chained plans.
+
 > ### REST API
 > 
 > Karya server exposes a REST API if one wants a custom client. Refer to the [postman collection](../media/Karya.postman_collection.json) for more details.
