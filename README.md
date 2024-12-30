@@ -126,6 +126,7 @@ Use the client of your choice and start scheduling tasks:
 #### [Python Client](https://github.com/Saumya-Bhatt/karya-python-client)
 #### [Javascript Client](https://github.com/Saumya-Bhatt/karya-javascript-client)
 #### [Java Client](./docs/documentation/CLIENT.md)
+#### [Web UI](https://github.com/Saumya-Bhatt/karya-ui)
 
 ---
 
