@@ -31,7 +31,8 @@ constructor(
    */
   suspend fun invoke(call: ApplicationCall) = try {
     val userId = UUID.fromString(getUserId(call))
-    val response = listPlans.invoke(userId)
+    val page = call.request.queryParameters["page"]?.toLong() ?: 0
+    val response = listPlans.invoke(userId, page)
     call.respond(HttpStatusCode.OK, response)
 
   } catch (e: KaryaException) {

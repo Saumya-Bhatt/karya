@@ -50,6 +50,7 @@ object Libs {
       const val CALL_LOGGING = "$GROUP:ktor-server-call-logging:$VERSION"
       const val CONTENT_NEGOTIATION = "$GROUP:ktor-server-content-negotiation:$VERSION"
       const val MICROMETER = "$GROUP:ktor-server-metrics-micrometer:$VERSION"
+      const val CORS = "$GROUP:ktor-server-cors:$VERSION"
     }
 
     object Client {

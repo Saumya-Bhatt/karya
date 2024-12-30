@@ -115,11 +115,12 @@ class KaryaClientImpl(
       url { path(VERSION, PLAN, planId.toString(), "summary") }
     }.deserialize<GetSummaryResponse>(json)
 
-  override suspend fun listPlans(userId: UUID): List<Plan> = httpClient
+  override suspend fun listPlans(userId: UUID, page: Long): List<Plan> = httpClient
     .get {
       url {
         path(VERSION, PLAN)
         parameters.append("user_id", userId.toString())
+        parameters.append("page", page.toString())
       }
     }.deserialize<List<Plan>>(json)
 

@@ -33,6 +33,13 @@ constructor(
       // Responds with HTTP 200 OK for the root path
       get { call.respond(HttpStatusCode.OK, Unit) }
 
+      options("{...}") {
+        call.response.header("Access-Control-Allow-Origin", "*")
+        call.response.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        call.response.header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+        call.respond(HttpStatusCode.OK)
+      }
+
       // Prometheus metrics will be exposed here automatically by Micrometer
       get("/metrics") {
         call.respond(meterRegistry.scrape())
