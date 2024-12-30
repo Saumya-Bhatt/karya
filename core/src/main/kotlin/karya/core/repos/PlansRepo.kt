@@ -47,5 +47,21 @@ interface PlansRepo {
    */
   suspend fun getChildPlanIds(id: UUID): List<UUID>
 
-  suspend fun getAll(userId: UUID, offset: Long, size: Int): List<Plan>
+  /**
+   * Retrieves all plans for a given user with pagination.
+   *
+   * @param userId The ID of the user whose plans are to be retrieved.
+   * @param offset The offset for pagination.
+   * @param size The number of plans to retrieve.
+   * @return A list of plans for the specified user.
+   */
+  suspend fun getAllPaginate(userId: UUID, offset: Long, size: Int): List<Plan>
+
+  /**
+   * Retrieves the total count of plans for a given user.
+   *
+   * @param userId The ID of the user whose plan count is to be retrieved.
+   * @return The total count of plans for the specified user.
+   */
+  suspend fun getAllCount(userId: UUID): Long
 }
