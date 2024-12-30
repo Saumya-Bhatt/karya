@@ -19,7 +19,7 @@ constructor(
 ) {
 
   companion object {
-    const val SIZE = 1  // The number of plans to retrieve in a single request.
+    const val SIZE = 20  // The number of plans to retrieve in a single request.
     private val countCache = Caffeine.newBuilder()
       .expireAfterWrite(30, TimeUnit.SECONDS)
       .build<UUID, Long>()
