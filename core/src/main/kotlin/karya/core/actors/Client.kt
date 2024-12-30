@@ -73,10 +73,11 @@ interface Client {
   /**
    * List plans submitted by a user
    *
-   * @param userId
+   * @param userId The ID of the user whose plans are to be retrieved
+   * @param page The offset (from 0) from which to retrieve the plans
    * @return The list of plans the user submitted
    */
-  suspend fun listPlans(userId: UUID): List<Plan>
+  suspend fun listPlans(userId: UUID, page: Long): List<Plan>
 
   /**
    * Closes the client and releases any resources held by it.

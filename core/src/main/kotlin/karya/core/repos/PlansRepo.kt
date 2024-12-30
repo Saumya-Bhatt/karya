@@ -47,5 +47,5 @@ interface PlansRepo {
    */
   suspend fun getChildPlanIds(id: UUID): List<UUID>
 
-  suspend fun getAll(userId: UUID): List<Plan>
+  suspend fun getAll(userId: UUID, offset: Long, size: Int): List<Plan>
 }

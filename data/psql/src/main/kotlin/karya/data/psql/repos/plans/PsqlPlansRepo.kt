@@ -51,6 +51,7 @@ constructor(
         it[periodTime] = plan.periodTime
         it[action] = plan.action
         it[maxFailureRetry] = plan.maxFailureRetry
+        it[hook] = plan.hook
         it[updatedAt] = Instant.ofEpochMilli(plan.updatedAt)
       }
     }
@@ -84,10 +85,12 @@ constructor(
     } ?: emptyList()
   }
 
-  override suspend fun getAll(userId: UUID): List<Plan> = transaction(db) {
+  override suspend fun getAll(userId: UUID, offset: Long, size: Int): List<Plan> = transaction(db) {
     PlansTable
       .selectAll()
+      .limit(size).offset(offset)
       .where { PlansTable.userId eq userId }
+      .orderBy(PlansTable.createdAt to SortOrder.DESC)
       .map(::fromRecord)
   }
 

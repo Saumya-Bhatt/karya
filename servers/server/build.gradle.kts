@@ -16,6 +16,7 @@ dependencies {
   implementation(Libs.Log4j.KOTLIN_API)
 
   implementation(Libs.Ktor.KOTLINX)
+  implementation(Libs.Ktor.Server.CORS)
   implementation(Libs.Ktor.Server.CORE)
   implementation(Libs.Ktor.Server.CIO)
   implementation(Libs.Ktor.Server.CALL_LOGGING)

@@ -116,10 +116,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/v1/user?username=alice",
+									"raw": "http://localhost:8080/v1/user?username=alice",
+									"protocol": "http",
 									"host": [
-										"{{base_url}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"v1",
 										"user"
@@ -910,14 +912,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db",
+							"raw": "{{base_url}}/v1/plan/db80aa07-20d6-4685-b381-fa84bcae5b93",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"v1",
 								"plan",
-								"030d905e-b6a6-4956-a9ce-081f28ddd2db"
+								"db80aa07-20d6-4685-b381-fa84bcae5b93"
 							]
 						},
 						"description": "This endpoint takes in the `plan_id` in the path and returns\n\n- The details of the plan submitted.\n    \n- The current status of the plan.\n    \n- The details of the next task in the plan to be executed if any."
@@ -1143,10 +1145,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/v1/plan",
+									"raw": "http://localhost:8080/v1/plan",
+									"protocol": "http",
 									"host": [
-										"{{base_url}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"v1",
 										"plan"
@@ -1245,10 +1249,12 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db",
+									"raw": "http://localhost:8080/v1/plan/030d905e-b6a6-4956-a9ce-081f28ddd2db",
+									"protocol": "http",
 									"host": [
-										"{{base_url}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"v1",
 										"plan",
@@ -1321,7 +1327,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/v1/plan?user_id=ec0e0909-5e3d-4395-ab13-b6e073b256d3",
+							"raw": "{{base_url}}/v1/plan?user_id=62373859-73e5-476c-9ca4-04693d71ab69&page=1",
 							"host": [
 								"{{base_url}}"
 							],
@@ -1332,10 +1338,15 @@
 							"query": [
 								{
 									"key": "user_id",
-									"value": "ec0e0909-5e3d-4395-ab13-b6e073b256d3"
+									"value": "62373859-73e5-476c-9ca4-04693d71ab69"
+								},
+								{
+									"key": "page",
+									"value": "1"
 								}
 							]
-						}
+						},
+						"description": "This endpoint takes in a userId and returns all the plans submitted by them. This endpoint is paginated and will return at most 20 entries at a time."
 					},
 					"response": [
 						{
@@ -1344,10 +1355,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/v1/plan?user_id=ec0e0909-5e3d-4395-ab13-b6e073b256d3",
+									"raw": "http://localhost:8080/v1/plan?user_id=ec0e0909-5e3d-4395-ab13-b6e073b256d3",
+									"protocol": "http",
 									"host": [
-										"{{base_url}}"
+										"localhost"
 									],
+									"port": "8080",
 									"path": [
 										"v1",
 										"plan"
@@ -1426,10 +1439,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/metrics",
+							"raw": "http://localhost:8080/metrics",
+							"protocol": "http",
 							"host": [
-								"{{base_url}}"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
 								"metrics"
 							]
