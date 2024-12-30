@@ -1,7 +1,7 @@
 package karya.servers.server.domain.usecases.external
 
 import com.github.benmanes.caffeine.cache.Caffeine
-import karya.core.entities.responses.ListPlanResponse
+import karya.core.entities.responses.ListPlansResponse
 import karya.core.repos.PlansRepo
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -19,7 +19,7 @@ constructor(
 ) {
 
   companion object {
-    const val SIZE = 1  // The number of plans to retrieve in a single request.
+    const val SIZE = 20  // The number of plans to retrieve in a single request.
     private val countCache = Caffeine.newBuilder()
       .expireAfterWrite(30, TimeUnit.SECONDS)
       .build<UUID, Long>()
@@ -32,10 +32,10 @@ constructor(
    * @param page The offset from which to retrieve the plans.
    * @return A response containing a list of plans for the specified user, the total count of plans, and the offset.
    */
-  suspend fun invoke(userId: UUID, page: Long): ListPlanResponse {
+  suspend fun invoke(userId: UUID, page: Long): ListPlansResponse {
     val plans = plansRepo.getAllPaginate(userId, page, SIZE)
     val count = getPlanCount(userId)
-    return ListPlanResponse(plans, count, page)
+    return ListPlansResponse(plans, count, page)
   }
 
   /**

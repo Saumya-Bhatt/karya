@@ -11,7 +11,7 @@ import kotlinx.serialization.Serializable
  * @property offset The offset for pagination.
  */
 @Serializable
-data class ListPlanResponse(
+data class ListPlansResponse(
   val plans: List<Plan>,
   val total: Long,
   val offset: Long,

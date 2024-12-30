@@ -24,7 +24,7 @@ subprojects {
   group = "io.github.saumya-bhatt"
 
   // update this only when updating the servers docker image.
-  version = "1.1.3"
+  version = "1.1.4"
 
   apply(plugin = Plugins.Kotlin.JVM)
   apply(plugin = Plugins.Dokka.LIBRARY)
@@ -35,6 +35,6 @@ subprojects {
 }
 
 gradle.beforeProject {
-  extra["clientVersion"] = "1.1.3"
+  extra["clientVersion"] = "1.1.4"
 }
 
