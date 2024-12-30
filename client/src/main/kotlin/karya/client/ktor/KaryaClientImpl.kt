@@ -12,7 +12,7 @@ import karya.core.entities.requests.SubmitPlanRequest
 import karya.core.entities.requests.UpdatePlanRequest
 import karya.core.entities.responses.GetPlanResponse
 import karya.core.entities.responses.GetSummaryResponse
-import karya.core.entities.responses.ListPlanResponse
+import karya.core.entities.responses.ListPlansResponse
 import kotlinx.serialization.json.Json
 import java.util.*
 
@@ -123,14 +123,14 @@ class KaryaClientImpl(
    * @param page The page number for pagination.
    * @return The response object containing a list of plans.
    */
-  override suspend fun listPlans(userId: UUID, page: Long): ListPlanResponse = httpClient
+  override suspend fun listPlans(userId: UUID, page: Long): ListPlansResponse = httpClient
     .get {
       url {
         path(VERSION, PLAN)
         parameters.append("user_id", userId.toString())
         parameters.append("page", page.toString())
       }
-    }.deserialize<ListPlanResponse>(json)
+    }.deserialize<ListPlansResponse>(json)
 
   /**
    * Closes the HTTP client.

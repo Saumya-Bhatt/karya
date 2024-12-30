@@ -7,7 +7,7 @@ import karya.core.entities.requests.SubmitPlanRequest
 import karya.core.entities.requests.UpdatePlanRequest
 import karya.core.entities.responses.GetPlanResponse
 import karya.core.entities.responses.GetSummaryResponse
-import karya.core.entities.responses.ListPlanResponse
+import karya.core.entities.responses.ListPlansResponse
 import java.util.*
 
 /**
@@ -78,7 +78,7 @@ interface Client {
    * @param page The offset (from 0) from which to retrieve the plans
    * @return The list of plans the user submitted
    */
-  suspend fun listPlans(userId: UUID, page: Long): ListPlanResponse
+  suspend fun listPlans(userId: UUID, page: Long): ListPlansResponse
 
   /**
    * Closes the client and releases any resources held by it.
